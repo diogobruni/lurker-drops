@@ -72,4 +72,10 @@ Sections are ordered oldest to newest; unreleased work goes last.
 
 - The Lurker mode banner now reserves its height at the top of the Twitch page instead of covering the page content.
 
+## [1.3.0] - 2026-11-10
+
+### Changed
+
+- Lurking tab rows now always show the assigned preset name, including while a live is being watched.
+
 ## [Unreleased]

@@ -5,6 +5,7 @@ import {
   Plus,
   Power,
   Radar,
+  Tag,
   Tv,
   Volume2,
   VolumeX,
@@ -65,9 +66,7 @@ function LurkingRow({
     ? `${record.stream.channelName} · ${record.stream.categoryName || t('common.twitch')} · ${viewersLabel(record.stream)}`
     : record.status === 'error'
       ? (record.lastError ?? t('status.errorDetail'))
-      : preset
-        ? t('row.presetLabel', { name: preset.name })
-        : t('row.presetRemoved');
+      : null;
   const title =
     record.stream?.title ??
     (record.status === 'error'
@@ -107,8 +106,18 @@ function LurkingRow({
 
         <div className="min-w-0 flex-1">
           <p className="line-clamp-1 min-w-0 text-xs font-medium">{title}</p>
-          <p className="mt-0.5 line-clamp-1 text-[10px] text-muted-foreground">
-            {secondary}
+          {secondary && (
+            <p className="mt-0.5 line-clamp-1 text-[10px] text-muted-foreground">
+              {secondary}
+            </p>
+          )}
+          <p className="mt-0.5 flex items-center gap-1 text-[10px] text-muted-foreground/90">
+            <Tag className="h-2.5 w-2.5 shrink-0 text-violet-300/80" />
+            <span className="line-clamp-1">
+              {preset
+                ? t('row.presetLabel', { name: preset.name })
+                : t('row.presetRemoved')}
+            </span>
           </p>
         </div>
 
