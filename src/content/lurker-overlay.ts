@@ -203,6 +203,32 @@ const TEMPLATE = `
   let pendingAction: (() => void) | null = null;
   let elements: OverlayElements | null = null;
   let copy: OverlayCopy | null = null;
+  let originalBodyPaddingTop: string | null = null;
+  let bannerResizeObserver: ResizeObserver | null = null;
+
+  function reserveBannerSpace(): void {
+    if (!elements || !document.body) return;
+    const height = elements.banner.getBoundingClientRect().height;
+    if (height <= 0) return;
+    if (originalBodyPaddingTop === null) {
+      originalBodyPaddingTop = document.body.style.paddingTop;
+    }
+    document.body.style.setProperty(
+      'padding-top',
+      `${Math.ceil(height)}px`,
+      'important',
+    );
+  }
+
+  function releaseBannerSpace(): void {
+    if (!document.body || originalBodyPaddingTop === null) return;
+    if (originalBodyPaddingTop) {
+      document.body.style.setProperty('padding-top', originalBodyPaddingTop);
+    } else {
+      document.body.style.removeProperty('padding-top');
+    }
+    originalBodyPaddingTop = null;
+  }
 
   function ensureElements(): OverlayElements {
     if (elements) return elements;
@@ -252,6 +278,12 @@ const TEMPLATE = `
       cancelButton,
       confirmButton,
     };
+
+    bannerResizeObserver = new ResizeObserver(() => {
+      if (enabled) reserveBannerSpace();
+    });
+    bannerResizeObserver.observe(banner);
+
     return elements;
   }
 
@@ -274,7 +306,12 @@ const TEMPLATE = `
     const dom = ensureElements();
     dom.host.style.display = next ? 'block' : 'none';
     dom.banner.hidden = !next;
-    if (!next) closeDialog();
+    if (next) {
+      reserveBannerSpace();
+    } else {
+      releaseBannerSpace();
+      closeDialog();
+    }
     syncBusy();
   }
 

@@ -66,4 +66,10 @@ Sections are ordered oldest to newest; unreleased work goes last.
 
 - Automatic collector for Twitch channel-points bonus chests that claims available bonuses through the page's own Claim Bonus button, with an 800ms debounce, a 2s cooldown, and a 15s fallback scan.
 
+## [1.2.1] - 2026-11-10
+
+### Fixed
+
+- The Lurker mode banner now reserves its height at the top of the Twitch page instead of covering the page content.
+
 ## [Unreleased]
