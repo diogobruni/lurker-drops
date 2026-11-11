@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check tag matches manifest version
+        run: |
+          manifest="v$(node -p "require('./public/manifest.json').version")"
+          if [ "$manifest" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match manifest version $manifest" >&2
+            exit 1
+          fi
+
+      - run: npm test
+
+      - run: npm run build
+
+      - name: Package extension
+        run: cd dist && zip -r ../lurker-drops.zip .
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" lurker-drops.zip --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" lurker-drops.zip \
+              --title "$GITHUB_REF_NAME" \
+              --generate-notes
+          fi
