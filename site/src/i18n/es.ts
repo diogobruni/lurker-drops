@@ -9,7 +9,7 @@ export const es: Dictionary = {
   meta: {
     title: 'Lurker Drops — Tus pestañas de Twitch viendo solas',
     description:
-      'Extensión gratuita para Chrome que mantiene las pestañas de Twitch que elijas viendo un directo compatible con tus reglas. Elige una categoría, define los filtros y activa.',
+      'Extensión gratuita para navegador que mantiene tus pestañas de Twitch viendo un directo compatible. Funciona en Chrome, Edge, Opera, Brave y otros navegadores Chromium.',
     ogLocale: 'es_ES',
   },
   nav: {
@@ -22,15 +22,15 @@ export const es: Dictionary = {
     primary: 'Principal',
   },
   hero: {
-    badge: 'Extensión gratuita para Chrome',
+    badge: 'Extensión gratuita para navegador',
     title: 'Tus pestañas de Twitch,',
     titleAccent: 'viendo solas.',
     subtitle:
       'Elige una categoría y las reglas que te gusten. Lurker Drops mantiene esa pestaña en un directo compatible, cambia cuando aparece uno mejor y se queda callado en segundo plano.',
-    primaryCta: 'Descargar para Chrome',
+    primaryCta: 'Descargar la extensión',
     primaryNote: 'Gratis · Sin cuenta · Un minuto para configurar',
     secondaryCta: 'Ver cómo funciona',
-    trust: ['Chrome 116 o superior', 'Se ejecuta en tu equipo', 'Código abierto', 'Sin registro'],
+    trust: ['Chrome, Edge, Opera, Brave y más', 'Se ejecuta en tu equipo', 'Código abierto', 'Sin registro'],
     imageAlt:
       'Popup de Lurker Drops con dos pestañas en lurker viendo un directo de Twitch, cada una con su ajuste y número de espectadores.',
   },
@@ -88,9 +88,9 @@ export const es: Dictionary = {
   },
   install: {
     eyebrow: 'Instalar',
-    title: 'Añádelo a Chrome en un minuto',
+    title: 'Añádelo a tu navegador en un minuto',
     subtitle:
-      'La extensión todavía no está en Chrome Web Store. Se instala desde la versión oficial, en cuatro pasos sencillos.',
+      'La extensión todavía no está en las tiendas de extensiones. Se instala desde la versión oficial, en cuatro pasos sencillos.',
     steps: [
       {
         title: 'Descarga el ZIP',
@@ -101,15 +101,15 @@ export const es: Dictionary = {
         text: 'Obtienes una carpeta llamada lurker-drops. Dentro hay un archivo manifest.json.',
       },
       {
-        title: 'Abre chrome://extensions',
-        text: 'Activa el Modo de desarrollador, pulsa Cargar descomprimida y elige la carpeta que acabas de descomprimir.',
+        title: 'Abre la página de extensiones del navegador',
+        text: 'En Chrome y Brave usa chrome://extensions, en Edge usa edge://extensions y en Opera usa opera://extensions. Activa el Modo de desarrollador, pulsa Cargar descomprimida y elige la carpeta que acabas de descomprimir.',
       },
       {
         title: 'Fija y pulsa Activar',
         text: 'Fija Lurker Drops en la barra, abre el popup, añade tu primer lurker y pulsa Activar.',
       },
     ],
-    note: 'Chrome de escritorio 116 o superior. El Modo de desarrollador es cómo Chrome instala extensiones que aún no están en la tienda.',
+    note: 'Funciona en Chrome, Edge, Opera y Brave de escritorio. El Modo de desarrollador es cómo los navegadores Chromium instalan extensiones que aún no están en una tienda.',
     cta: 'Descargar la última versión',
   },
   faq: {
@@ -121,7 +121,7 @@ export const es: Dictionary = {
         a: 'Sí. Lurker Drops es código abierto. No hay cuenta, suscripción, anuncios ni nada que desbloquear.',
       },
       {
-        q: '¿Tengo que dejar Chrome abierto?',
+        q: '¿Tengo que dejar el navegador abierto?',
         a: 'Sí. La pestaña debe seguir abierta para que Twitch cuente el tiempo visto. Puedes silenciarla, mandarla al fondo o moverla a otra ventana.',
       },
       {
@@ -130,7 +130,7 @@ export const es: Dictionary = {
       },
       {
         q: '¿Recopila mis datos?',
-        a: 'Sin analíticas, sin rastreo y sin servidor. Tus ajustes se guardan en el almacenamiento de Chrome, en tu equipo. Solo pide a Twitch la lista pública de directos.',
+        a: 'Sin analíticas, sin rastreo y sin servidor. Tus ajustes se guardan en el almacenamiento del navegador, en tu equipo. Solo pide a Twitch la lista pública de directos.',
       },
       {
         q: '¿Garantiza drops o recompensas?',
@@ -138,7 +138,7 @@ export const es: Dictionary = {
       },
       {
         q: '¿Qué navegadores funcionan?',
-        a: 'Chrome 116 o superior en escritorio, además de navegadores basados en Chromium que acepten el mismo formato. Firefox no es compatible.',
+        a: 'Chrome, Edge, Opera, Brave y otros navegadores basados en Chromium de escritorio. Firefox no es compatible.',
       },
     ],
   },

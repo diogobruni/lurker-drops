@@ -7,7 +7,7 @@ export const en = {
   meta: {
     title: 'Lurker Drops — Your Twitch tabs, watching on their own',
     description:
-      'A free Chrome extension that keeps the Twitch tabs you choose watching a live channel that matches your rules. Pick a category, set your filters, press On.',
+      'A free browser extension that keeps your Twitch tabs watching a matching live. Works on Chrome, Edge, Opera, Brave, and other Chromium browsers.',
     ogLocale: 'en_US',
   },
   nav: {
@@ -20,15 +20,15 @@ export const en = {
     primary: 'Primary',
   },
   hero: {
-    badge: 'Free Chrome extension',
+    badge: 'Free browser extension',
     title: 'Your Twitch tabs,',
     titleAccent: 'watching on their own.',
     subtitle:
       'Choose a category and the rules you like. Lurker Drops keeps that tab on a matching live, switches when a better one shows up, and stays quiet in the background.',
-    primaryCta: 'Download for Chrome',
+    primaryCta: 'Download the extension',
     primaryNote: 'Free · No account · About a minute to set up',
     secondaryCta: 'See how it works',
-    trust: ['Chrome 116 or newer', 'Runs on your computer', 'Open source', 'No sign-up'],
+    trust: ['Chrome, Edge, Opera, Brave and more', 'Runs on your computer', 'Open source', 'No sign-up'],
     imageAlt:
       'Lurker Drops popup showing two tabs lurking a Twitch live, each with its preset and viewer count.',
   },
@@ -86,9 +86,9 @@ export const en = {
   },
   install: {
     eyebrow: 'Install',
-    title: 'Add it to Chrome in about a minute',
+    title: 'Add it to your browser in about a minute',
     subtitle:
-      'The extension is not in the Chrome Web Store yet. You install it from the official release, in four small steps.',
+      'The extension is not in the browser stores yet. Install it from the official release, in four small steps.',
     steps: [
       {
         title: 'Download the ZIP',
@@ -99,15 +99,15 @@ export const en = {
         text: 'You get a folder named lurker-drops. Inside it there is a file called manifest.json.',
       },
       {
-        title: 'Open chrome://extensions',
-        text: 'Turn on Developer mode, click Load unpacked, and choose the folder you just unzipped.',
+        title: "Open your browser's extensions page",
+        text: 'For Chrome and Brave use chrome://extensions, for Edge use edge://extensions, and for Opera use opera://extensions. Turn on Developer mode, click Load unpacked, and choose the folder you just unzipped.',
       },
       {
         title: 'Pin and press On',
         text: 'Pin Lurker Drops to the toolbar, open the popup, add your first lurker, and press On.',
       },
     ],
-    note: 'Desktop Chrome 116 or newer. Developer mode is how Chrome installs extensions that are not in the store yet.',
+    note: 'Works on desktop Chrome, Edge, Opera, and Brave. Developer mode is how Chromium browsers install extensions that are not in a store yet.',
     cta: 'Download the latest release',
   },
   faq: {
@@ -119,7 +119,7 @@ export const en = {
         a: 'Yes. Lurker Drops is open source. There is no account, no subscription, no ads, and nothing to unlock.',
       },
       {
-        q: 'Do I need to keep Chrome open?',
+        q: 'Do I need to keep the browser open?',
         a: 'Yes. The tab must stay open for Twitch to count the watch time. You can mute it, send it to the background, or move it to another window.',
       },
       {
@@ -128,7 +128,7 @@ export const en = {
       },
       {
         q: 'Does it collect my data?',
-        a: 'No analytics, no tracking, and no server. Your settings stay in Chrome storage on your computer. It only asks Twitch for the public list of live streams.',
+        a: 'No analytics, no tracking, and no server. Your settings stay in browser storage on your computer. It only asks Twitch for the public list of live streams.',
       },
       {
         q: 'Does it guarantee drops or rewards?',
@@ -136,7 +136,7 @@ export const en = {
       },
       {
         q: 'Which browsers work?',
-        a: 'Chrome 116 or newer on desktop, plus Chromium-based browsers that accept the same extension format. Firefox is not supported.',
+        a: 'Chrome, Edge, Opera, Brave, and other Chromium-based browsers on desktop. Firefox is not supported.',
       },
     ],
   },

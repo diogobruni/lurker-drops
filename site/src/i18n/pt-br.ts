@@ -9,7 +9,7 @@ export const ptBR: Dictionary = {
   meta: {
     title: 'Lurker Drops — Suas abas da Twitch assistindo sozinhas',
     description:
-      'Extensão gratuita para Chrome que mantém as abas da Twitch que você escolher assistindo a uma live compatível com suas regras. Escolha uma categoria, defina os filtros e ligue.',
+      'Extensão gratuita para navegador que mantém suas abas da Twitch assistindo a uma live compatível. Funciona no Chrome, Edge, Opera, Brave e outros navegadores Chromium.',
     ogLocale: 'pt_BR',
   },
   nav: {
@@ -22,15 +22,15 @@ export const ptBR: Dictionary = {
     primary: 'Principal',
   },
   hero: {
-    badge: 'Extensão gratuita para Chrome',
+    badge: 'Extensão gratuita para navegador',
     title: 'Suas abas da Twitch,',
     titleAccent: 'assistindo sozinhas.',
     subtitle:
       'Escolha uma categoria e as regras que você gosta. O Lurker Drops mantém a aba em uma live compatível, troca quando aparece uma melhor e fica quietinho no fundo.',
-    primaryCta: 'Baixar para Chrome',
+    primaryCta: 'Baixar a extensão',
     primaryNote: 'Grátis · Sem conta · Cerca de um minuto para configurar',
     secondaryCta: 'Ver como funciona',
-    trust: ['Chrome 116 ou mais novo', 'Roda no seu computador', 'Código aberto', 'Sem cadastro'],
+    trust: ['Chrome, Edge, Opera, Brave e outros', 'Roda no seu computador', 'Código aberto', 'Sem cadastro'],
     imageAlt:
       'Popup do Lurker Drops com duas abas em lurker assistindo a uma live da Twitch, cada uma com sua predefinição e número de espectadores.',
   },
@@ -88,9 +88,9 @@ export const ptBR: Dictionary = {
   },
   install: {
     eyebrow: 'Instalar',
-    title: 'Adicione ao Chrome em cerca de um minuto',
+    title: 'Adicione ao seu navegador em cerca de um minuto',
     subtitle:
-      'A extensão ainda não está na Chrome Web Store. Você instala pelo release oficial, em quatro passos simples.',
+      'A extensão ainda não está nas lojas de extensões. Instale pelo release oficial, em quatro passos simples.',
     steps: [
       {
         title: 'Baixe o ZIP',
@@ -101,15 +101,15 @@ export const ptBR: Dictionary = {
         text: 'Você recebe uma pasta chamada lurker-drops. Dentro dela há um arquivo manifest.json.',
       },
       {
-        title: 'Abra chrome://extensions',
-        text: 'Ligue o Modo desenvolvedor, clique em Carregar sem compactação e escolha a pasta que você descompactou.',
+        title: 'Abra a página de extensões do navegador',
+        text: 'No Chrome e no Brave use chrome://extensions, no Edge use edge://extensions e no Opera use opera://extensions. Ligue o Modo desenvolvedor, clique em Carregar sem compactação e escolha a pasta que você descompactou.',
       },
       {
         title: 'Fixe e aperte Ligar',
         text: 'Fixe o Lurker Drops na barra de ferramentas, abra o popup, adicione seu primeiro lurker e aperte Ligar.',
       },
     ],
-    note: 'Chrome para desktop 116 ou mais novo. O Modo desenvolvedor é como o Chrome instala extensões que ainda não estão na loja.',
+    note: 'Funciona no Chrome, Edge, Opera e Brave para desktop. O Modo desenvolvedor é como navegadores Chromium instalam extensões que ainda não estão em uma loja.',
     cta: 'Baixar o release mais recente',
   },
   faq: {
@@ -121,7 +121,7 @@ export const ptBR: Dictionary = {
         a: 'Sim. O Lurker Drops é código aberto. Não tem conta, assinatura, anúncio nem nada para desbloquear.',
       },
       {
-        q: 'Preciso deixar o Chrome aberto?',
+        q: 'Preciso deixar o navegador aberto?',
         a: 'Sim. A aba precisa ficar aberta para a Twitch contar o tempo assistido. Você pode deixá-la muda, mandar para o fundo ou mover para outra janela.',
       },
       {
@@ -130,7 +130,7 @@ export const ptBR: Dictionary = {
       },
       {
         q: 'Ele coleta meus dados?',
-        a: 'Sem analytics, sem rastreamento e sem servidor. Suas configurações ficam no armazenamento do Chrome, no seu computador. Ele só pede à Twitch a lista pública de lives.',
+        a: 'Sem analytics, sem rastreamento e sem servidor. Suas configurações ficam no armazenamento do navegador, no seu computador. Ele só pede à Twitch a lista pública de lives.',
       },
       {
         q: 'Ele garante drops ou recompensas?',
@@ -138,7 +138,7 @@ export const ptBR: Dictionary = {
       },
       {
         q: 'Quais navegadores funcionam?',
-        a: 'Chrome 116 ou mais novo no desktop, além de navegadores baseados em Chromium que aceitam o mesmo formato. O Firefox não é suportado.',
+        a: 'Chrome, Edge, Opera, Brave e outros navegadores baseados em Chromium no desktop. O Firefox não é suportado.',
       },
     ],
   },
