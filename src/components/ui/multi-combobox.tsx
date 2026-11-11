@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { normalizeChannel } from '@/shared/filters';
+import { t } from '@/shared/i18n';
 import { cn } from '@/lib/utils';
 
 interface MultiComboboxProps {
@@ -25,7 +26,7 @@ interface MultiComboboxProps {
 export function MultiCombobox({
   value,
   onValueChange,
-  placeholder = 'Type a Twitch channel slug',
+  placeholder = t('multi.defaultPlaceholder'),
   reorderable = false,
   disabled = false,
   id,
@@ -108,7 +109,7 @@ export function MultiCombobox({
               <span className="max-w-[180px] truncate">@{channel}</span>
               <button
                 type="button"
-                aria-label={`Remove ${channel}`}
+                aria-label={t('multi.remove', { channel })}
                 className="rounded-sm opacity-60 transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 onPointerDown={(event) => event.stopPropagation()}
                 onClick={(event) => {
@@ -127,7 +128,7 @@ export function MultiCombobox({
         {value.length > 0 && (
           <div className="border-b border-border p-2">
             <p className="px-1 pb-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-              {reorderable ? 'Priority order' : 'Selected'}
+              {reorderable ? t('multi.priorityOrder') : t('multi.selected')}
             </p>
             <div className="max-h-32 space-y-0.5 overflow-y-auto">
               {value.map((channel, index) => (
@@ -140,7 +141,7 @@ export function MultiCombobox({
                     <>
                       <button
                         type="button"
-                        aria-label={`Move ${channel} up`}
+                        aria-label={t('multi.moveUp', { channel })}
                         disabled={index === 0}
                         className="rounded p-0.5 text-muted-foreground hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-30"
                         onClick={() => moveChannel(index, -1)}
@@ -149,7 +150,7 @@ export function MultiCombobox({
                       </button>
                       <button
                         type="button"
-                        aria-label={`Move ${channel} down`}
+                        aria-label={t('multi.moveDown', { channel })}
                         disabled={index === value.length - 1}
                         className="rounded p-0.5 text-muted-foreground hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-30"
                         onClick={() => moveChannel(index, 1)}
@@ -160,7 +161,7 @@ export function MultiCombobox({
                   )}
                   <button
                     type="button"
-                    aria-label={`Remove ${channel}`}
+                    aria-label={t('multi.remove', { channel })}
                     className="rounded p-0.5 text-muted-foreground hover:bg-accent hover:text-foreground"
                     onClick={() => removeChannel(channel)}
                   >
@@ -173,7 +174,7 @@ export function MultiCombobox({
         )}
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder="Search or type a channel slug..."
+            placeholder={t('multi.searchPlaceholder')}
             value={search}
             onValueChange={handleSearchChange}
             autoFocus
@@ -194,25 +195,23 @@ export function MultiCombobox({
                 >
                   <Plus className="h-4 w-4" />
                   {alreadySelected ? (
-                    <span className="text-muted-foreground">@{normalizedSearch} is already added</span>
-                  ) : (
-                    <span>
-                      Add <span className="font-medium">@{normalizedSearch}</span>
+                    <span className="text-muted-foreground">
+                      {t('multi.alreadyAdded', { channel: normalizedSearch })}
                     </span>
+                  ) : (
+                    <span>{t('multi.add', { channel: normalizedSearch })}</span>
                   )}
                 </CommandItem>
               </CommandGroup>
             ) : (
               <div className="px-3 py-4 text-center text-xs text-muted-foreground">
-                Type a channel slug or paste a Twitch URL.
+                {t('multi.typeOrPaste')}
               </div>
             )}
           </CommandList>
         </Command>
         <div className="border-t border-border px-3 py-2 text-[10px] text-muted-foreground">
-          {reorderable
-            ? 'Favorites have priority. Order is used when Pursue is off or to break viewer ties.'
-            : 'Use commas to add several channels at once.'}
+          {reorderable ? t('multi.footerReorder') : t('multi.footerAdd')}
         </div>
       </PopoverContent>
     </Popover>

@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "让选定的标签页自动观看符合你 Twitch 筛选条件的直播。"
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

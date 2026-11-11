@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "선택한 탭이 Twitch 필터에 맞는 라이브를 자동으로 시청하도록 유지합니다."
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import type { BackgroundRequest, BackgroundResponse } from './types';
 
 export async function sendMessage<T = undefined>(
@@ -7,10 +8,10 @@ export async function sendMessage<T = undefined>(
     | BackgroundResponse<T>
     | undefined;
   if (!response) {
-    throw new Error('The Lurker Drops background worker did not respond.');
+    throw new Error(t('app.backgroundUnavailable'));
   }
   if (!response.ok) {
-    throw new Error(response.error ?? 'Something went wrong.');
+    throw new Error(response.error ?? t('app.genericError'));
   }
   return response.data as T;
 }

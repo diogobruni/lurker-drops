@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { t } from './i18n';
+
 export const twitchCategorySchema = z.object({
   id: z.string().optional(),
   name: z.string().trim().min(1),
@@ -80,7 +82,7 @@ export interface ExtensionState {
 }
 
 export const presetDraftSchema = z.object({
-  name: z.string().trim().min(1, 'Give this preset a name.'),
+  name: z.string().trim().min(1, t('form.nameRequired')),
   category: twitchCategorySchema.nullable(),
   titleFilter: z.string(),
   favorites: z.array(z.string()),
@@ -97,6 +99,12 @@ export type BackgroundRequest =
       muted: boolean;
       pursueMostWatched: boolean;
     }
+  | {
+      type: 'lurker:startInNewTab';
+      presetId: string;
+      muted: boolean;
+      pursueMostWatched: boolean;
+    }
   | { type: 'lurker:stop'; tabId: number }
   | { type: 'lurker:setEnabled'; tabId: number; enabled: boolean }
   | { type: 'lurker:setPreset'; tabId: number; presetId: string }
@@ -109,6 +117,10 @@ export type BackgroundRequest =
   | { type: 'lurker:remove'; tabId: number; closeTab?: boolean }
   | { type: 'lurker:goTo'; tabId: number }
   | { type: 'lurker:evaluate'; tabId?: number }
+  | { type: 'lurker:previewStream'; presetId: string }
+  | { type: 'content:state' }
+  | { type: 'content:disable' }
+  | { type: 'content:leave' }
   | { type: 'twitch:categories'; query?: string };
 
 export interface BackgroundResponse<T = undefined> {

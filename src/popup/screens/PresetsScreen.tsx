@@ -13,6 +13,13 @@ import * as React from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { InlineConfirm } from '@/components/ui/inline-confirm';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { t } from '@/shared/i18n';
 import { errorMessage } from '@/shared/messages';
 import type { Preset } from '@/shared/types';
 import { cn } from '@/lib/utils';
@@ -40,7 +47,7 @@ function PresetCard({
   return (
     <div
       className={cn(
-        'rounded-xl border bg-card/80 p-3 shadow-sm transition-colors',
+        'relative rounded-xl border bg-card/80 p-3 shadow-sm transition-colors',
         pendingDelete ? 'border-red-500/30' : 'border-border/80',
       )}
     >
@@ -48,85 +55,78 @@ function PresetCard({
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{preset.name}</p>
           <p className="mt-0.5 line-clamp-1 text-[10px] text-muted-foreground">
-            {preset.category?.displayName ?? 'Any category'}
+            {preset.category?.displayName ?? t('common.anyCategory')}
             {preset.titleFilter.trim()
-              ? ` · title contains “${preset.titleFilter.trim()}”`
-              : ' · any title'}
+              ? ` · ${t('presets.titleContains', { filter: preset.titleFilter.trim() })}`
+              : ` · ${t('presets.anyTitle')}`}
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
             <span className="flex items-center gap-1">
               <Star className="h-3 w-3" />
-              {preset.favorites.length} favorite{preset.favorites.length === 1 ? '' : 's'}
+              {t('presets.favoritesCount', { count: preset.favorites.length })}
             </span>
             <span className="flex items-center gap-1">
               <Ban className="h-3 w-3" />
-              {preset.blacklist.length} blocked
+              {t('presets.blockedCount', { count: preset.blacklist.length })}
             </span>
             {usageCount > 0 && (
               <Badge variant="success" className="gap-1">
                 <Tv className="h-2.5 w-2.5" />
-                {usageCount} in use
+                {t('presets.inUseCount', { count: usageCount })}
               </Badge>
             )}
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-0.5">
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-sm"
-            onClick={onEdit}
-            title="Edit preset"
-            aria-label={`Edit ${preset.name}`}
-          >
-            <Pencil className="h-3.5 w-3.5" />
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-sm"
-            onClick={onAskDelete}
-            title="Delete preset"
-            aria-label={`Delete ${preset.name}`}
-            className="text-muted-foreground hover:bg-red-500/10 hover:text-red-400"
-          >
-            <Trash2 className="h-3.5 w-3.5" />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                onClick={onEdit}
+                aria-label={t('presets.edit')}
+              >
+                <Pencil className="h-3.5 w-3.5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{t('presets.edit')}</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                onClick={onAskDelete}
+                aria-label={t('presets.delete')}
+                className="text-muted-foreground hover:bg-red-500/10 hover:text-red-400"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{t('presets.delete')}</TooltipContent>
+          </Tooltip>
         </div>
       </div>
 
-      {pendingDelete && (
-        <div className="mt-3 rounded-lg border border-red-500/20 bg-red-500/5 p-2.5">
-          <p className="text-[11px] leading-relaxed text-red-200">
-            Delete <span className="font-medium">{preset.name}</span>?
+      <InlineConfirm
+        open={pendingDelete}
+        message={
+          <>
+            {t('presets.deleteConfirm', { name: preset.name })}
             {usageCount > 0
-              ? ` ${usageCount} tab${usageCount === 1 ? '' : 's'} using it will be paused.`
-              : ' This cannot be undone.'}
-          </p>
-          <div className="mt-2 flex justify-end gap-1.5">
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              className="h-7 text-[11px]"
-              onClick={onCancelDelete}
-              disabled={deleting}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              size="sm"
-              className="h-7 text-[11px]"
-              onClick={onConfirmDelete}
-              disabled={deleting}
-            >
-              {deleting ? 'Deleting...' : 'Delete preset'}
-            </Button>
-          </div>
-        </div>
-      )}
+              ? ` ${t('presets.deleteInUse')}`
+              : ` ${t('presets.deleteUnused')}`}
+          </>
+        }
+        cancelLabel={t('common.cancel')}
+        confirmLabel={t('presets.delete')}
+        busyLabel={t('presets.deleting')}
+        busy={deleting}
+        onCancel={onCancelDelete}
+        onConfirm={onConfirmDelete}
+      />
     </div>
   );
 }
@@ -162,7 +162,7 @@ export function PresetsScreen() {
         className="w-full gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500"
       >
         <Plus />
-        New preset
+        {t('nav.newPreset')}
       </Button>
 
       {error && (
@@ -177,20 +177,19 @@ export function PresetsScreen() {
 
       <div className="flex items-center justify-between px-0.5">
         <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
-          Saved presets
+          {t('presets.saved')}
         </p>
         <span className="text-[10px] text-muted-foreground">
-          {presets.length} total
+          {t('presets.total', { count: presets.length })}
         </span>
       </div>
 
       {presets.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border/80 bg-background/30 px-4 py-8 text-center">
           <SlidersHorizontal className="mx-auto h-5 w-5 text-muted-foreground/60" />
-          <p className="mt-2 text-xs font-medium">No presets yet</p>
+          <p className="mt-2 text-xs font-medium">{t('presets.emptyTitle')}</p>
           <p className="mx-auto mt-1 max-w-[240px] text-[10px] leading-relaxed text-muted-foreground">
-            A preset tells the lurker which Twitch category, title, favorite channels,
-            and blocked channels to use.
+            {t('presets.emptyHint')}
           </p>
         </div>
       ) : (
@@ -220,8 +219,7 @@ export function PresetsScreen() {
 
       <div className="flex items-center gap-2 rounded-lg border border-border/60 bg-background/30 px-3 py-2 text-[10px] text-muted-foreground">
         <Gamepad2 className="h-3.5 w-3.5 shrink-0" />
-        Favorites are checked first; blacklist always wins. Use Pursue per tab to
-        chase the most-watched live.
+        {t('presets.tip')}
       </div>
     </div>
   );

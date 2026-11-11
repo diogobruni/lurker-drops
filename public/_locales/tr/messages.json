@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "Seçili sekmelerin Twitch filtrelerinize uyan bir canlı yayını otomatik izlemesini sağlar."
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

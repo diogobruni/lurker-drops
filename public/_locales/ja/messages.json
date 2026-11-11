@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "選択したタブで、Twitch フィルターに合うライブを自動的に視聴します。"
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

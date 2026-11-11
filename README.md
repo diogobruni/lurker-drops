@@ -14,6 +14,14 @@ A Chrome (Manifest V3) extension that keeps selected browser tabs watching a Twi
 - **Toolbar status indicator**: the action icon changes between idle and active states, and the badge shows the number of active lurkers.
 - Automatic checks every minute while at least one lurker is active.
 
+## Languages
+
+The interface and the extension manifest follow the browser's UI language automatically, falling back to English. Supported locales:
+
+`en`, `es`, `fr`, `de`, `zh_CN`, `ja`, `it`, `pt_BR`, `ko`, `zh_TW`, `nl`, `pl`, `ru`, `tr`.
+
+UI strings live in `src/shared/locales/` (typed catalogs with compile-time completeness checks), while the manifest strings live in `public/_locales/*/messages.json`. To add a language, copy `src/shared/locales/en.ts` and `public/_locales/en/messages.json`, then register the new locale in `src/shared/i18n.ts`.
+
 ## How a live is selected
 
 For every enabled tab, the background worker:

@@ -1,3 +1,4 @@
+import { t } from '../shared/i18n';
 import type { StreamInfo, TwitchCategory } from '../shared/types';
 
 const GQL_URL = 'https://gql.twitch.tv/gql';
@@ -64,16 +65,16 @@ async function gql<T>(
   } catch (error) {
     throw new Error(
       error instanceof Error && error.name === 'TimeoutError'
-        ? 'Twitch took too long to respond.'
-        : 'Could not reach Twitch. Check your connection.',
+        ? t('twitch.timeout')
+        : t('twitch.unreachable'),
     );
   }
 
   if (!response.ok) {
     if (response.status === 429) {
-      throw new Error('Twitch is rate limiting requests. Try again in a minute.');
+      throw new Error(t('twitch.rateLimited'));
     }
-    throw new Error(`Twitch API returned HTTP ${response.status}.`);
+    throw new Error(t('twitch.httpError', { status: response.status }));
   }
 
   const body = (await response.json()) as GqlResponse<T>;
@@ -81,7 +82,7 @@ async function gql<T>(
     throw new Error(body.errors[0].message);
   }
   if (!body.data) {
-    throw new Error('Twitch API returned an empty response.');
+    throw new Error(t('twitch.empty'));
   }
   return body.data;
 }

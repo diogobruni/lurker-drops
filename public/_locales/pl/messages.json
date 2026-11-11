@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "Automatycznie utrzymuj wybrane karty na transmisji pasującej do filtrów Twitch."
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

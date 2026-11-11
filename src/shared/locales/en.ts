@@ -1,0 +1,207 @@
+const messages = {
+  'app.name': 'Lurker Drops',
+  'app.loadErrorTitle': 'Could not load Lurker Drops',
+  'app.loading': 'Loading your lurkers...',
+  'app.backgroundUnavailable':
+    'The Lurker Drops background worker did not respond.',
+  'app.genericError': 'Something went wrong.',
+
+  'common.cancel': 'Cancel',
+  'common.optional': 'Optional',
+  'common.anyCategory': 'Any category',
+  'common.twitch': 'Twitch',
+  'common.on': 'On',
+  'common.off': 'Off',
+  'common.expand': 'Expand',
+  'common.collapse': 'Collapse',
+  'common.goBack': 'Go back',
+  'common.popOut': 'Pop out',
+  'common.browserTab': 'Browser tab',
+  'common.currentTab': 'Current tab',
+  'common.viewers': '{count} viewers',
+
+  'nav.tagline': 'Twitch auto-lurker',
+  'nav.presets': 'Presets',
+  'nav.presetsSubtitle': 'Manage your filters',
+  'nav.editPreset': 'Edit preset',
+  'nav.newPreset': 'New preset',
+  'nav.formSubtitle': 'Lurker filters',
+  'nav.newLurker': 'New lurker',
+  'nav.editLurker': 'Edit lurker',
+  'nav.lurkerSubtitle': 'Lurker settings',
+  'nav.activeBadge': 'Active: {count}',
+  'nav.activeTooltip': 'Lurking tabs: {count}',
+  'nav.idleTooltip': 'Lurker Drops is idle',
+
+  'main.lurkingTabs': 'Lurking Tabs',
+  'main.addLurker': 'Add',
+  'main.livePreview': 'Live preview',
+  'main.noLivePreview': 'No matching live right now.',
+  'main.pausedCount': 'Paused: {count}',
+  'main.noTabsTitle': 'No tabs are lurking yet',
+  'main.noTabsHint':
+    'Choose a preset below and turn on the lurker for this tab.',
+  'main.status': 'Status',
+  'main.preset': 'Preset',
+  'main.noPresets': 'No presets yet',
+  'main.selectPreset': 'Select a preset',
+  'main.createPresetFirst': 'Create a preset first',
+  'main.searchPresets': 'Search presets...',
+  'main.noPresetMatches': 'No presets match.',
+  'main.managePresets': 'Manage presets',
+  'main.createFirstPreset': 'Create your first preset',
+  'main.muted': 'Muted',
+  'main.mutedHint':
+    'Mute the browser tab itself, not just the Twitch player.',
+  'main.pursue': 'Pursue',
+  'main.pursueHint':
+    'Follow the most-watched live matching this preset. Off keeps the current live while it remains valid.',
+  'main.turnOffLurker': 'Turn off lurker',
+  'main.turnOnLurker': 'Turn on lurker',
+  'main.footer':
+    'Lurker Drops checks Twitch every minute while any lurking tab is on.',
+
+  'status.paused': 'Paused',
+  'overlay.title': 'Lurker mode',
+  'overlay.subtitle': 'This tab is managed by Lurker Drops.',
+  'overlay.disable': 'Turn off lurker',
+  'overlay.turningOff': 'Turning off...',
+  'overlay.dialogTitle': 'Leave Lurker mode?',
+  'overlay.dialogMessage': 'This tab is in Lurker mode. Continuing will turn off the lurker for this tab.',
+  'overlay.confirm': 'Turn off and continue',
+  'status.pausedDetail': 'The lurker is off for this tab.',
+  'status.live': 'Live',
+  'status.watchingStream': 'Watching {channel} · {title}',
+  'status.watchingLive': 'Watching a live.',
+  'status.searching': 'Searching',
+  'status.searchingDetail':
+    'Searching Twitch for a live that matches this preset...',
+  'status.waiting': 'Waiting',
+  'status.waitingDetail':
+    'No matching live right now. The lurker will check again every minute.',
+  'status.error': 'Error',
+  'status.errorDetail': 'Could not reach Twitch.',
+  'status.idle': 'Idle',
+  'status.idleDetail': 'The lurker is ready.',
+  'status.off': 'Off',
+
+  'row.presetLabel': 'Preset: {name}',
+  'row.presetRemoved': 'Preset removed',
+  'row.couldNotCheck': 'Could not check Twitch',
+  'row.searchingMatch': 'Searching for a live match',
+  'row.waitingMatch': 'Waiting for a live match',
+  'row.lurkerPaused': 'Lurker paused',
+  'row.goTo': 'Go to',
+  'row.goToTitle': 'Go to the lurking tab',
+  'row.mute': 'Mute',
+  'row.unmute': 'Unmute',
+  'row.muteTitle': 'Mute this tab',
+  'row.unmuteTitle': 'Unmute this tab',
+  'row.turnOn': 'Turn on',
+  'row.turnOff': 'Turn off',
+  'row.turnOnTitle': 'Turn on the lurker on this tab',
+  'row.turnOffTitle': 'Turn off the lurker on this tab',
+  'row.pursueOn': 'Pursue on',
+  'row.pursueOff': 'Pursue off',
+  'row.pursueOnTitle': 'Pursue the most-watched live',
+  'row.pursueOffTitle': 'Keep the current live while it is valid',
+  'row.close': 'Close',
+  'row.closeConfirm': 'Close this tab? This also turns off its lurker.',
+  'row.closeTitle': 'Close this tab and turn off its lurker',
+  'row.edit': 'Edit',
+
+  'presets.saved': 'Saved presets',
+  'presets.total': 'Total: {count}',
+  'presets.emptyTitle': 'No presets yet',
+  'presets.emptyHint':
+    'A preset tells the lurker which Twitch category, title, favorite channels, and blocked channels to use.',
+  'presets.edit': 'Edit preset',
+  'presets.delete': 'Delete preset',
+  'presets.titleContains': 'title contains “{filter}”',
+  'presets.anyTitle': 'any title',
+  'presets.favoritesCount': 'Favorites: {count}',
+  'presets.blockedCount': 'Blocked: {count}',
+  'presets.inUseCount': 'In use: {count}',
+  'presets.deleteConfirm': 'Delete {name}?',
+  'presets.deleteInUse':
+    'Tabs using it will be paused. This cannot be undone.',
+  'presets.deleteUnused': 'This cannot be undone.',
+  'presets.deleting': 'Deleting...',
+  'presets.tip':
+    'Favorites are checked first; blacklist always wins. Use Pursue per tab to chase the most-watched live.',
+
+  'form.name': 'Name',
+  'form.namePlaceholder': 'e.g. Drops while I work',
+  'form.nameHint': 'A short name to recognize this preset.',
+  'form.nameRequired': 'Give this preset a name.',
+  'form.category': 'Twitch Category',
+  'form.categoryHint':
+    'Search Twitch or type a category name manually. Leave empty to allow any category.',
+  'form.titleFilter': 'Title Filter',
+  'form.titleFilterPlaceholder': 'e.g. drops, ranked, no commentary',
+  'form.titleFilterHint':
+    'Only lives whose title contains this text are eligible. Case-insensitive.',
+  'form.favorites': 'Favorites',
+  'form.favoritesPlaceholder': 'Type or paste channel slugs...',
+  'form.favoritesHint':
+    'Favorites have priority. On each tab, the Pursue option decides whether the most-watched eligible channel can replace the current live.',
+  'form.blacklist': 'Blacklist',
+  'form.blacklistPlaceholder': 'Type or paste channel slugs to ignore...',
+  'form.blacklistHint':
+    'These channels are never selected, even if they are favorites.',
+  'form.save': 'Save preset',
+  'form.saveLurker': 'Save lurker',
+  'form.newTab': 'New tab',
+  'form.newTabHint': 'Open a new tab and start this lurker there.',
+  'form.saving': 'Saving...',
+
+  'category.searchPlaceholder': 'Search Twitch categories...',
+  'category.searching': 'Searching Twitch...',
+  'category.none':
+    'No categories found. Type a name to use it manually.',
+  'category.use': 'Use “{name}”',
+  'category.footer':
+    'Categories come from Twitch. Custom names are allowed.',
+
+  'multi.defaultPlaceholder': 'Type a Twitch channel slug',
+  'multi.searchPlaceholder': 'Search or type a channel slug...',
+  'multi.priorityOrder': 'Priority order',
+  'multi.selected': 'Selected',
+  'multi.remove': 'Remove {channel}',
+  'multi.moveUp': 'Move {channel} up',
+  'multi.moveDown': 'Move {channel} down',
+  'multi.alreadyAdded': '@{channel} is already added',
+  'multi.add': 'Add @{channel}',
+  'multi.footerReorder':
+    'Favorites have priority. Order is used when Pursue is off or to break viewer ties.',
+  'multi.footerAdd': 'Use commas to add several channels at once.',
+  'multi.typeOrPaste':
+    'Type a channel slug or paste a Twitch URL.',
+
+  'combo.selectOption': 'Select an option',
+  'combo.search': 'Search...',
+  'combo.noResults': 'No results found.',
+
+  'error.choosePreset':
+    'Choose a preset before starting the lurker.',
+  'error.tabNotManaged': 'This tab is not managed by Lurker Drops.',
+  'error.presetMissing': 'That preset no longer exists.',
+  'error.unknownRequest': 'Unknown request: {request}',
+  'error.unauthorized': 'Unauthorized sender.',
+  'error.couldNotOpenChannel': 'Could not open {channel}: {error}',
+  'error.presetNoLongerExists': 'The preset no longer exists.',
+  'error.presetRemoved':
+    'The preset used by this tab was removed.',
+
+  'twitch.timeout': 'Twitch took too long to respond.',
+  'twitch.unreachable':
+    'Could not reach Twitch. Check your connection.',
+  'twitch.rateLimited':
+    'Twitch is rate limiting requests. Try again in a minute.',
+  'twitch.httpError': 'Twitch API returned HTTP {status}.',
+  'twitch.empty': 'Twitch API returned an empty response.',
+} as const;
+
+export type MessageKey = keyof typeof messages;
+
+export default messages;

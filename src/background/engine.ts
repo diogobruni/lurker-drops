@@ -4,6 +4,7 @@ import {
   normalizeChannels,
   pickStream,
 } from '../shared/filters';
+import { t } from '../shared/i18n';
 import { errorMessage } from '../shared/messages';
 import {
   getLurkerTabs,
@@ -14,6 +15,7 @@ import {
 } from '../shared/storage';
 import type { LurkerTab, Preset, StreamInfo } from '../shared/types';
 import { getCategoryStreams, getLiveChannel, getLiveChannels } from './twitch';
+import { markInternalNavigation } from './navigation';
 
 const runVersions = new Map<number, number>();
 
@@ -89,6 +91,14 @@ async function findStreamForPreset(
   return selected;
 }
 
+export async function previewStreamForPreset(
+  presetId: string,
+): Promise<StreamInfo | null> {
+  const preset = (await getPresets()).find((item) => item.id === presetId);
+  if (!preset) throw new Error(t('error.presetMissing'));
+  return findStreamForPreset(preset, null, true);
+}
+
 export async function evaluateTab(tabId: number): Promise<void> {
   const record = (await getLurkerTabs()).find((tab) => tab.tabId === tabId);
   if (!record?.enabled) return;
@@ -99,7 +109,7 @@ export async function evaluateTab(tabId: number): Promise<void> {
       ...tab,
       enabled: false,
       status: 'idle',
-      lastError: 'The preset no longer exists.',
+      lastError: t('error.presetNoLongerExists'),
     }));
     return;
   }
@@ -180,6 +190,7 @@ export async function evaluateTab(tabId: number): Promise<void> {
 
     try {
       if (channelFromTwitchUrl(freshTab.url) !== stream.channelLogin) {
+        markInternalNavigation(tabId);
         await chrome.tabs.update(tabId, { url: stream.url, muted: latest.muted });
       } else if (freshTab.mutedInfo?.muted !== latest.muted) {
         await chrome.tabs.update(tabId, { muted: latest.muted });
@@ -191,7 +202,10 @@ export async function evaluateTab(tabId: number): Promise<void> {
           ? {
               ...current,
               status: 'error',
-              lastError: `Could not open ${stream.channelName}: ${errorMessage(error)}`,
+              lastError: t('error.couldNotOpenChannel', {
+                channel: stream.channelName,
+                error: errorMessage(error),
+              }),
             }
           : current,
       );
@@ -229,7 +243,7 @@ export async function reconcilePresets(presets: Preset[]): Promise<void> {
         presetId: fallbackId,
         enabled: false,
         status: 'idle',
-        lastError: 'The preset used by this tab was removed.',
+        lastError: t('error.presetRemoved'),
       };
     }),
   );

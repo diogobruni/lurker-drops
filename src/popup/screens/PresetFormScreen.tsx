@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MultiCombobox } from '@/components/ui/multi-combobox';
 import { normalizeChannels } from '@/shared/filters';
+import { t } from '@/shared/i18n';
 import { errorMessage } from '@/shared/messages';
 import { newId } from '@/shared/storage';
 import {
@@ -27,7 +28,9 @@ function FieldLabel({
     <div className="flex items-center justify-between gap-2">
       <span className="text-xs font-medium">{children}</span>
       {optional && (
-        <span className="text-[10px] text-muted-foreground">Optional</span>
+        <span className="text-[10px] text-muted-foreground">
+          {t('common.optional')}
+        </span>
       )}
     </div>
   );
@@ -123,11 +126,11 @@ export function PresetFormScreen() {
         )}
 
         <div className="space-y-1.5">
-          <FieldLabel>Name</FieldLabel>
+          <FieldLabel>{t('form.name')}</FieldLabel>
           <Input
             value={name}
             onChange={(event) => setName(event.target.value)}
-            placeholder="e.g. Drops while I work"
+            placeholder={t('form.namePlaceholder')}
             autoFocus
             aria-invalid={Boolean(fieldErrors.name)}
             className={cn(
@@ -138,55 +141,45 @@ export function PresetFormScreen() {
           {fieldErrors.name ? (
             <p className="text-[10px] text-red-400">{fieldErrors.name}</p>
           ) : (
-            <FieldHint>A short name to recognize this preset.</FieldHint>
+            <FieldHint>{t('form.nameHint')}</FieldHint>
           )}
         </div>
 
         <div className="space-y-1.5">
-          <FieldLabel optional>Twitch Category</FieldLabel>
+          <FieldLabel optional>{t('form.category')}</FieldLabel>
           <CategoryCombobox value={category} onValueChange={setCategory} />
-          <FieldHint>
-            Search Twitch or type a category name manually. Leave empty to allow any
-            category.
-          </FieldHint>
+          <FieldHint>{t('form.categoryHint')}</FieldHint>
         </div>
 
         <div className="space-y-1.5">
-          <FieldLabel optional>Title Filter</FieldLabel>
+          <FieldLabel optional>{t('form.titleFilter')}</FieldLabel>
           <Input
             value={titleFilter}
             onChange={(event) => setTitleFilter(event.target.value)}
-            placeholder="e.g. drops, ranked, no commentary"
+            placeholder={t('form.titleFilterPlaceholder')}
           />
-          <FieldHint>
-            Only lives whose title contains this text are eligible. Case-insensitive.
-          </FieldHint>
+          <FieldHint>{t('form.titleFilterHint')}</FieldHint>
         </div>
 
         <div className="space-y-1.5">
-          <FieldLabel optional>Favorites</FieldLabel>
+          <FieldLabel optional>{t('form.favorites')}</FieldLabel>
           <MultiCombobox
             value={favorites}
             onValueChange={setFavorites}
             reorderable
-            placeholder="Type or paste channel slugs..."
+            placeholder={t('form.favoritesPlaceholder')}
           />
-          <FieldHint>
-            Favorites have priority. On each tab, the Pursue option decides whether
-            the most-watched eligible channel can replace the current live.
-          </FieldHint>
+          <FieldHint>{t('form.favoritesHint')}</FieldHint>
         </div>
 
         <div className="space-y-1.5">
-          <FieldLabel optional>Blacklist</FieldLabel>
+          <FieldLabel optional>{t('form.blacklist')}</FieldLabel>
           <MultiCombobox
             value={blacklist}
             onValueChange={setBlacklist}
-            placeholder="Type or paste channel slugs to ignore..."
+            placeholder={t('form.blacklistPlaceholder')}
           />
-          <FieldHint>
-            These channels are never selected, even if they are favorites.
-          </FieldHint>
+          <FieldHint>{t('form.blacklistHint')}</FieldHint>
         </div>
       </div>
 
@@ -199,7 +192,7 @@ export function PresetFormScreen() {
             onClick={goBack}
             disabled={saving}
           >
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button
             type="submit"
@@ -207,7 +200,7 @@ export function PresetFormScreen() {
             disabled={saving}
           >
             {saving ? <Loader2 className="animate-spin" /> : <Save />}
-            {saving ? 'Saving...' : 'Save preset'}
+            {saving ? t('form.saving') : t('form.save')}
           </Button>
         </div>
       </div>

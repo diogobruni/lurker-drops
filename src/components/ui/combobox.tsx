@@ -10,6 +10,7 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { t } from '@/shared/i18n';
 import { cn } from '@/lib/utils';
 
 export interface ComboboxOption {
@@ -34,9 +35,9 @@ export function Combobox({
   value,
   onValueChange,
   options,
-  placeholder = 'Select an option',
-  searchPlaceholder = 'Search...',
-  emptyMessage = 'No results found.',
+  placeholder = t('combo.selectOption'),
+  searchPlaceholder = t('combo.search'),
+  emptyMessage = t('combo.noResults'),
   disabled = false,
   className,
   id,

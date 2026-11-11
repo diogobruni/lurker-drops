@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "Автоматически держит выбранные вкладки на стриме, подходящем под ваши фильтры Twitch."
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "Lässt ausgewählte Tabs automatisch ein Live ansehen, das zu deinen Twitch-Filtern passt."
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

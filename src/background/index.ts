@@ -1,3 +1,4 @@
+import { t } from '../shared/i18n';
 import { errorMessage } from '../shared/messages';
 import {
   getLurkerTabs,
@@ -18,9 +19,11 @@ import {
   evaluateAllEnabled,
   evaluateTab,
   invalidateEvaluation,
+  previewStreamForPreset,
   reconcilePresets,
 } from './engine';
 import { checkAllChatConnections } from './chat';
+import { consumeInternalNavigation } from './navigation';
 import { searchCategories } from './twitch';
 
 const ALARM_NAME = 'lurker-drops:tick';
@@ -85,7 +88,7 @@ async function startLurking(
 ): Promise<void> {
   await chrome.tabs.get(tabId);
   const preset = (await getPresets()).find((item) => item.id === presetId);
-  if (!preset) throw new Error('Choose a preset before starting the lurker.');
+  if (!preset) throw new Error(t('error.choosePreset'));
 
   await mutateLurkerTabs((tabs) => {
     const existing = tabs.find((tab) => tab.tabId === tabId);
@@ -125,13 +128,26 @@ async function startLurking(
   await evaluateTab(tabId);
 }
 
+async function startLurkingInNewTab(
+  presetId: string,
+  muted: boolean,
+  pursueMostWatched: boolean,
+): Promise<void> {
+  const preset = (await getPresets()).find((item) => item.id === presetId);
+  if (!preset) throw new Error(t('error.choosePreset'));
+
+  const tab = await chrome.tabs.create({ url: 'https://www.twitch.tv/' });
+  if (typeof tab.id !== 'number') throw new Error(t('error.tabNotManaged'));
+  await startLurking(tab.id, presetId, muted, pursueMostWatched);
+}
+
 async function setEnabled(tabId: number, enabled: boolean): Promise<void> {
   const record = (await getLurkerTabs()).find((tab) => tab.tabId === tabId);
-  if (!record) throw new Error('This tab is not managed by Lurker Drops.');
+  if (!record) throw new Error(t('error.tabNotManaged'));
 
   if (enabled) {
     const preset = (await getPresets()).find((item) => item.id === record.presetId);
-    if (!preset) throw new Error('Choose a preset before starting the lurker.');
+    if (!preset) throw new Error(t('error.choosePreset'));
     await updateLurkerTab(tabId, (tab) => ({
       ...tab,
       enabled: true,
@@ -155,9 +171,9 @@ async function setEnabled(tabId: number, enabled: boolean): Promise<void> {
 
 async function setPreset(tabId: number, presetId: string): Promise<void> {
   const preset = (await getPresets()).find((item) => item.id === presetId);
-  if (!preset) throw new Error('That preset no longer exists.');
+  if (!preset) throw new Error(t('error.presetMissing'));
   const record = (await getLurkerTabs()).find((tab) => tab.tabId === tabId);
-  if (!record) throw new Error('This tab is not managed by Lurker Drops.');
+  if (!record) throw new Error(t('error.tabNotManaged'));
 
   await updateLurkerTab(tabId, (tab) => ({
     ...tab,
@@ -180,7 +196,7 @@ async function setPursueMostWatched(
   pursueMostWatched: boolean,
 ): Promise<void> {
   const record = (await getLurkerTabs()).find((tab) => tab.tabId === tabId);
-  if (!record) throw new Error('This tab is not managed by Lurker Drops.');
+  if (!record) throw new Error(t('error.tabNotManaged'));
 
   await updateLurkerTab(tabId, (tab) => ({
     ...tab,
@@ -212,11 +228,21 @@ async function goToTab(tabId: number): Promise<void> {
   }
 }
 
-async function routeRequest(message: BackgroundRequest): Promise<unknown> {
+async function routeRequest(
+  message: BackgroundRequest,
+  sender: chrome.runtime.MessageSender,
+): Promise<unknown> {
   switch (message.type) {
     case 'lurker:start':
       await startLurking(
         message.tabId,
+        message.presetId,
+        message.muted,
+        message.pursueMostWatched,
+      );
+      return undefined;
+    case 'lurker:startInNewTab':
+      await startLurkingInNewTab(
         message.presetId,
         message.muted,
         message.pursueMostWatched,
@@ -250,20 +276,62 @@ async function routeRequest(message: BackgroundRequest): Promise<unknown> {
         await evaluateAllEnabled();
       }
       return undefined;
+    case 'lurker:previewStream':
+      return previewStreamForPreset(message.presetId);
+    case 'content:state': {
+      const tabId = sender.tab?.id;
+      const copy = {
+        title: t('overlay.title'),
+        subtitle: t('overlay.subtitle'),
+        disable: t('overlay.disable'),
+        turningOff: t('overlay.turningOff'),
+        dialogTitle: t('overlay.dialogTitle'),
+        dialogMessage: t('overlay.dialogMessage'),
+        cancel: t('common.cancel'),
+        confirm: t('overlay.confirm'),
+      };
+      if (typeof tabId !== 'number') return { tabId: null, enabled: false, copy };
+      const record = (await getLurkerTabs()).find((tab) => tab.tabId === tabId);
+      return { tabId, enabled: record?.enabled ?? false, copy };
+    }
+    case 'content:disable': {
+      const tabId = sender.tab?.id;
+      if (typeof tabId !== 'number') throw new Error(t('error.tabNotManaged'));
+      await setEnabled(tabId, false);
+      return undefined;
+    }
+    case 'content:leave': {
+      const tabId = sender.tab?.id;
+      if (typeof tabId !== 'number') return undefined;
+      if (consumeInternalNavigation(tabId)) return undefined;
+      const record = (await getLurkerTabs()).find((tab) => tab.tabId === tabId);
+      if (record?.enabled) await setEnabled(tabId, false);
+      return undefined;
+    }
     case 'twitch:categories': {
       const categories: TwitchCategory[] = await searchCategories(message.query ?? '');
       return categories;
     }
     default: {
       const exhaustive: never = message;
-      throw new Error(`Unknown request: ${String(exhaustive)}`);
+      throw new Error(
+        t('error.unknownRequest', { request: String(exhaustive) }),
+      );
     }
   }
 }
 
-async function handleRequest(message: BackgroundRequest): Promise<unknown> {
-  const data = await routeRequest(message);
-  if (message.type.startsWith('lurker:')) {
+async function handleRequest(
+  message: BackgroundRequest,
+  sender: chrome.runtime.MessageSender,
+): Promise<unknown> {
+  const data = await routeRequest(message, sender);
+  if (
+    (message.type.startsWith('lurker:') &&
+      message.type !== 'lurker:previewStream') ||
+    message.type === 'content:disable' ||
+    message.type === 'content:leave'
+  ) {
     await syncActionState();
   }
   return data;
@@ -286,11 +354,11 @@ chrome.runtime.onMessage.addListener(
     sendResponse: (response: BackgroundResponse<unknown>) => void,
   ) => {
     if (sender.id !== chrome.runtime.id) {
-      sendResponse({ ok: false, error: 'Unauthorized sender.' });
+      sendResponse({ ok: false, error: t('error.unauthorized') });
       return false;
     }
     ready
-      .then(() => handleRequest(message))
+      .then(() => handleRequest(message, sender))
       .then((data) => sendResponse({ ok: true, data }))
       .catch((error: unknown) =>
         sendResponse({ ok: false, error: errorMessage(error) }),

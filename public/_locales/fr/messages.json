@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Lurker Drops"
+  },
+  "extDescription": {
+    "message": "Gardez les onglets sélectionnés sur un direct correspondant à vos filtres Twitch, automatiquement."
+  },
+  "actionTitle": {
+    "message": "Lurker Drops"
+  }
+}

@@ -1,0 +1,208 @@
+import type { MessageKey } from './en';
+
+const messages = {
+  'app.name': 'Lurker Drops',
+  'app.loadErrorTitle': 'No se pudo cargar Lurker Drops',
+  'app.loading': 'Cargando tus lurkers...',
+  'app.backgroundUnavailable':
+    'El trabajador en segundo plano de Lurker Drops no respondió.',
+  'app.genericError': 'Algo salió mal.',
+
+  'common.cancel': 'Cancelar',
+  'common.optional': 'Opcional',
+  'common.anyCategory': 'Cualquier categoría',
+  'common.twitch': 'Twitch',
+  'common.on': 'Activado',
+  'common.off': 'Desactivado',
+  'common.expand': 'Expandir',
+  'common.collapse': 'Contraer',
+  'common.goBack': 'Volver',
+  'common.popOut': 'Abrir en ventana',
+  'common.browserTab': 'Pestaña del navegador',
+  'common.currentTab': 'Pestaña actual',
+  'common.viewers': '{count} espectadores',
+
+  'nav.tagline': 'Auto-lurker de Twitch',
+  'nav.presets': 'Preajustes',
+  'nav.presetsSubtitle': 'Gestiona tus filtros',
+  'nav.editPreset': 'Editar preajuste',
+  'nav.newPreset': 'Nuevo preajuste',
+  'nav.formSubtitle': 'Filtros del lurker',
+  'nav.newLurker': 'Nuevo lurker',
+  'nav.editLurker': 'Editar lurker',
+  'nav.lurkerSubtitle': 'Ajustes del lurker',
+  'nav.activeBadge': 'Activos: {count}',
+  'nav.activeTooltip': 'Pestañas en lurker: {count}',
+  'nav.idleTooltip': 'Lurker Drops está inactivo',
+
+  'main.lurkingTabs': 'Pestañas en lurker',
+  'main.addLurker': 'Añadir',
+  'main.livePreview': 'Vista previa de la live',
+  'main.noLivePreview': 'No hay ninguna live compatible ahora.',
+  'main.pausedCount': 'En pausa: {count}',
+  'main.noTabsTitle': 'Aún no hay pestañas en lurker',
+  'main.noTabsHint':
+    'Elige un preajuste abajo y activa el lurker para esta pestaña.',
+  'main.status': 'Estado',
+  'main.preset': 'Preajuste',
+  'main.noPresets': 'Aún no hay preajustes',
+  'main.selectPreset': 'Elige un preajuste',
+  'main.createPresetFirst': 'Crea un preajuste primero',
+  'main.searchPresets': 'Buscar preajustes...',
+  'main.noPresetMatches': 'Ningún preajuste coincide.',
+  'main.managePresets': 'Gestionar preajustes',
+  'main.createFirstPreset': 'Crea tu primer preajuste',
+  'main.muted': 'Silenciado',
+  'main.mutedHint':
+    'Silencia la pestaña del navegador, no solo el reproductor de Twitch.',
+  'main.pursue': 'Perseguir',
+  'main.pursueHint':
+    'Sigue el directo más visto que coincida con este preajuste. Si está desactivado, mantiene el directo actual mientras siga siendo válido.',
+  'main.turnOffLurker': 'Desactivar lurker',
+  'main.turnOnLurker': 'Activar lurker',
+  'main.footer':
+    'Lurker Drops consulta Twitch cada minuto mientras haya una pestaña en lurker activa.',
+
+  'status.paused': 'En pausa',
+  'overlay.title': 'Modo lurker',
+  'overlay.subtitle': 'Esta pestaña la gestiona Lurker Drops.',
+  'overlay.disable': 'Desactivar lurker',
+  'overlay.turningOff': 'Desactivando...',
+  'overlay.dialogTitle': '¿Salir del modo lurker?',
+  'overlay.dialogMessage': 'Esta pestaña está en modo lurker. Si continúas, se desactivará el lurker en esta pestaña.',
+  'overlay.confirm': 'Desactivar y continuar',
+  'status.pausedDetail': 'El lurker está desactivado para esta pestaña.',
+  'status.live': 'En directo',
+  'status.watchingStream': 'Viendo {channel} · {title}',
+  'status.watchingLive': 'Viendo un directo.',
+  'status.searching': 'Buscando',
+  'status.searchingDetail':
+    'Buscando en Twitch un directo que coincida con este preajuste...',
+  'status.waiting': 'Esperando',
+  'status.waitingDetail':
+    'No hay ningún directo compatible ahora. El lurker volverá a comprobar cada minuto.',
+  'status.error': 'Error',
+  'status.errorDetail': 'No se pudo conectar con Twitch.',
+  'status.idle': 'Inactivo',
+  'status.idleDetail': 'El lurker está listo.',
+  'status.off': 'Desactivado',
+
+  'row.presetLabel': 'Preajuste: {name}',
+  'row.presetRemoved': 'Preajuste eliminado',
+  'row.couldNotCheck': 'No se pudo comprobar Twitch',
+  'row.searchingMatch': 'Buscando un directo compatible',
+  'row.waitingMatch': 'Esperando un directo compatible',
+  'row.lurkerPaused': 'Lurker en pausa',
+  'row.goTo': 'Ir',
+  'row.goToTitle': 'Ir a la pestaña en lurker',
+  'row.mute': 'Silenciar',
+  'row.unmute': 'Activar sonido',
+  'row.muteTitle': 'Silenciar esta pestaña',
+  'row.unmuteTitle': 'Activar el sonido de esta pestaña',
+  'row.turnOn': 'Activar',
+  'row.turnOff': 'Desactivar',
+  'row.turnOnTitle': 'Activar el lurker en esta pestaña',
+  'row.turnOffTitle': 'Desactivar el lurker en esta pestaña',
+  'row.pursueOn': 'Perseguir sí',
+  'row.pursueOff': 'Perseguir no',
+  'row.pursueOnTitle': 'Perseguir la live más vista',
+  'row.pursueOffTitle': 'Mantener la live actual mientras sea válida',
+  'row.close': 'Cerrar',
+  'row.closeConfirm': '¿Cerrar esta pestaña? También se desactivará su lurker.',
+  'row.closeTitle': 'Cerrar esta pestaña y desactivar su lurker',
+  'row.edit': 'Editar',
+
+  'presets.saved': 'Preajustes guardados',
+  'presets.total': 'Total: {count}',
+  'presets.emptyTitle': 'Aún no hay preajustes',
+  'presets.emptyHint':
+    'Un preajuste indica al lurker qué categoría, título, canales favoritos y canales bloqueados de Twitch usar.',
+  'presets.edit': 'Editar preajuste',
+  'presets.delete': 'Eliminar preajuste',
+  'presets.titleContains': 'el título contiene «{filter}»',
+  'presets.anyTitle': 'cualquier título',
+  'presets.favoritesCount': 'Favoritos: {count}',
+  'presets.blockedCount': 'Bloqueados: {count}',
+  'presets.inUseCount': 'En uso: {count}',
+  'presets.deleteConfirm': '¿Eliminar {name}?',
+  'presets.deleteInUse':
+    'Las pestañas que lo usan se pausarán. Esto no se puede deshacer.',
+  'presets.deleteUnused': 'Esto no se puede deshacer.',
+  'presets.deleting': 'Eliminando...',
+  'presets.tip':
+    'Los favoritos se comprueban primero; la lista negra siempre gana. Usa Perseguir en cada pestaña para buscar el directo más visto.',
+
+  'form.name': 'Nombre',
+  'form.namePlaceholder': 'p. ej. Drops mientras trabajo',
+  'form.nameHint': 'Un nombre corto para reconocer este preajuste.',
+  'form.nameRequired': 'Dale un nombre a este preajuste.',
+  'form.category': 'Categoría de Twitch',
+  'form.categoryHint':
+    'Busca en Twitch o escribe una categoría manualmente. Déjalo vacío para permitir cualquier categoría.',
+  'form.titleFilter': 'Filtro de título',
+  'form.titleFilterPlaceholder': 'p. ej. drops, ranked, sin comentarios',
+  'form.titleFilterHint':
+    'Solo son elegibles los directos cuyo título contiene este texto. No distingue mayúsculas.',
+  'form.favorites': 'Favoritos',
+  'form.favoritesPlaceholder': 'Escribe o pega slugs de canales...',
+  'form.favoritesHint':
+    'Los favoritos tienen prioridad. En cada pestaña, la opción Perseguir decide si el canal elegible más visto puede sustituir al directo actual.',
+  'form.blacklist': 'Lista negra',
+  'form.blacklistPlaceholder':
+    'Escribe o pega slugs de canales a ignorar...',
+  'form.blacklistHint':
+    'Estos canales nunca se seleccionan, aunque sean favoritos.',
+  'form.save': 'Guardar preajuste',
+  'form.saveLurker': 'Guardar lurker',
+  'form.newTab': 'Nueva pestaña',
+  'form.newTabHint': 'Abrir una nueva pestaña e iniciar este lurker en ella.',
+  'form.saving': 'Guardando...',
+
+  'category.searchPlaceholder': 'Buscar categorías de Twitch...',
+  'category.searching': 'Buscando en Twitch...',
+  'category.none':
+    'No se encontraron categorías. Escribe un nombre para usarlo manualmente.',
+  'category.use': 'Usar «{name}»',
+  'category.footer':
+    'Las categorías vienen de Twitch. Se permiten nombres personalizados.',
+
+  'multi.defaultPlaceholder': 'Escribe un slug de canal de Twitch',
+  'multi.searchPlaceholder': 'Busca o escribe un slug de canal...',
+  'multi.priorityOrder': 'Orden de prioridad',
+  'multi.selected': 'Seleccionados',
+  'multi.remove': 'Quitar {channel}',
+  'multi.moveUp': 'Subir {channel}',
+  'multi.moveDown': 'Bajar {channel}',
+  'multi.alreadyAdded': '@{channel} ya está añadido',
+  'multi.add': 'Añadir @{channel}',
+  'multi.footerReorder':
+    'Los favoritos tienen prioridad. El orden se usa cuando Perseguir está desactivado o para desempatar por espectadores.',
+  'multi.footerAdd': 'Usa comas para añadir varios canales a la vez.',
+  'multi.typeOrPaste':
+    'Escribe un slug de canal o pega una URL de Twitch.',
+
+  'combo.selectOption': 'Elige una opción',
+  'combo.search': 'Buscar...',
+  'combo.noResults': 'No se encontraron resultados.',
+
+  'error.choosePreset':
+    'Elige un preajuste antes de activar el lurker.',
+  'error.tabNotManaged': 'Lurker Drops no gestiona esta pestaña.',
+  'error.presetMissing': 'Ese preajuste ya no existe.',
+  'error.unknownRequest': 'Solicitud desconocida: {request}',
+  'error.unauthorized': 'Remitente no autorizado.',
+  'error.couldNotOpenChannel': 'No se pudo abrir {channel}: {error}',
+  'error.presetNoLongerExists': 'El preajuste ya no existe.',
+  'error.presetRemoved':
+    'Se eliminó el preajuste que usaba esta pestaña.',
+
+  'twitch.timeout': 'Twitch tardó demasiado en responder.',
+  'twitch.unreachable':
+    'No se pudo conectar con Twitch. Comprueba tu conexión.',
+  'twitch.rateLimited':
+    'Twitch está limitando las solicitudes. Inténtalo de nuevo en un minuto.',
+  'twitch.httpError': 'La API de Twitch devolvió HTTP {status}.',
+  'twitch.empty': 'La API de Twitch devolvió una respuesta vacía.',
+} satisfies Record<MessageKey, string>;
+
+export default messages;

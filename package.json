@@ -1,14 +1,14 @@
 {
   "name": "lurker-drops",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "Chrome extension that keeps selected tabs watching a matching Twitch live.",
   "scripts": {
     "dev": "vite",
     "build": "npm run typecheck && vite build && npm run build:background && npm run build:content",
     "build:background": "esbuild src/background/index.ts --bundle --format=esm --target=chrome116 --outfile=dist/background.js",
-    "build:content": "esbuild src/content/chat-hook.ts --bundle --format=iife --target=chrome116 --outfile=dist/chat-hook.js && esbuild src/content/chat-monitor.ts --bundle --format=iife --target=chrome116 --outfile=dist/chat-monitor.js",
+    "build:content": "esbuild src/content/chat-hook.ts --bundle --format=iife --target=chrome116 --outfile=dist/chat-hook.js && esbuild src/content/chat-monitor.ts --bundle --format=iife --target=chrome116 --outfile=dist/chat-monitor.js && esbuild src/content/lurker-overlay.ts --bundle --format=iife --target=chrome116 --outfile=dist/lurker-overlay.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
@@ -16,6 +16,7 @@
     "@radix-ui/react-checkbox": "^1.1.4",
     "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-slot": "^1.5.0",
+    "@radix-ui/react-tooltip": "^1.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

@@ -9,6 +9,7 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { t } from '@/shared/i18n';
 import { errorMessage, sendMessage } from '@/shared/messages';
 import type { TwitchCategory } from '@/shared/types';
 import { cn } from '@/lib/utils';
@@ -114,7 +115,9 @@ export function CategoryCombobox({
             !value && 'text-muted-foreground',
           )}
         >
-          <span className="truncate">{value?.displayName ?? 'Any category'}</span>
+          <span className="truncate">
+            {value?.displayName ?? t('common.anyCategory')}
+          </span>
           <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
         </button>
       </PopoverTrigger>
@@ -124,7 +127,7 @@ export function CategoryCombobox({
       >
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder="Search Twitch categories..."
+            placeholder={t('category.searchPlaceholder')}
             value={search}
             onValueChange={setSearch}
             autoFocus
@@ -133,7 +136,7 @@ export function CategoryCombobox({
             {loading && (
               <div className="flex items-center justify-center gap-2 py-6 text-xs text-muted-foreground">
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                Searching Twitch...
+                {t('category.searching')}
               </div>
             )}
             {!loading && error && (
@@ -144,7 +147,7 @@ export function CategoryCombobox({
             )}
             {!loading && !error && options.length === 0 && (
               <div className="px-3 py-4 text-center text-xs text-muted-foreground">
-                No categories found. Type a name to use it manually.
+                {t('category.none')}
               </div>
             )}
             <CommandGroup>
@@ -153,7 +156,7 @@ export function CategoryCombobox({
                   <Check
                     className={cn('h-4 w-4', value ? 'opacity-0' : 'opacity-100')}
                   />
-                  <span>Any category</span>
+                  <span>{t('common.anyCategory')}</span>
                 </CommandItem>
               )}
               {options.map((category) => {
@@ -181,16 +184,14 @@ export function CategoryCombobox({
                   className="text-primary"
                 >
                   <PenLine className="h-4 w-4" />
-                  <span>
-                    Use <span className="font-medium">“{trimmedSearch}”</span>
-                  </span>
+                  <span>{t('category.use', { name: trimmedSearch })}</span>
                 </CommandItem>
               )}
             </CommandGroup>
           </CommandList>
         </Command>
         <div className="border-t border-border px-3 py-2 text-[10px] text-muted-foreground">
-          Categories come from Twitch. Custom names are allowed.
+          {t('category.footer')}
         </div>
       </PopoverContent>
     </Popover>
