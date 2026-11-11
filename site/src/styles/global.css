@@ -11,6 +11,8 @@
   --color-brand: #a855f7;
   --color-brand-strong: #8b5cf6;
   --color-brand-soft: #c084fc;
+  --color-brand-solid: #7c3aed;
+  --color-brand-solid-hover: #6d28d9;
   --color-live: #22c55e;
 
   --animate-float: float 7s ease-in-out infinite;
