@@ -95,3 +95,7 @@ Sections are ordered oldest to newest; unreleased work goes last.
 ### Added
 
 - Product website built with Astro, TypeScript, and Tailwind CSS, with English, Brazilian Portuguese, and Spanish pages, SEO metadata, and install buttons pointing to the latest GitHub release.
+
+### Changed
+
+- The product site hero now uses a rendered app image instead of the CSS mockup.

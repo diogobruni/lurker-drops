@@ -31,31 +31,8 @@ export const es: Dictionary = {
     primaryNote: 'Gratis · Sin cuenta · Un minuto para configurar',
     secondaryCta: 'Ver cómo funciona',
     trust: ['Chrome 116 o superior', 'Se ejecuta en tu equipo', 'Código abierto', 'Sin registro'],
-    mock: {
-      appName: 'Lurker Drops',
-      appSubtitle: 'Auto-lurker para Twitch',
-      active: '2 activos',
-      add: 'Añadir',
-      tabs: 'Pestañas en lurker',
-      presetLabel: 'Ajuste',
-      rows: [
-        {
-          channel: 'PixelPaws',
-          category: 'Just Chatting',
-          viewers: '3,4 mil viendo',
-          preset: 'Tranquilo',
-        },
-        {
-          channel: 'MoonlitMage',
-          category: 'Tibia',
-          viewers: '311 viendo',
-          preset: 'Silencio',
-        },
-      ],
-      footer: 'Revisa Twitch cada minuto mientras haya un lurker activo.',
-      live: 'En vivo',
-      muted: 'Silenciado',
-    },
+    imageAlt:
+      'Popup de Lurker Drops con dos pestañas en lurker viendo un directo de Twitch, cada una con su ajuste y número de espectadores.',
   },
   features: {
     eyebrow: 'Qué hace',

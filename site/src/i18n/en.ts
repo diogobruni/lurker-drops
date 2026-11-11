@@ -29,31 +29,8 @@ export const en = {
     primaryNote: 'Free · No account · About a minute to set up',
     secondaryCta: 'See how it works',
     trust: ['Chrome 116 or newer', 'Runs on your computer', 'Open source', 'No sign-up'],
-    mock: {
-      appName: 'Lurker Drops',
-      appSubtitle: 'Auto-lurker for Twitch',
-      active: '2 active',
-      add: 'Add',
-      tabs: 'Lurking Tabs',
-      presetLabel: 'Preset',
-      rows: [
-        {
-          channel: 'PixelPaws',
-          category: 'Just Chatting',
-          viewers: '3.4K watching',
-          preset: 'Cozy',
-        },
-        {
-          channel: 'MoonlitMage',
-          category: 'Tibia',
-          viewers: '311 watching',
-          preset: 'Quiet',
-        },
-      ],
-      footer: 'Checks Twitch once a minute while a lurker is on.',
-      live: 'Live',
-      muted: 'Muted',
-    },
+    imageAlt:
+      'Lurker Drops popup showing two tabs lurking a Twitch live, each with its preset and viewer count.',
   },
   features: {
     eyebrow: 'What it does',

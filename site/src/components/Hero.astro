@@ -1,16 +1,7 @@
 ---
-import {
-  ArrowRight,
-  Check,
-  Download,
-  Gamepad2,
-  MessageCircle,
-  Plus,
-  Power,
-  Sparkles,
-  Tag,
-  VolumeX,
-} from '@lucide/astro';
+import { Image } from 'astro:assets';
+import { ArrowRight, Check, Download, Sparkles } from '@lucide/astro';
+import heroImage from '../assets/hero-image.png';
 import { DOWNLOAD_URL } from '../i18n';
 import type { Dictionary } from '../i18n/en';
 
@@ -19,7 +10,6 @@ interface Props {
 }
 
 const { dict } = Astro.props;
-const rowIcons = [Gamepad2, MessageCircle];
 ---
 
 <section class="relative overflow-hidden">
@@ -92,96 +82,18 @@ const rowIcons = [Gamepad2, MessageCircle];
       </ul>
     </div>
 
-    <div class="relative mx-auto w-full min-w-0 max-w-md lg:mx-0 lg:justify-self-end">
-      <div class="absolute -inset-8 rounded-[2.5rem] bg-brand/20 blur-3xl" aria-hidden="true">
-      </div>
-
-      <div class="relative animate-float" aria-hidden="true">
-        <div
-          class="overflow-hidden rounded-2xl border border-white/10 bg-surface shadow-2xl shadow-black/70"
-        >
-          <div class="flex items-center gap-2.5 border-b border-white/5 bg-white/[0.02] px-4 py-3">
-            <div
-              class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-brand to-brand-strong text-white"
-            >
-              <Sparkles size={15} aria-hidden="true" />
-            </div>
-            <div class="min-w-0">
-              <p class="truncate text-xs font-semibold text-white">{dict.hero.mock.appName}</p>
-              <p class="truncate text-[10px] text-zinc-400">{dict.hero.mock.appSubtitle}</p>
-            </div>
-            <span
-              class="ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full bg-live/10 px-2 py-1 text-[10px] font-medium text-live"
-            >
-              <span class="size-1.5 animate-pulse-dot rounded-full bg-live"></span>
-              {dict.hero.mock.active}
-            </span>
-          </div>
-
-          <div class="space-y-2 p-3">
-            <div class="flex items-center justify-between px-1 pb-0.5">
-              <span class="text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-400">
-                {dict.hero.mock.tabs}
-              </span>
-              <span
-                class="inline-flex items-center gap-1 rounded-md bg-brand-solid px-2 py-1 text-[10px] font-semibold text-white"
-              >
-                <Plus size={10} aria-hidden="true" />
-                {dict.hero.mock.add}
-              </span>
-            </div>
-
-            {
-              dict.hero.mock.rows.map((row, index) => {
-                const RowIcon = rowIcons[index % rowIcons.length];
-                return (
-                  <div class="rounded-xl border border-white/5 bg-white/[0.03] p-3">
-                    <div class="flex items-start gap-2.5">
-                      <div class="grid size-10 shrink-0 place-items-center rounded-lg border border-white/5 bg-gradient-to-br from-brand/30 to-surface-2">
-                        <RowIcon size={16} class="text-brand-soft" aria-hidden="true" />
-                      </div>
-                      <div class="min-w-0 flex-1">
-                        <p class="truncate text-[11px] font-semibold text-white">{row.channel}</p>
-                        <p class="truncate text-[10px] text-zinc-400">
-                          {row.category} · {row.viewers}
-                        </p>
-                        <span class="mt-1.5 inline-flex items-center gap-1 rounded-md bg-white/5 px-1.5 py-0.5 text-[9px] text-zinc-400">
-                          <Tag size={9} aria-hidden="true" />
-                          {dict.hero.mock.presetLabel}: {row.preset}
-                        </span>
-                      </div>
-                      <div class="flex flex-col items-center gap-1.5">
-                        <span class="rounded-md bg-live/10 p-1.5">
-                          <Power size={11} class="text-live" aria-hidden="true" />
-                        </span>
-                        <VolumeX size={10} class="text-zinc-400" aria-hidden="true" />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            }
-          </div>
-
-          <p class="border-t border-white/5 px-4 py-3 text-[10px] leading-relaxed text-zinc-400">
-            {dict.hero.mock.footer}
-          </p>
-        </div>
-
-        <div
-          class="absolute -right-3 top-16 hidden rotate-3 items-center gap-1.5 rounded-lg border border-white/10 bg-surface-2 px-2.5 py-1.5 text-[10px] font-medium text-zinc-300 shadow-xl shadow-black/50 sm:flex"
-        >
-          <VolumeX size={11} aria-hidden="true" />
-          {dict.hero.mock.muted}
-        </div>
-
-        <div
-          class="absolute -left-4 bottom-14 hidden -rotate-3 items-center gap-1.5 rounded-lg border border-live/20 bg-surface-2 px-2.5 py-1.5 text-[10px] font-medium text-live shadow-xl shadow-black/50 sm:flex"
-        >
-          <span class="size-1.5 rounded-full bg-live"></span>
-          {dict.hero.mock.live}
-        </div>
-      </div>
+    <div class="relative mx-auto w-full min-w-0 max-w-lg lg:mx-0 lg:justify-self-end">
+      <div class="absolute inset-4 rounded-full bg-brand/25 blur-3xl" aria-hidden="true"></div>
+      <Image
+        src={heroImage}
+        alt={dict.hero.imageAlt}
+        widths={[448, 720, 1000]}
+        sizes="(min-width: 1024px) 32rem, 90vw"
+        format="webp"
+        quality={82}
+        priority
+        class="relative h-auto w-full"
+      />
     </div>
   </div>
 </section>
