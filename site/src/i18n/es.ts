@@ -94,15 +94,15 @@ export const es: Dictionary = {
     steps: [
       {
         title: 'Descarga el ZIP',
-        text: 'El botón de arriba siempre descarga la versión más reciente de GitHub.',
+        text: 'El botón de arriba siempre descarga la versión más reciente de GitHub. Mantén el archivo ZIP tal como está.',
       },
       {
-        title: 'Descomprime la carpeta',
-        text: 'Obtienes una carpeta llamada lurker-drops. Dentro hay un archivo manifest.json.',
+        title: 'Abre la página de extensiones y activa el Modo de desarrollador',
+        text: 'Usa chrome://extensions en Chrome y Brave, edge://extensions en Edge u opera://extensions en Opera. El interruptor está en la esquina superior derecha.',
       },
       {
-        title: 'Abre la página de extensiones del navegador',
-        text: 'En Chrome y Brave usa chrome://extensions, en Edge usa edge://extensions y en Opera usa opera://extensions. Activa el Modo de desarrollador, pulsa Cargar descomprimida y elige la carpeta que acabas de descomprimir.',
+        title: 'Arrastra el ZIP a la página',
+        text: 'Suelta el archivo descargado en cualquier parte de la página de extensiones y confirma para añadir la extensión. No hace falta descomprimir.',
       },
       {
         title: 'Fija y pulsa Activar',
@@ -111,6 +111,29 @@ export const es: Dictionary = {
     ],
     note: 'Funciona en Chrome, Edge, Opera y Brave de escritorio. El Modo de desarrollador es cómo los navegadores Chromium instalan extensiones que aún no están en una tienda.',
     cta: 'Descargar la última versión',
+    fallback: {
+      prompt: '¿No funcionó?',
+      linkLabel: 'Descomprime el ZIP y cárgalo manualmente.',
+      title: 'Instalación manual',
+      steps: [
+        {
+          title: 'Descomprime la carpeta',
+          text: 'Obtienes una carpeta llamada lurker-drops con un archivo manifest.json dentro.',
+        },
+        {
+          title: 'Abre la página de extensiones y activa el Modo de desarrollador',
+          text: 'Usa chrome://extensions en Chrome y Brave, edge://extensions en Edge u opera://extensions en Opera.',
+        },
+        {
+          title: 'Cargar descomprimida',
+          text: 'Pulsa Cargar descomprimida y elige la carpeta que acabas de descomprimir.',
+        },
+        {
+          title: 'Fija y pulsa Activar',
+          text: 'Fija Lurker Drops, abre el popup y pulsa Activar.',
+        },
+      ],
+    },
   },
   faq: {
     eyebrow: 'Preguntas',

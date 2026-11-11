@@ -101,3 +101,4 @@ Sections are ordered oldest to newest; unreleased work goes last.
 - The product site hero now uses a rendered app image instead of the CSS mockup.
 - The hero image is about 10% larger on desktop and floats with a subtle 6px animation.
 - The site states compatibility with Chrome, Edge, Opera, Brave, and other Chromium-based browsers, without a minimum version.
+- Install instructions now default to dragging the release ZIP onto the browser extensions page, with the unpacked method kept as a manual fallback.

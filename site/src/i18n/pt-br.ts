@@ -94,15 +94,15 @@ export const ptBR: Dictionary = {
     steps: [
       {
         title: 'Baixe o ZIP',
-        text: 'O botão acima sempre baixa o release mais novo do GitHub.',
+        text: 'O botão acima sempre baixa o release mais novo do GitHub. Mantenha o arquivo ZIP como está.',
       },
       {
-        title: 'Descompacte a pasta',
-        text: 'Você recebe uma pasta chamada lurker-drops. Dentro dela há um arquivo manifest.json.',
+        title: 'Abra a página de extensões e ligue o Modo desenvolvedor',
+        text: 'Use chrome://extensions no Chrome e no Brave, edge://extensions no Edge ou opera://extensions no Opera. O interruptor fica no canto superior direito.',
       },
       {
-        title: 'Abra a página de extensões do navegador',
-        text: 'No Chrome e no Brave use chrome://extensions, no Edge use edge://extensions e no Opera use opera://extensions. Ligue o Modo desenvolvedor, clique em Carregar sem compactação e escolha a pasta que você descompactou.',
+        title: 'Arraste o ZIP para a página',
+        text: 'Solte o arquivo baixado em qualquer lugar da página de extensões e confirme para adicionar a extensão. Não precisa descompactar.',
       },
       {
         title: 'Fixe e aperte Ligar',
@@ -111,6 +111,29 @@ export const ptBR: Dictionary = {
     ],
     note: 'Funciona no Chrome, Edge, Opera e Brave para desktop. O Modo desenvolvedor é como navegadores Chromium instalam extensões que ainda não estão em uma loja.',
     cta: 'Baixar o release mais recente',
+    fallback: {
+      prompt: 'Não funcionou?',
+      linkLabel: 'Descompacte o ZIP e carregue manualmente.',
+      title: 'Instalação manual',
+      steps: [
+        {
+          title: 'Descompacte a pasta',
+          text: 'Você recebe uma pasta chamada lurker-drops com um arquivo manifest.json dentro.',
+        },
+        {
+          title: 'Abra a página de extensões e ligue o Modo desenvolvedor',
+          text: 'Use chrome://extensions no Chrome e no Brave, edge://extensions no Edge ou opera://extensions no Opera.',
+        },
+        {
+          title: 'Carregue sem compactação',
+          text: 'Clique em Carregar sem compactação e escolha a pasta que você acabou de descompactar.',
+        },
+        {
+          title: 'Fixe e aperte Ligar',
+          text: 'Fixe o Lurker Drops, abra o popup e aperte Ligar.',
+        },
+      ],
+    },
   },
   faq: {
     eyebrow: 'Dúvidas',

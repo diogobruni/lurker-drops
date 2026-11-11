@@ -92,15 +92,15 @@ export const en = {
     steps: [
       {
         title: 'Download the ZIP',
-        text: 'The button above always downloads the newest release from GitHub.',
+        text: 'The button above always downloads the newest release from GitHub. Keep the ZIP file as it is.',
       },
       {
-        title: 'Unzip the folder',
-        text: 'You get a folder named lurker-drops. Inside it there is a file called manifest.json.',
+        title: 'Open the extensions page and turn on Developer mode',
+        text: 'Use chrome://extensions on Chrome and Brave, edge://extensions on Edge, or opera://extensions on Opera. The Developer mode switch is in the top-right corner.',
       },
       {
-        title: "Open your browser's extensions page",
-        text: 'For Chrome and Brave use chrome://extensions, for Edge use edge://extensions, and for Opera use opera://extensions. Turn on Developer mode, click Load unpacked, and choose the folder you just unzipped.',
+        title: 'Drag the ZIP onto the page',
+        text: 'Drop the downloaded ZIP anywhere on the extensions page and confirm to add the extension. There is no need to unzip.',
       },
       {
         title: 'Pin and press On',
@@ -109,6 +109,29 @@ export const en = {
     ],
     note: 'Works on desktop Chrome, Edge, Opera, and Brave. Developer mode is how Chromium browsers install extensions that are not in a store yet.',
     cta: 'Download the latest release',
+    fallback: {
+      prompt: 'Did dragging not work?',
+      linkLabel: 'Unzip the ZIP and load it manually.',
+      title: 'Manual install',
+      steps: [
+        {
+          title: 'Unzip the folder',
+          text: 'You get a folder named lurker-drops with a manifest.json file inside.',
+        },
+        {
+          title: 'Open the extensions page and turn on Developer mode',
+          text: 'Use chrome://extensions on Chrome and Brave, edge://extensions on Edge, or opera://extensions on Opera.',
+        },
+        {
+          title: 'Load unpacked',
+          text: 'Click Load unpacked and choose the folder you just unzipped.',
+        },
+        {
+          title: 'Pin and press On',
+          text: 'Pin Lurker Drops, open the popup, and press On.',
+        },
+      ],
+    },
   },
   faq: {
     eyebrow: 'Questions',
