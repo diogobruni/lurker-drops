@@ -316,10 +316,6 @@ export function MainScreen() {
     return () => window.clearTimeout(timer);
   }, [actionError]);
 
-  const sortedTabs = [...lurkingTabs].sort(
-    (a, b) => Number(b.enabled) - Number(a.enabled),
-  );
-
   async function handleTabAction(key: string, action: () => Promise<unknown>) {
     setPendingKey(key);
     setActionError(null);
@@ -380,7 +376,7 @@ export function MainScreen() {
         </div>
 
         <div className="space-y-2">
-          {sortedTabs.length === 0 && (
+          {lurkingTabs.length === 0 && (
             <div className="rounded-xl border border-dashed border-border/80 bg-background/30 px-4 py-6 text-center">
               <Tv className="mx-auto h-5 w-5 text-muted-foreground/60" />
               <p className="mt-2 text-xs font-medium">{t('main.noTabsTitle')}</p>
@@ -389,7 +385,7 @@ export function MainScreen() {
               </p>
             </div>
           )}
-          {sortedTabs.map((record) => (
+          {lurkingTabs.map((record) => (
             <LurkingRow
               key={record.tabId}
               record={record}

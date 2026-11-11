@@ -78,4 +78,10 @@ Sections are ordered oldest to newest; unreleased work goes last.
 
 - Lurking tab rows now always show the assigned preset name, including while a live is being watched.
 
+## [1.4.0] - 2026-11-10
+
+### Changed
+
+- Lurking tabs now always appear in creation order, regardless of whether they are active or paused.
+
 ## [Unreleased]
