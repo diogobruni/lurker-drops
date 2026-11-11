@@ -84,4 +84,10 @@ Sections are ordered oldest to newest; unreleased work goes last.
 
 - Lurking tabs now always appear in creation order, regardless of whether they are active or paused.
 
+## [1.5.0] - 2026-11-10
+
+### Added
+
+- Modern About screen with the app name, current manifest version, and author Geox, reachable from the navbar and returning to the previous screen.
+
 ## [Unreleased]

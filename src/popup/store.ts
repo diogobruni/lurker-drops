@@ -17,7 +17,7 @@ import {
   type LurkerTab,
 } from '@/shared/types';
 
-export type Screen = 'main' | 'presets' | 'preset-form' | 'lurker-form';
+export type Screen = 'main' | 'presets' | 'preset-form' | 'lurker-form' | 'about';
 
 export interface ActiveTabInfo {
   id: number;
@@ -30,6 +30,7 @@ interface AppStore {
   hydrated: boolean;
   screen: Screen;
   presetsOrigin: 'main' | 'lurker-form';
+  aboutOrigin: Exclude<Screen, 'about'>;
   editingPresetId: string | null;
   lurkerFormTabId: number | null;
   presets: Preset[];
@@ -38,6 +39,7 @@ interface AppStore {
   load: () => Promise<void>;
   goToMain: () => void;
   goToPresets: () => void;
+  goToAbout: () => void;
   openLurkerForm: (tabId?: number) => void;
   openPresetForm: (presetId?: string) => void;
   goBack: () => void;
@@ -166,6 +168,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
   hydrated: false,
   screen: 'main',
   presetsOrigin: 'main',
+  aboutOrigin: 'main',
   editingPresetId: null,
   lurkerFormTabId: null,
   presets: [],
@@ -199,6 +202,12 @@ export const useAppStore = create<AppStore>((set, get) => ({
       editingPresetId: null,
       presetsOrigin: state.screen === 'lurker-form' ? 'lurker-form' : 'main',
     })),
+  goToAbout: () =>
+    set((state) => ({
+      screen: 'about',
+      aboutOrigin:
+        state.screen === 'about' ? state.aboutOrigin : state.screen,
+    })),
   openLurkerForm: (tabId) =>
     set({
       screen: 'lurker-form',
@@ -215,6 +224,8 @@ export const useAppStore = create<AppStore>((set, get) => ({
       set({ screen: get().presetsOrigin, editingPresetId: null });
     } else if (screen === 'lurker-form') {
       set({ screen: 'main', editingPresetId: null });
+    } else if (screen === 'about') {
+      set({ screen: get().aboutOrigin, editingPresetId: null });
     }
   },
 

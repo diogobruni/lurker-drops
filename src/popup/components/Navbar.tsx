@@ -1,4 +1,4 @@
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Info } from 'lucide-react';
 import * as React from 'react';
 
 import logoUrl from '@/assets/logo-128.png';
@@ -61,6 +61,7 @@ export function Navbar() {
   const editingPresetId = useAppStore((state) => state.editingPresetId);
   const goBack = useAppStore((state) => state.goBack);
   const goToMain = useAppStore((state) => state.goToMain);
+  const goToAbout = useAppStore((state) => state.goToAbout);
   const lurkerFormTabId = useAppStore((state) => state.lurkerFormTabId);
   const activeCount = useAppStore(
     (state) => state.lurkingTabs.filter((tab) => tab.enabled).length,
@@ -82,21 +83,25 @@ export function Navbar() {
       ? t('app.name')
       : screen === 'presets'
         ? t('nav.presets')
-        : screen === 'lurker-form'
-          ? lurkerFormTabId !== null
-            ? t('nav.editLurker')
-            : t('nav.newLurker')
-          : editingPresetId
-            ? t('nav.editPreset')
-            : t('nav.newPreset');
+        : screen === 'about'
+          ? t('nav.about')
+          : screen === 'lurker-form'
+            ? lurkerFormTabId !== null
+              ? t('nav.editLurker')
+              : t('nav.newLurker')
+            : editingPresetId
+              ? t('nav.editPreset')
+              : t('nav.newPreset');
   const subtitle =
     screen === 'main'
       ? t('nav.tagline')
       : screen === 'presets'
         ? t('nav.presetsSubtitle')
-        : screen === 'lurker-form'
-          ? t('nav.lurkerSubtitle')
-          : t('nav.formSubtitle');
+        : screen === 'about'
+          ? t('nav.aboutSubtitle')
+          : screen === 'lurker-form'
+            ? t('nav.lurkerSubtitle')
+            : t('nav.formSubtitle');
 
   return (
     <header className="flex h-14 shrink-0 items-center gap-2 border-b border-border/70 bg-background/80 px-3 backdrop-blur">
@@ -132,6 +137,22 @@ export function Navbar() {
       </div>
 
       <StatusPill activeCount={activeCount} onSelect={goToMain} />
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            onClick={goToAbout}
+            aria-label={t('nav.about')}
+            className="shrink-0 text-muted-foreground hover:text-foreground"
+          >
+            <Info className="h-4 w-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>{t('nav.about')}</TooltipContent>
+      </Tooltip>
 
       {!IS_POPOUT && (
         <Tooltip>

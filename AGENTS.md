@@ -1,5 +1,7 @@
 # Project Instructions
 
+Prefer pnpm over npm for all project commands. Fall back to npm only if pnpm is unavailable.
+
 ## Changelog
 
 - `CHANGELOG.md` at the repository root is the internal changelog. It must be written in English only.
@@ -13,7 +15,12 @@
 - After implementing new features, behavior changes, or fixes, always ask the user whether they want a version bump before changing any version.
 - Follow semantic versioning: patch for fixes only, minor for backward-compatible features, major for breaking changes.
 - Keep the version in sync in `package.json`, `package-lock.json`, and `public/manifest.json`.
-- Suggested flow: `npm version <version> --no-git-tag-version`, then update `public/manifest.json`.
-- Run `npm run typecheck`, `npm test`, and `npm run build` after bumping and before committing.
+- Suggested flow: `pnpm version <version> --no-git-tag-version`, then update `public/manifest.json`.
+- Run `pnpm run typecheck`, `pnpm test`, and `pnpm run build` after bumping and before committing.
 - Every version bump must be followed by a commit. If the related changes are still uncommitted, commit the code, changelog, and version files together right after the bump.
 - Mention the released version in the commit message, for example `chore: release v1.2.0`.
+
+## Build
+
+- Run `pnpm run build` automatically when finishing any change that affects the extension output: popup, background worker, content scripts, manifest, assets, dependencies, or a version bump.
+- Do not ask for confirmation before building; run it as the final verification step of the task.

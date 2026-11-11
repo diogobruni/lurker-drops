@@ -6,6 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { t } from '@/shared/i18n';
 import { errorMessage } from '@/shared/messages';
 import { Navbar } from '@/popup/components/Navbar';
+import { AboutScreen } from '@/popup/screens/AboutScreen';
 import { MainScreen } from '@/popup/screens/MainScreen';
 import { LurkerFormScreen } from '@/popup/screens/LurkerFormScreen';
 import { PresetFormScreen } from '@/popup/screens/PresetFormScreen';
@@ -73,6 +74,7 @@ export default function App() {
                 {screen === 'presets' && <PresetsScreen />}
                 {screen === 'preset-form' && <PresetFormScreen />}
                 {screen === 'lurker-form' && <LurkerFormScreen />}
+                {screen === 'about' && <AboutScreen />}
               </div>
             </div>
           </>
