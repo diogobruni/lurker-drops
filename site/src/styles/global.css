@@ -15,7 +15,7 @@
   --color-brand-solid-hover: #6d28d9;
   --color-live: #22c55e;
 
-  --animate-float: float 7s ease-in-out infinite;
+  --animate-float: float 8s ease-in-out infinite;
   --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
 
   @keyframes float {
@@ -24,7 +24,7 @@
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translateY(-6px);
     }
   }
 

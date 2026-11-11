@@ -99,3 +99,4 @@ Sections are ordered oldest to newest; unreleased work goes last.
 ### Changed
 
 - The product site hero now uses a rendered app image instead of the CSS mockup.
+- The hero image is about 10% larger on desktop and floats with a subtle 6px animation.

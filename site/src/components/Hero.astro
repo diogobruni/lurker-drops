@@ -25,7 +25,7 @@ const { dict } = Astro.props;
   </div>
 
   <div
-    class="mx-auto grid max-w-6xl gap-14 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-12 lg:pb-28 lg:pt-24"
+    class="mx-auto grid max-w-6xl gap-14 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1fr_1.12fr] lg:items-center lg:gap-12 lg:pb-28 lg:pt-24"
   >
     <div class="min-w-0">
       <p
@@ -82,17 +82,17 @@ const { dict } = Astro.props;
       </ul>
     </div>
 
-    <div class="relative mx-auto w-full min-w-0 max-w-lg lg:mx-0 lg:justify-self-end">
+    <div class="relative mx-auto w-full min-w-0 max-w-[35rem] lg:mx-0 lg:justify-self-end">
       <div class="absolute inset-4 rounded-full bg-brand/25 blur-3xl" aria-hidden="true"></div>
       <Image
         src={heroImage}
         alt={dict.hero.imageAlt}
         widths={[448, 720, 1000]}
-        sizes="(min-width: 1024px) 32rem, 90vw"
+        sizes="(min-width: 1024px) 35rem, 90vw"
         format="webp"
         quality={82}
         priority
-        class="relative h-auto w-full"
+        class="relative h-auto w-full animate-float"
       />
     </div>
   </div>
