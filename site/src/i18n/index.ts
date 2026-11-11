@@ -11,6 +11,8 @@ export const locales = Object.keys(dictionaries) as Locale[];
 export const SITE = 'https://diogobruni.github.io';
 export const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+export const CHROME_WEB_STORE_URL =
+  'https://chromewebstore.google.com/detail/lurker-drops/ebcahoihcbkbebpebmdmofpfohnfinoc';
 export const GITHUB_URL = 'https://github.com/diogobruni/lurker-drops';
 export const RELEASES_URL = `${GITHUB_URL}/releases`;
 export const DOWNLOAD_URL = `${GITHUB_URL}/releases/latest/download/lurker-drops.zip`;

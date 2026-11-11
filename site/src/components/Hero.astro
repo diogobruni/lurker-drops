@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import { ArrowRight, Check, Download, Sparkles } from '@lucide/astro';
+import { ArrowRight, Check, Store, Sparkles } from '@lucide/astro';
 import heroImage from '../assets/hero-image.png';
-import { DOWNLOAD_URL } from '../i18n';
+import { CHROME_WEB_STORE_URL } from '../i18n';
 import type { Dictionary } from '../i18n/en';
 
 interface Props {
@@ -52,10 +52,12 @@ const { dict } = Astro.props;
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
-          href={DOWNLOAD_URL}
+          href={CHROME_WEB_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           class="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-solid px-6 text-sm font-semibold text-white shadow-lg shadow-brand/25 transition hover:bg-brand-solid-hover hover:shadow-brand/40"
         >
-          <Download size={17} aria-hidden="true" />
+          <Store size={17} aria-hidden="true" />
           {dict.hero.primaryCta}
         </a>
 

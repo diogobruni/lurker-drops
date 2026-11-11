@@ -33,9 +33,17 @@ URLs are `/` (English), `/pt-br/`, and `/es/`. Each page imports its dictionary 
 Every page lists all locales as `hreflang` alternates, and `sitemap-index.xml` groups
 them the same way.
 
-## Download link
+## Install link
 
-All install buttons point to:
+All primary install buttons open the Chrome Web Store listing:
+
+```
+https://chromewebstore.google.com/detail/lurker-drops/ebcahoihcbkbebpebmdmofpfohnfinoc
+```
+
+## Manual download link
+
+The manual install section keeps pointing to the newest GitHub release:
 
 ```
 https://github.com/diogobruni/lurker-drops/releases/latest/download/lurker-drops.zip

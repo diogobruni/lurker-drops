@@ -1,114 +1,128 @@
-# Lurker Drops
+<p align="center">
+  <img src="src/assets/logo.png" alt="Lurker Drops logo" width="104" />
+</p>
 
-A Chrome (Manifest V3) extension that keeps selected browser tabs watching a Twitch live that matches your filters. Manage several tabs independently, each with its own preset, mute, and pursue settings.
+<h1 align="center">Lurker Drops</h1>
 
-## Features
+<p align="center">Keep your Twitch tabs watching a matching live, automatically.</p>
 
-- **Lurking Tabs** dashboard with the current live name and per-tab actions: Go to, Mute/Unmute, Turn on/off, Close tab.
-- **Current Tab** panel: status, preset picker, muted checkbox (browser tab mute), Pursue checkbox (chase the most-watched live), and on/off button.
-- **Pop out** button in the top-right corner opens the full manager in a standalone window that follows the last focused normal browser tab.
-- **Presets** with category, case-insensitive title filter, ordered favorites, and a blacklist.
-- **Twitch category search** using Twitch's public GraphQL endpoint; custom category names can be typed manually.
-- **Persistent settings** in `chrome.storage.local`, validated with Zod and managed through a Zustand store.
-- **Chat watchdog**: every minute, checks the Twitch chat WebSocket; if it is closed, tries a soft reconnect, then a rate-limited page reload as fallback.
-- **Toolbar status indicator**: the action icon changes between idle and active states, and the badge shows the number of active lurkers.
-- Automatic checks every minute while at least one lurker is active.
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/lurker-drops/ebcahoihcbkbebpebmdmofpfohnfinoc"><img src="https://img.shields.io/badge/Chrome%20Web%20Store-Install-7c3aed?logo=googlechrome&logoColor=white" alt="Install from the Chrome Web Store" /></a>
+  <a href="https://diogobruni.github.io/lurker-drops/"><img src="https://img.shields.io/badge/Website-live-0ea5e9" alt="Product website" /></a>
+  <a href="https://github.com/diogobruni/lurker-drops/releases"><img src="https://img.shields.io/github/v/release/diogobruni/lurker-drops" alt="Latest release" /></a>
+  <img src="https://img.shields.io/badge/Manifest-V3-1f2937" alt="Manifest V3" />
+</p>
 
-## Languages
+<p align="center">
+  English ·
+  <a href="README.pt-BR.md">Português (Brasil)</a> ·
+  <a href="README.es.md">Español</a>
+</p>
 
-The interface and the extension manifest follow the browser's UI language automatically, falling back to English. Supported locales:
+## What it does
 
-`en`, `es`, `fr`, `de`, `zh_CN`, `ja`, `it`, `pt_BR`, `ko`, `zh_TW`, `nl`, `pl`, `ru`, `tr`.
+Lurker Drops is a free Chrome extension that keeps selected tabs on a Twitch live that matches your rules. It checks every minute, switches when a better live appears, and stays quiet in the background.
 
-UI strings live in `src/shared/locales/` (typed catalogs with compile-time completeness checks), while the manifest strings live in `public/_locales/*/messages.json`. To add a language, copy `src/shared/locales/en.ts` and `public/_locales/en/messages.json`, then register the new locale in `src/shared/i18n.ts`.
-
-## How a live is selected
-
-For every enabled tab, the background worker:
-
-1. Collects live favorites and the category's top streams, then applies the preset filters (category, title, blacklist).
-2. Favorites form the preferred pool: if at least one eligible favorite is live, the winner comes from the favorites; otherwise it comes from all top-stream candidates.
-3. With **Pursue on** (default), the most-watched live in that pool wins. The choice is re-evaluated every minute, so the tab switches whenever another eligible live takes the lead. Favorite order breaks viewer-count ties.
-4. With **Pursue off**, favorites are followed in the configured order. If no favorite is eligible, the current live is kept while it remains valid; otherwise the most-watched candidate is chosen.
-5. Navigates the tab to the chosen channel and applies its mute setting.
-
-Twitch's public GraphQL stream listing is capped at 30 entries per directory, so candidate scanning uses the top 30 of the chosen category. Favorite channels are checked directly and do not depend on that cap.
-
-## Chat watchdog
-
-For every active lurker watching a Twitch channel, the minute tick also verifies that the page's chat connection is healthy:
-
-1. A content script tracks Twitch's `irc-ws.chat.twitch.tv` WebSocket and reports whether it is open, connecting, closed, or absent.
-2. If the socket is closed and chat is mounted, the first failure triggers a soft reconnect: the extension closes the stale chat socket so Twitch's own client opens a fresh connection.
-3. If chat is still disconnected on the next check, the tab is reloaded to rebuild it. Reloads are limited to once every 5 minutes, and soft reconnects to once every 90 seconds.
-4. A successful connection resets the failure counter.
-
-The watchdog only runs on enabled, watching lurkers. It validates the chat connection itself, not the watchtime accounting of any third-party drops platform.
-
-## Stack
-
-- TypeScript + React 19
-- Vite
-- Tailwind CSS
-- shadcn/ui-style components (Radix UI + `cmdk`)
-- Zustand
-- Zod
-- Chrome Manifest V3 (service worker, content scripts, alarms, storage)
+- **Lurking tabs dashboard** with the live title, preview, and per-tab actions: go to tab, mute, turn on/off, edit, and close.
+- **Presets** with a Twitch category, a case-insensitive title filter, ordered favorites, and a blacklist.
+- **Automatic live selection**: favorites first, then the most-watched eligible live. Turn Pursue off to follow favorites in order.
+- **Mute per tab** using the browser tab mute, so calls and music keep playing.
+- **Chat watchdog**: reconnects Twitch chat when it drops and reloads the page as a last resort, at most once every five minutes.
+- **Bonus chests**: clicks the Twitch bonus chest when it appears.
+- **Lurker mode overlay** on the Twitch page, with a Turn off button and a guard before you navigate away.
+- **Pop-out manager** that follows the last focused normal browser tab.
+- **Toolbar badge** showing how many lurkers are active.
+- **Local-only settings** in `chrome.storage.local`, validated with Zod.
 
 ## Install
 
+### Chrome Web Store (recommended)
+
+[Install Lurker Drops from the Chrome Web Store.](https://chromewebstore.google.com/detail/lurker-drops/ebcahoihcbkbebpebmdmofpfohnfinoc)
+
+Works on desktop Chrome, Edge, Opera, Brave, and other Chromium browsers.
+
+### Manual install from GitHub
+
+1. Download the latest release ZIP: [lurker-drops.zip](https://github.com/diogobruni/lurker-drops/releases/latest/download/lurker-drops.zip).
+2. Open `chrome://extensions` (or `edge://extensions` in Edge) and enable **Developer mode**.
+3. Drag the ZIP onto the extensions page and confirm. There is no need to unzip.
+4. Pin Lurker Drops, open the popup, add your first lurker, and press **On**.
+
+### From source
+
 ```bash
-npm install
-npm test
-npm run build
+pnpm install
+pnpm test
+pnpm run build
 ```
 
-Then open `chrome://extensions` (or `edge://extensions` in Edge), enable **Developer mode**, choose **Load unpacked**, and select the generated `dist` folder.
+Load the generated `dist` folder with **Load unpacked** on the extensions page.
 
-The `dist` folder contains the complete extension: popup, background service worker, Twitch chat content scripts, manifest, and icons.
+## How it works
 
-## Usage
+1. Pick a category, add a title filter, favorites, or a blacklist in a preset.
+2. Assign that preset to a tab and press **On**.
+3. Every minute the worker collects eligible lives, prefers your favorites, and moves the tab to the winner.
+4. **Pursue** on means most viewers win; **Pursue** off keeps favorites in your order.
 
-1. Open **Presets** from the popup and create a preset.
-2. Optionally set a Twitch category, a title filter, ordered favorites, and a blacklist.
-3. Return to the main screen, choose the preset for the current tab, set **Muted** and **Pursue** as needed, and press **Turn on lurker**.
-4. Repeat on other tabs to manage multiple lurkers.
-5. Optionally use **Pop out** in the top-right corner to keep the manager in its own window while you switch browser tabs.
+Twitch's public stream listing returns up to 30 entries per category, so candidate scanning uses that top 30. Favorites are checked directly and are not limited by it.
 
-The extension icon badge shows how many tabs are actively lurking. Use **Expand** on the main screen to manage each tab.
+## Languages
+
+The interface and manifest follow the browser language automatically, with English as fallback:
+
+`en`, `es`, `fr`, `de`, `it`, `pt_BR`, `nl`, `pl`, `ru`, `tr`, `ja`, `ko`, `zh_CN`, `zh_TW`.
+
+Portuguese (Brazil) and Spanish are fully supported in the app and on the product site. This README is also available in [Português (Brasil)](README.pt-BR.md) and [Español](README.es.md).
+
+To add a language, copy `src/shared/locales/en.ts` and `public/_locales/en/messages.json`, then register the locale in `src/shared/i18n.ts`.
+
+## Project structure
+
+```
+src/background/   service worker: live selection, tab control, alarms
+src/content/      Twitch content scripts: chat, overlay, bonus chests
+src/popup/        React 19 + Tailwind popup and manager window
+src/shared/       types, storage, filters, i18n catalogs
+public/           manifest, icons, extension locale messages
+tests/            Vitest suite
+site/             Astro product site (GitHub Pages)
+```
 
 ## Development
 
 ```bash
-npm run typecheck
-npm test
-npm run build
+pnpm install
+pnpm run typecheck
+pnpm test
+pnpm run build
 ```
 
-Reload the unpacked extension after each build. The popup itself cannot be exercised with the normal Vite dev server because it depends on Chrome extension APIs.
+- Reload the unpacked extension after each build.
+- The popup depends on Chrome extension APIs, so the Vite dev server alone cannot exercise it.
+- Regenerate icon variants with `python scripts/generate-icons.py` (requires Pillow).
 
-To regenerate the icon variants:
+## Privacy
 
-```bash
-python scripts/generate-icons.py
-```
-
-Requires Pillow.
-
-## Data and privacy
-
-- Presets and lurking-tab settings are stored locally in `chrome.storage.local`.
-- No Twitch account, OAuth token, or secret is required.
-- The background worker queries Twitch's public web GraphQL endpoint using Twitch's public web client ID.
-- The only API host permission requested is `https://gql.twitch.tv/*`.
-- The extension also runs content scripts on `https://www.twitch.tv/*` to observe the chat WebSocket connection state and detect new chat messages. It does not read, store, or transmit message contents.
-- No data is sent to any third-party service other than Twitch.
+- Settings stay in `chrome.storage.local`; there is no account, OAuth token, or secret.
+- The only host permission is `https://gql.twitch.tv/*`, used to read Twitch's public stream listing.
+- Content scripts on `https://www.twitch.tv/*` observe the chat WebSocket state and the page UI. Message contents are not read, stored, or transmitted.
+- No data goes to any third party other than Twitch.
 
 ## Notes
 
-- This uses Twitch's unofficial public web GraphQL API, which may change or rate-limit requests at any time.
-- The "Muted" setting uses the browser's tab mute (`chrome.tabs.update({ muted })`), not the Twitch player controls.
-- **Pursue** can switch the tab whenever a more-watched eligible live appears. Turn it off to stay on the current live while it remains valid.
-- The extension checks again every minute; a viewership change or an offline live can take up to a minute to be reflected.
-- Chat detection uses Twitch's public page DOM and chat WebSocket. If Twitch changes either, the watchdog may need updating.
-- After installing or reloading the extension, reload already-open Twitch tabs once so the chat content scripts are present.
+- Twitch's public web GraphQL API is unofficial and may change or rate-limit requests.
+- The extension checks once a minute, so viewership or offline changes can take up to a minute to apply.
+- Drops and rewards follow Twitch and campaign rules. Lurker Drops does not guarantee them.
+- After installing or reloading the extension, reload open Twitch tabs once so the content scripts are present.
+
+## Links
+
+- [Product site](https://diogobruni.github.io/lurker-drops/)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/lurker-drops/ebcahoihcbkbebpebmdmofpfohnfinoc)
+- [Releases](https://github.com/diogobruni/lurker-drops/releases)
+- [Issues](https://github.com/diogobruni/lurker-drops/issues)
+- [Changelog](CHANGELOG.md)
+
+<p align="center"><sub>Not affiliated with Twitch or Amazon. Twitch is a trademark of Twitch Interactive, Inc.</sub></p>

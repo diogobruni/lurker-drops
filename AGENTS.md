@@ -36,7 +36,7 @@ Prefer pnpm over npm for all project commands. Fall back to npm only if pnpm is 
 - Keep `site/public/.nojekyll`; without it GitHub Pages ignores the `_astro/` assets.
 - The site base path is `/lurker-drops`. If the repository is renamed or moved to a user site, update `site` and `base` in `site/astro.config.mjs`, the sitemap URL in `site/public/robots.txt`, and `start_url` plus icon paths in `site/public/site.webmanifest`.
 - Never edit the `gh-pages` branch or `site/dist/` by hand; both are generated.
-- Install buttons point to `releases/latest/download/lurker-drops.zip`. That asset is produced by `.github/workflows/release.yml` on `v*` tags, so a release must exist before the download link works.
+- Install buttons open the Chrome Web Store listing (`https://chromewebstore.google.com/detail/lurker-drops/ebcahoihcbkbebpebmdmofpfohnfinoc`). The manual option still uses `releases/latest/download/lurker-drops.zip`, produced by `.github/workflows/release.yml` on `v*` tags, so a release must exist before the download link works.
 
 ## Chrome Web Store descriptions
 

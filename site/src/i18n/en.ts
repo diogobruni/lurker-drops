@@ -20,12 +20,12 @@ export const en = {
     primary: 'Primary',
   },
   hero: {
-    badge: 'Free browser extension',
+    badge: 'Now on the Chrome Web Store',
     title: 'Your Twitch tabs,',
     titleAccent: 'watching on their own.',
     subtitle:
       'Choose a category and the rules you like. Lurker Drops keeps that tab on a matching live, switches when a better one shows up, and stays quiet in the background.',
-    primaryCta: 'Download the extension',
+    primaryCta: 'Add to Chrome',
     primaryNote: 'Free · No account · About a minute to set up',
     secondaryCta: 'See how it works',
     trust: ['Chrome, Edge, Opera, Brave and more', 'Runs on your computer', 'Open source', 'No sign-up'],
@@ -88,43 +88,40 @@ export const en = {
     eyebrow: 'Install',
     title: 'Add it to your browser in about a minute',
     subtitle:
-      'The extension is not in the browser stores yet. Install it from the official release, in four small steps.',
+      'Lurker Drops is now in the Chrome Web Store. Install it with one click, or use the GitHub release if you prefer a manual install.',
+    cta: 'Add to Chrome',
+    note: 'Works on desktop Chrome, Edge, Opera, and Brave. The store link opens the official Chrome Web Store page.',
     steps: [
       {
-        title: 'Download the ZIP',
-        text: 'The button above always downloads the newest release from GitHub. Keep the ZIP file as it is.',
+        title: 'Open the store page',
+        text: 'The button above opens the official Chrome Web Store page for Lurker Drops.',
       },
       {
-        title: 'Open the extensions page and turn on Developer mode',
-        text: 'Use chrome://extensions on Chrome and Brave, edge://extensions on Edge, or opera://extensions on Opera. The Developer mode switch is in the top-right corner.',
-      },
-      {
-        title: 'Drag the ZIP onto the page',
-        text: 'Drop the downloaded ZIP anywhere on the extensions page and confirm to add the extension. There is no need to unzip.',
+        title: 'Click Add to Chrome',
+        text: 'Confirm the permissions. The extension needs access to Twitch pages to keep the tab watching and to reconnect chat.',
       },
       {
         title: 'Pin and press On',
         text: 'Pin Lurker Drops to the toolbar, open the popup, add your first lurker, and press On.',
       },
     ],
-    note: 'Works on desktop Chrome, Edge, Opera, and Brave. Developer mode is how Chromium browsers install extensions that are not in a store yet.',
-    cta: 'Download the latest release',
-    fallback: {
-      prompt: 'Did dragging not work?',
-      linkLabel: 'Unzip the ZIP and load it manually.',
-      title: 'Manual install',
+    alternative: {
+      title: 'Manual install from GitHub',
+      prompt: 'Prefer a manual install?',
+      note: 'Use the official release ZIP and Developer mode. Keep the ZIP file as it is.',
+      cta: 'Download the latest release',
       steps: [
         {
-          title: 'Unzip the folder',
-          text: 'You get a folder named lurker-drops with a manifest.json file inside.',
+          title: 'Download the ZIP',
+          text: 'The download always serves the newest release from GitHub.',
         },
         {
           title: 'Open the extensions page and turn on Developer mode',
-          text: 'Use chrome://extensions on Chrome and Brave, edge://extensions on Edge, or opera://extensions on Opera.',
+          text: 'Use chrome://extensions on Chrome and Brave, edge://extensions on Edge, or opera://extensions on Opera. The switch is in the top-right corner.',
         },
         {
-          title: 'Load unpacked',
-          text: 'Click Load unpacked and choose the folder you just unzipped.',
+          title: 'Drag the ZIP onto the page',
+          text: 'Drop the downloaded ZIP anywhere on the extensions page and confirm to add the extension. There is no need to unzip.',
         },
         {
           title: 'Pin and press On',
@@ -165,12 +162,13 @@ export const en = {
   },
   finalCta: {
     title: 'Let your tabs do the waiting.',
-    subtitle: 'Download once. Pick a show. Press On. That is the whole job.',
+    subtitle: 'Install once. Pick a show. Press On. That is the whole job.',
     button: 'Get Lurker Drops',
     note: 'Free and open source. No account needed.',
   },
   footer: {
     tagline: 'A small, free helper for people who watch Twitch while doing other things.',
+    store: 'Chrome Web Store',
     github: 'Source code',
     releases: 'All releases',
     disclaimer: 'Not affiliated with Twitch or Amazon. Twitch is a trademark of Twitch Interactive, Inc.',

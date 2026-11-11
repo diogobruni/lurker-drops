@@ -22,12 +22,12 @@ export const ptBR: Dictionary = {
     primary: 'Principal',
   },
   hero: {
-    badge: 'Extensão gratuita para navegador',
+    badge: 'Agora na Chrome Web Store',
     title: 'Suas abas da Twitch,',
     titleAccent: 'assistindo sozinhas.',
     subtitle:
       'Escolha uma categoria e as regras que você gosta. O Lurker Drops mantém a aba em uma live compatível, troca quando aparece uma melhor e fica quietinho no fundo.',
-    primaryCta: 'Baixar a extensão',
+    primaryCta: 'Adicionar ao Chrome',
     primaryNote: 'Grátis · Sem conta · Cerca de um minuto para configurar',
     secondaryCta: 'Ver como funciona',
     trust: ['Chrome, Edge, Opera, Brave e outros', 'Roda no seu computador', 'Código aberto', 'Sem cadastro'],
@@ -90,43 +90,40 @@ export const ptBR: Dictionary = {
     eyebrow: 'Instalar',
     title: 'Adicione ao seu navegador em cerca de um minuto',
     subtitle:
-      'A extensão ainda não está nas lojas de extensões. Instale pelo release oficial, em quatro passos simples.',
+      'O Lurker Drops agora está na Chrome Web Store. Instale com um clique ou use a versão do GitHub se preferir uma instalação manual.',
+    cta: 'Adicionar ao Chrome',
+    note: 'Funciona no Chrome, Edge, Opera e Brave para desktop. O link abre a página oficial da Chrome Web Store.',
     steps: [
       {
-        title: 'Baixe o ZIP',
-        text: 'O botão acima sempre baixa o release mais novo do GitHub. Mantenha o arquivo ZIP como está.',
+        title: 'Abra a página da loja',
+        text: 'O botão acima abre a página oficial do Lurker Drops na Chrome Web Store.',
       },
       {
-        title: 'Abra a página de extensões e ligue o Modo desenvolvedor',
-        text: 'Use chrome://extensions no Chrome e no Brave, edge://extensions no Edge ou opera://extensions no Opera. O interruptor fica no canto superior direito.',
-      },
-      {
-        title: 'Arraste o ZIP para a página',
-        text: 'Solte o arquivo baixado em qualquer lugar da página de extensões e confirme para adicionar a extensão. Não precisa descompactar.',
+        title: 'Clique em Adicionar ao Chrome',
+        text: 'Confirme as permissões. A extensão precisa de acesso às páginas da Twitch para manter a aba assistindo e reconectar o chat.',
       },
       {
         title: 'Fixe e aperte Ligar',
         text: 'Fixe o Lurker Drops na barra de ferramentas, abra o popup, adicione seu primeiro lurker e aperte Ligar.',
       },
     ],
-    note: 'Funciona no Chrome, Edge, Opera e Brave para desktop. O Modo desenvolvedor é como navegadores Chromium instalam extensões que ainda não estão em uma loja.',
-    cta: 'Baixar o release mais recente',
-    fallback: {
-      prompt: 'Não funcionou?',
-      linkLabel: 'Descompacte o ZIP e carregue manualmente.',
-      title: 'Instalação manual',
+    alternative: {
+      title: 'Instalação manual pelo GitHub',
+      prompt: 'Prefere uma instalação manual?',
+      note: 'Use o ZIP do release oficial e o Modo desenvolvedor. Mantenha o arquivo ZIP como está.',
+      cta: 'Baixar o release mais recente',
       steps: [
         {
-          title: 'Descompacte a pasta',
-          text: 'Você recebe uma pasta chamada lurker-drops com um arquivo manifest.json dentro.',
+          title: 'Baixe o ZIP',
+          text: 'O download sempre entrega o release mais novo do GitHub.',
         },
         {
           title: 'Abra a página de extensões e ligue o Modo desenvolvedor',
-          text: 'Use chrome://extensions no Chrome e no Brave, edge://extensions no Edge ou opera://extensions no Opera.',
+          text: 'Use chrome://extensions no Chrome e no Brave, edge://extensions no Edge ou opera://extensions no Opera. O interruptor fica no canto superior direito.',
         },
         {
-          title: 'Carregue sem compactação',
-          text: 'Clique em Carregar sem compactação e escolha a pasta que você acabou de descompactar.',
+          title: 'Arraste o ZIP para a página',
+          text: 'Solte o arquivo baixado em qualquer lugar da página de extensões e confirme para adicionar a extensão. Não precisa descompactar.',
         },
         {
           title: 'Fixe e aperte Ligar',
@@ -167,12 +164,13 @@ export const ptBR: Dictionary = {
   },
   finalCta: {
     title: 'Deixe suas abas esperando por você.',
-    subtitle: 'Baixe uma vez. Escolha o programa. Aperte Ligar. É só isso.',
+    subtitle: 'Instale uma vez. Escolha o programa. Aperte Ligar. É só isso.',
     button: 'Quero o Lurker Drops',
     note: 'Grátis e de código aberto. Sem conta.',
   },
   footer: {
     tagline: 'Um ajudante pequeno e gratuito para quem assiste Twitch enquanto faz outra coisa.',
+    store: 'Chrome Web Store',
     github: 'Código-fonte',
     releases: 'Todos os releases',
     disclaimer:

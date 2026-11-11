@@ -1,6 +1,6 @@
 ---
-import { Package } from '@lucide/astro';
-import { asset, GITHUB_URL, href, RELEASES_URL } from '../i18n';
+import { Store, Package } from '@lucide/astro';
+import { asset, CHROME_WEB_STORE_URL, GITHUB_URL, href, RELEASES_URL } from '../i18n';
 import type { Dictionary } from '../i18n/en';
 
 interface Props {
@@ -23,6 +23,15 @@ const year = new Date().getFullYear();
       </div>
 
       <nav aria-label="Lurker Drops" class="flex flex-col gap-2 text-sm sm:items-end">
+        <a
+          href={CHROME_WEB_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-zinc-400 transition-colors hover:text-white"
+        >
+          <Store size={15} aria-hidden="true" />
+          {dict.footer.store}
+        </a>
         <a
           href={GITHUB_URL}
           target="_blank"
