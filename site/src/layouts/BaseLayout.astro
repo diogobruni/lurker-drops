@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import { asset, DOWNLOAD_URL, pageUrl, SITE, alternates } from '../i18n';
+import type { Dictionary } from '../i18n/en';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+const canonical = pageUrl(dict.path);
+const ogImage = `${SITE}${asset('og.png')}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Lurker Drops',
+  applicationCategory: 'BrowserApplication',
+  operatingSystem: 'Chrome 116+',
+  url: canonical,
+  downloadUrl: DOWNLOAD_URL,
+  inLanguage: dict.htmlLang,
+  description: dict.meta.description,
+  isAccessibleForFree: true,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  author: {
+    '@type': 'Person',
+    name: 'Diogo',
+    url: 'https://github.com/diogobruni',
+  },
+};
+---
+
+<!doctype html>
+<html lang={dict.htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{dict.meta.title}</title>
+    <meta name="description" content={dict.meta.description} />
+    <link rel="canonical" href={canonical} />
+
+    {
+      alternates.map((alternate) => (
+        <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.url} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={pageUrl('/')} />
+
+    <meta name="theme-color" content="#08070c" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="icon" type="image/png" href={asset('icon.png')} />
+    <link rel="apple-touch-icon" href={asset('icon.png')} />
+    <link rel="manifest" href={asset('site.webmanifest')} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lurker Drops" />
+    <meta property="og:title" content={dict.meta.title} />
+    <meta property="og:description" content={dict.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={dict.meta.ogLocale} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={dict.hero.titleAccent} />
+    {
+      alternates
+        .filter((alternate) => alternate.locale !== dict.locale)
+        .map((alternate) => (
+          <meta property="og:locale:alternate" content={alternate.hrefLang} />
+        ))
+    }
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={dict.meta.title} />
+    <meta name="twitter:description" content={dict.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+    >
+      {dict.skip}
+    </a>
+    <slot />
+  </body>
+</html>

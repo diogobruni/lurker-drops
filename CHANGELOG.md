@@ -91,3 +91,7 @@ Sections are ordered oldest to newest; unreleased work goes last.
 - Modern About screen with the app name, current manifest version, and author Geox, reachable from the navbar and returning to the previous screen.
 
 ## [Unreleased]
+
+### Added
+
+- Product website built with Astro, TypeScript, and Tailwind CSS, with English, Brazilian Portuguese, and Spanish pages, SEO metadata, and install buttons pointing to the latest GitHub release.
