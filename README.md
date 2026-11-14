@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/logo.png" alt="Lurker Drops logo" width="104" />
+  <img src="app/src/assets/logo.png" alt="Lurker Drops logo" width="104" />
 </p>
 
 <h1 align="center">Lurker Drops</h1>
@@ -52,12 +52,13 @@ Works on desktop Chrome, Edge, Opera, Brave, and other Chromium browsers.
 ### From source
 
 ```bash
+cd app
 pnpm install
 pnpm test
 pnpm run build
 ```
 
-Load the generated `dist` folder with **Load unpacked** on the extensions page.
+Load the generated `app/dist` folder with **Load unpacked** on the extensions page.
 
 ## How it works
 
@@ -76,23 +77,24 @@ The interface and manifest follow the browser language automatically, with Engli
 
 Portuguese (Brazil) and Spanish are fully supported in the app and on the product site. This README is also available in [Português (Brasil)](README.pt-BR.md) and [Español](README.es.md).
 
-To add a language, copy `src/shared/locales/en.ts` and `public/_locales/en/messages.json`, then register the locale in `src/shared/i18n.ts`.
+To add a language, copy `app/src/shared/locales/en.ts` and `app/public/_locales/en/messages.json`, then register the locale in `app/src/shared/i18n.ts`.
 
 ## Project structure
 
 ```
-src/background/   service worker: live selection, tab control, alarms
-src/content/      Twitch content scripts: chat, overlay, bonus chests
-src/popup/        React 19 + Tailwind popup and manager window
-src/shared/       types, storage, filters, i18n catalogs
-public/           manifest, icons, extension locale messages
-tests/            Vitest suite
-site/             Astro product site (GitHub Pages)
+app/src/background/   service worker: live selection, tab control, alarms
+app/src/content/      Twitch content scripts: chat, overlay, bonus chests
+app/src/popup/        React 19 + Tailwind popup and manager window
+app/src/shared/       types, storage, filters, i18n catalogs
+app/public/           manifest, icons, extension locale messages
+app/tests/            Vitest suite
+website/              Astro product site (GitHub Pages)
 ```
 
 ## Development
 
 ```bash
+cd app
 pnpm install
 pnpm run typecheck
 pnpm test
@@ -101,7 +103,7 @@ pnpm run build
 
 - Reload the unpacked extension after each build.
 - The popup depends on Chrome extension APIs, so the Vite dev server alone cannot exercise it.
-- Regenerate icon variants with `python scripts/generate-icons.py` (requires Pillow).
+- Regenerate icon variants with `python app/scripts/generate-icons.py` (requires Pillow).
 
 ## Privacy
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/logo.png" alt="Logo de Lurker Drops" width="104" />
+  <img src="app/src/assets/logo.png" alt="Logo de Lurker Drops" width="104" />
 </p>
 
 <h1 align="center">Lurker Drops</h1>
@@ -52,12 +52,13 @@ Funciona en Chrome, Edge, Opera, Brave y otros navegadores Chromium de escritori
 ### Desde el código
 
 ```bash
+cd app
 pnpm install
 pnpm test
 pnpm run build
 ```
 
-Carga la carpeta `dist` generada con **Cargar descomprimida** en la página de extensiones.
+Carga la carpeta `app/dist` generada con **Cargar descomprimida** en la página de extensiones.
 
 ## Cómo funciona
 
@@ -76,23 +77,24 @@ La interfaz y el manifest siguen el idioma del navegador automáticamente, con i
 
 Portugués (Brasil) y español tienen soporte completo en la app y en el sitio del producto. Este README también está disponible en [English](README.md) y [Português (Brasil)](README.pt-BR.md).
 
-Para añadir un idioma, copia `src/shared/locales/en.ts` y `public/_locales/en/messages.json` y registra el locale en `src/shared/i18n.ts`.
+Para añadir un idioma, copia `app/src/shared/locales/en.ts` y `app/public/_locales/en/messages.json` y registra el locale en `app/src/shared/i18n.ts`.
 
 ## Estructura del proyecto
 
 ```
-src/background/   service worker: selección de directo, control de pestañas, alarmas
-src/content/      scripts de contenido de Twitch: chat, capa, cofres
-src/popup/        popup y ventana del gestor en React 19 + Tailwind
-src/shared/       tipos, almacenamiento, filtros, catálogos de i18n
-public/           manifest, iconos, mensajes de locale de la extensión
-tests/            suite Vitest
-site/             sitio del producto en Astro (GitHub Pages)
+app/src/background/   service worker: selección de directo, control de pestañas, alarmas
+app/src/content/      scripts de contenido de Twitch: chat, capa, cofres
+app/src/popup/        popup y ventana del gestor en React 19 + Tailwind
+app/src/shared/       tipos, almacenamiento, filtros, catálogos de i18n
+app/public/           manifest, iconos, mensajes de locale de la extensión
+app/tests/            suite Vitest
+website/              sitio del producto en Astro (GitHub Pages)
 ```
 
 ## Desarrollo
 
 ```bash
+cd app
 pnpm install
 pnpm run typecheck
 pnpm test
@@ -101,7 +103,7 @@ pnpm run build
 
 - Recarga la extensión descomprimida después de cada build.
 - El popup depende de las APIs de extensión de Chrome, así que el servidor Vite por sí solo no puede probarlo.
-- Genera las variantes de icono con `python scripts/generate-icons.py` (requiere Pillow).
+- Genera las variantes de icono con `python app/scripts/generate-icons.py` (requiere Pillow).
 
 ## Privacidad
 
