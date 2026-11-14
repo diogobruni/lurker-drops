@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://diogobruni.github.io/lurker-drops/sitemap-index.xml
