@@ -130,4 +130,10 @@ Sections are ordered oldest to newest; unreleased work goes last.
 - UI refresh: deeper violet-tinted dark palette, lime for live and success states, tactile brand button (steps on hover, presses on click), cards with a top-light hairline and hover border.
 - Screen changes slide in with a soft blur; rows and titles rise in with a short stagger. All motion respects reduced motion.
 
+## [1.7.1] - 2026-11-14
+
+### Fixed
+
+- Empty-state hint on the main screen now reads "Click Add, pick the game or category, and relax." (English and Brazilian Portuguese).
+
 ## [Unreleased]

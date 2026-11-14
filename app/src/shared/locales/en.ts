@@ -44,7 +44,7 @@ const messages = {
   'main.pausedCount': 'Paused: {count}',
   'main.noTabsTitle': 'No tabs are lurking yet',
   'main.noTabsHint':
-    'Choose a preset below and turn on the lurker for this tab.',
+    'Click Add, pick the game or category, and relax.',
   'main.status': 'Status',
   'main.preset': 'Preset',
   'main.noPresets': 'No presets yet',

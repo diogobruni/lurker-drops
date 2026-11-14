@@ -46,7 +46,7 @@ const messages = {
   'main.pausedCount': 'Pausadas: {count}',
   'main.noTabsTitle': 'Nenhuma aba em lurker ainda',
   'main.noTabsHint':
-    'Escolha uma predefinição abaixo e ative o lurker para esta aba.',
+    'Clique em adicionar, escolha o jogo ou categoria e relaxe.',
   'main.status': 'Status',
   'main.preset': 'Predefinição',
   'main.noPresets': 'Nenhuma predefinição ainda',
