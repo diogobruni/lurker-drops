@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { en } from '../i18n/en';
+import { href } from '../i18n';
+---
+
+<BaseLayout dict={en}>
+  <main id="top">
+    <section class="section" aria-labelledby="nf-h">
+      <div class="wrap stack-4">
+        <h1 id="nf-h">Page not found</h1>
+        <p class="t-lead muted">This address has no page on the Lurker Drops site.</p>
+        <p><a class="btn btn--primary" href={href('/')}>Go to the Lurker Drops page</a></p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

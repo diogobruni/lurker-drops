@@ -1,0 +1,138 @@
+---
+import { asset, CHROME_WEB_STORE_URL, DOWNLOAD_URL, pageUrl, SITE, alternates } from '../i18n';
+import type { Dictionary } from '../i18n/en';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+const canonical = pageUrl(dict.path);
+const ogImage = `${SITE}${asset('og.png')}`;
+const kit = (path: string) => asset(`assets/${path}`);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Lurker Drops',
+  applicationCategory: 'BrowserApplication',
+  operatingSystem: 'Chrome, Edge, Opera, Brave',
+  url: canonical,
+  installUrl: CHROME_WEB_STORE_URL,
+  downloadUrl: DOWNLOAD_URL,
+  inLanguage: dict.htmlLang,
+  description: dict.meta.description,
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Person', name: 'Diogo', url: 'https://github.com/diogobruni' },
+};
+---
+
+<!doctype html>
+<!-- design: tasteskill 2.5.1 build. type software, site-kind software. -->
+<html
+  lang={dict.htmlLang}
+  data-type="software"
+  data-radius="round"
+  data-ground="sage"
+  data-buttons="pill"
+  data-motion
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{dict.meta.title}</title>
+    <meta name="description" content={dict.meta.description} />
+    <meta name="site-kind" content="software" />
+    <meta name="page-type" content="software" />
+    <link rel="canonical" href={canonical} />
+    {alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.url} />)}
+    <link rel="alternate" hreflang="x-default" href={pageUrl('/')} />
+
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/png" href={asset('icon.png')} />
+    <link rel="apple-touch-icon" href={asset('icon.png')} />
+    <link rel="manifest" href={asset('site.webmanifest')} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lurker Drops" />
+    <meta property="og:title" content={dict.meta.title} />
+    <meta property="og:description" content={dict.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={dict.meta.ogLocale} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${dict.hero.titleA} ${dict.hero.titleB}`} />
+    {
+      alternates
+        .filter((alternate) => alternate.locale !== dict.locale)
+        .map((alternate) => <meta property="og:locale:alternate" content={alternate.hrefLang} />)
+    }
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={dict.meta.title} />
+    <meta name="twitter:description" content={dict.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href={kit('system.css')} />
+    <link rel="stylesheet" href={kit('ui/cards.css')} />
+    <link rel="stylesheet" href={kit('motion/motion.css')} />
+    <link rel="stylesheet" href={kit('backgrounds/backgrounds.css')} />
+    <link rel="stylesheet" href={kit('layout/layout.css')} />
+    <link rel="stylesheet" href={kit('icons/icon.css')} />
+    <style is:inline>
+      :root {
+        --p-bg: #ffffff; --p-surface: #f3f3f3; --p-ink: #232323; --p-muted: #686868;
+        --p-accent: #a1ffcb; --p-accent-ink: #232323; --p-action: #232323; --p-action-ink: #ffffff;
+        --p-inv-bg: #232323; --p-inv-surface: #303030; --p-inv-ink: #ffffff; --p-inv-muted: #a4a4a4;
+        --p-inv-accent: #a1ffcb; --p-inv-accent-ink: #232323; --p-inv-action: #a1ffcb; --p-inv-action-ink: #232323;
+        --font-display: "Onest", system-ui, sans-serif;
+        --font-text: "Onest", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+        --display-weight: 400;
+        --display-tracking: -0.035em;
+        --display-tracking-xl: -0.04em;
+      }
+    </style>
+    <link rel="stylesheet" href={kit('ui/base.css')} />
+    <link rel="stylesheet" href={asset('page.css')} />
+    <script is:inline>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('ld-theme'); } catch (e) {}
+        var q = new URLSearchParams(location.search).get('theme'); if (q) t = q;
+        if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+    <script is:inline>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+    <script is:inline src={kit('backgrounds/backgrounds.js')}></script>
+    <script is:inline>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+    <link rel="modulepreload" href={kit('moments/moments.js')} />
+    <link rel="modulepreload" href={kit('moments/lib.js')} />
+    <link rel="modulepreload" href={kit('moments/letters-assemble/moment.js')} />
+  </head>
+  <body>
+    <!-- type: software
+    deal: hero triptych, nav nav-centre, close close-word, footer footer-statement, rhythm space,
+    buttons pill, mark: the client's own logo, ground sage, palette white-mint-tiles, pairing onest,
+    card ground grain-gradient (still, sage palette)
+    moments: letters-assemble (#sleep) -->
+    <slot />
+    <script type="module" src={kit('system.js')}></script>
+    <script type="module" src={kit('motion/motion.js')}></script>
+    <script type="module" src={kit('layout/layout.js')}></script>
+    <script type="module" src={asset('page.js')}></script>
+  </body>
+</html>

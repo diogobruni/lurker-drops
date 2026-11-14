@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import icon from '../assets/icon.png';
+import Popup from './Popup.astro';
+import { CHROME_WEB_STORE_URL } from '../i18n';
+import type { Dictionary } from '../i18n/en';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+const h = dict.hero;
+const row = dict.ui.rows[0];
+const [channel, game] = row.meta.split(' · ');
+---
+
+<section class="hero hero--ld" data-enter aria-labelledby="hero-h">
+  <div class="wrap">
+    <div class="hero-text grid hero-ld">
+      <div class="hero-ld__copy span-6">
+        <p class="hero-ld__badge"><span aria-hidden="true"></span>{h.badge}</p>
+        <h1 id="hero-h">{h.titleA} <em>{h.titleB}</em></h1>
+        <p class="hero-ld__lead">{h.lead}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={CHROME_WEB_STORE_URL} target="_blank" rel="noopener">
+            {dict.nav.cta}<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"></path><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"></path></svg>
+          </a>
+          <a class="link" href="#tabs">{h.secondary}</a>
+        </div>
+        <p class="hero-ld__note">{h.note}</p>
+        <dl class="hero-ld__facts">
+          {h.facts.map((f) => (
+            <div><dt>{f.label}</dt><dd>{f.value}</dd></div>
+          ))}
+        </dl>
+      </div>
+
+      <!-- the real product at work: a Twitch tab in Lurker mode, the popup opened from the toolbar icon.
+           data-enter-media: the hero entrance treats it as one picture, so its words are never hidden;
+           the window enters whole (page.css, .bw). The toolbar icon is a real button: it opens and
+           closes the popup like the browser does (page.js, transitions.dev menu dropdown). -->
+      <div class="hero-ld__visual span-6 start-7" data-enter-media role="group" aria-label={h.visualLabel}>
+        <div class="bw">
+          <div class="bw__bar">
+            <span class="bw__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="bw__url">{h.url}</span>
+            <button class="bw__ext" type="button" aria-expanded="true" aria-controls="hero-popup" aria-label={h.extToggle} data-bw-toggle><Image src={icon} alt="" width={24} height={24} loading="eager" /><em aria-hidden="true">2</em></button>
+          </div>
+          <div class="bw__page" aria-hidden="true">
+            <Popup dict={dict} part="overlay" />
+            <div class="bw__player">
+              <div class="tw__scene" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="tw__live">{dict.app.tab.live}</span>
+              <span class="tw__muted"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h2.5L9 3v10L5.5 10H3z"></path><path d="m11 6 3 4M14 6l-3 4"></path></svg></span>
+            </div>
+            <div class="bw__meta"><b>{channel}</b><span>{row.title}</span><small>{game}</small></div>
+          </div>
+          <div class="bw__popup t-dropdown is-open" id="hero-popup">
+            <Popup dict={dict} part="home" eager />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import icon from '../assets/icon.png';
+import { DOWNLOAD_URL, GITHUB_URL } from '../i18n';
+import type { Dictionary } from '../i18n/en';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+const q = dict.faq;
+---
+
+<section class="section" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="grid">
+      <div class="span-5 stack-4">
+        <h2 id="faq-h">{q.title}</h2>
+        <p class="t-lead muted">{q.sub}</p>
+        <p><a class="link" href={`${GITHUB_URL}/issues`} target="_blank" rel="noopener">{q.contact}</a></p>
+        <div class="ui ui-panel extpage" role="img" aria-label={`${q.ext.title}: ${q.ext.dev}, ${q.ext.drop}, ${q.ext.item}`}>
+          <div class="extpage__bar"><b>{q.ext.title}</b><span>{q.ext.dev}<span class="t-toggle" data-on="true"><span class="t-toggle-thumb"></span></span></span></div>
+          <div class="extpage__drop"><span class="extpage__zip">ZIP</span><span>{q.ext.drop}<small>{q.ext.dropSub}</small></span></div>
+          <div class="extpage__item"><Image src={icon} alt="" width={32} height={32} loading="lazy" /><span>{q.ext.item}<small>{q.ext.itemSub}</small></span><span class="t-toggle" data-on="true"><span class="t-toggle-thumb"></span></span></div>
+        </div>
+      </div>
+      <div class="faq span-6 start-7">
+        {q.items.map((item) => (
+          <div class="faq__item">
+            <h3>{item.q}</h3>
+            <p>
+              {item.a}
+              {'link' in item && item.link && (
+                <>
+                  {' '}<a class="link" href={DOWNLOAD_URL}>{item.link}</a>
+                </>
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+---
+import type { Dictionary } from '../i18n/en';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+---
+
+<section class="section" id="sleep" data-moment="letters-assemble" aria-labelledby="sleep-h">
+  <div class="wrap">
+    <h2 class="mo-la__type" id="sleep-h">{dict.statement.title}</h2>
+    <p class="mo-la__sub">{dict.statement.sub}</p>
+  </div>
+</section>

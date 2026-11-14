@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import icon from '../assets/icon.png';
+import Popup from './Popup.astro';
+import type { Dictionary } from '../i18n/en';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+const s = dict.steps;
+const sage = JSON.stringify({ bg: '#cdd6c6', surface: '#dce3d6', ink: '#262d24', accent: '#6c8e63' });
+const still = JSON.stringify({ drift: 0 });
+const panel = (seed: number) => ({ 'data-fx': 'grain-gradient', 'data-fx-seed': seed, 'data-fx-palette': sage, 'data-fx-params': still });
+---
+
+<section class="section" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="how-h">{s.title}</h2>
+    </div>
+    <div class="grid">
+      <article class="card card--row card--open span-4">
+        <span class="step-num">1</span>
+        <h3>{s.items[0].title}</h3>
+        <p>{s.items[0].text}</p>
+        <div class="panel" {...panel(63)}>
+          <div class="stage stage--fade-b">
+            <div class="at-rise fit" style="--fit-max:300px;--ax:max(24px, 50% - 150px);--ay:56px;--ay-sm:40px">
+              <div class="ui ui-panel mini mini--store">
+                <Image src={icon} alt="" width={48} height={48} loading="lazy" />
+                <div><b>{s.store.name}</b><small>{s.store.by}</small><small>{s.store.rating}</small></div>
+                <span class="mini__btn" data-store-btn>
+                  <span class="mini__swap" data-label-a>{s.store.button}</span>
+                  <span class="mini__swap" data-label-b>{s.store.added}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card card--row card--open span-4">
+        <span class="step-num">2</span>
+        <h3>{s.items[1].title}</h3>
+        <p>{s.items[1].text}</p>
+        <div class="panel" {...panel(72)}>
+          <div class="stage stage--fade-b">
+            <div class="at-rise fit" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:56px;--ay-sm:40px">
+              <Popup dict={dict} part="presets" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card card--row card--open span-4">
+        <span class="step-num">3</span>
+        <h3>{s.items[2].title}</h3>
+        <p>{s.items[2].text}</p>
+        <div class="panel" {...panel(81)}>
+          <div class="stage stage--fade-b">
+            <div class="at-rise fit" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:40px;--ay-sm:24px">
+              <Popup dict={dict} part="turnon" />
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
