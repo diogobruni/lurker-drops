@@ -113,4 +113,21 @@ Sections are ordered oldest to newest; unreleased work goes last.
 - Root README rewritten around the current app, with the project logo, Chrome Web Store install, and Brazilian Portuguese and Spanish versions.
 - Moved the extension source, assets, tests, scripts, and build configs into `app/`, so the repository root only holds shared docs, the release workflow, and the `website/` product page. The release workflow now runs inside `app/`.
 
+## [1.7.0] - 2026-11-14
+
+### Added
+
+- Right-click context menu on each lurking tab: Turn on/off, Go to, Mute/Unmute, Pursue on/off, Edit, Delete.
+- Drag handle on each lurking tab to reorder the list. The order is saved in `chrome.storage.local` (`lurkerOrder`) and survives popup reloads.
+- Lurker eyes in the empty state: the pupils follow the pointer and blink.
+- Live signal (lime) with a ripple on the status pill and on watching tabs, plus a LIVE tag on the stream thumbnail.
+- Power control on each lurking tab is now a switch with an overshoot animation.
+
+### Changed
+
+- The active-tabs badge was removed from the top bar; the count stays in the lurking tabs list header.
+- The close button on lurking tabs is now a trash icon (same confirm-and-close behavior).
+- UI refresh: deeper violet-tinted dark palette, lime for live and success states, tactile brand button (steps on hover, presses on click), cards with a top-light hairline and hover border.
+- Screen changes slide in with a soft blur; rows and titles rise in with a short stagger. All motion respects reduced motion.
+
 ## [Unreleased]

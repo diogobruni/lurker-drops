@@ -8,64 +8,16 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
 import { t } from '@/shared/i18n';
 import { IS_POPOUT, openPopout } from '@/popup/popout';
 import { useAppStore } from '@/popup/store';
-
-function StatusPill({
-  activeCount,
-  onSelect,
-}: {
-  activeCount: number;
-  onSelect: () => void;
-}) {
-  const active = activeCount > 0;
-  const tooltip = active
-    ? t('nav.activeTooltip', { count: activeCount })
-    : t('nav.idleTooltip');
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <button
-          type="button"
-          onClick={onSelect}
-          className={cn(
-            'inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2 py-1 text-[10px] font-medium transition-colors',
-            active
-              ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20'
-              : 'border-border bg-secondary/60 text-muted-foreground hover:bg-secondary',
-          )}
-          aria-label={tooltip}
-        >
-          <span
-            className={cn(
-              'h-1.5 w-1.5 rounded-full',
-              active
-                ? 'animate-pulse-soft bg-emerald-400'
-                : 'bg-muted-foreground/60',
-            )}
-          />
-          {active
-            ? t('nav.activeBadge', { count: activeCount })
-            : t('status.idle')}
-        </button>
-      </TooltipTrigger>
-      <TooltipContent>{tooltip}</TooltipContent>
-    </Tooltip>
-  );
-}
 
 export function Navbar() {
   const screen = useAppStore((state) => state.screen);
   const editingPresetId = useAppStore((state) => state.editingPresetId);
   const goBack = useAppStore((state) => state.goBack);
-  const goToMain = useAppStore((state) => state.goToMain);
   const goToAbout = useAppStore((state) => state.goToAbout);
   const lurkerFormTabId = useAppStore((state) => state.lurkerFormTabId);
-  const activeCount = useAppStore(
-    (state) => state.lurkingTabs.filter((tab) => tab.enabled).length,
-  );
   const [openingPopout, setOpeningPopout] = React.useState(false);
 
   async function handlePopOut() {
@@ -104,7 +56,7 @@ export function Navbar() {
             : t('nav.formSubtitle');
 
   return (
-    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-border/70 bg-background/80 px-3 backdrop-blur">
+    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-border/60 bg-background/70 px-3 backdrop-blur-md">
       {screen !== 'main' ? (
         <Tooltip>
           <TooltipTrigger asChild>
@@ -125,18 +77,16 @@ export function Navbar() {
         <img
           src={logoUrl}
           alt={t('app.name')}
-          className="h-8 w-8 shrink-0 rounded-lg shadow-md shadow-purple-950/50"
+          className="h-8 w-8 shrink-0 rounded-lg shadow-[0_0_18px_hsl(262_83%_60%/0.45)] transition-transform duration-250 ease-out hover:rotate-[-6deg] hover:scale-105"
         />
       )}
 
       <div className="min-w-0 flex-1">
-        <h1 className="truncate text-sm font-semibold leading-tight">{title}</h1>
-        <p className="truncate text-[10px] leading-tight text-muted-foreground">
+        <h1 key={title} className="rise truncate text-sm font-semibold leading-tight tracking-tight">{title}</h1>
+        <p key={subtitle} className="rise truncate text-[10px] leading-tight text-muted-foreground" style={{ ["--i" as string]: 1 }}>
           {subtitle}
         </p>
       </div>
-
-      <StatusPill activeCount={activeCount} onSelect={goToMain} />
 
       <Tooltip>
         <TooltipTrigger asChild>

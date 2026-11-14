@@ -3,6 +3,7 @@ import { lurkerTabSchema, presetSchema } from './types';
 
 export const PRESETS_KEY = 'presets';
 export const LURKER_TABS_KEY = 'lurkerTabs';
+export const TAB_ORDER_KEY = 'lurkerOrder';
 
 let presetWriteChain: Promise<unknown> = Promise.resolve();
 let tabWriteChain: Promise<unknown> = Promise.resolve();
@@ -107,4 +108,15 @@ export async function removeLurkerTab(tabId: number): Promise<LurkerTab[]> {
 
 export async function setLurkerTabs(tabs: LurkerTab[]): Promise<void> {
   await chrome.storage.local.set({ [LURKER_TABS_KEY]: tabs });
+}
+
+/** Popup-only display order (tab ids). Kept apart from `lurkerTabs` so it never races with the background worker. */
+export async function getTabOrder(): Promise<number[]> {
+  const stored = await chrome.storage.local.get({ [TAB_ORDER_KEY]: [] as number[] });
+  const raw: unknown = stored[TAB_ORDER_KEY];
+  return Array.isArray(raw) ? raw.filter((id): id is number => Number.isInteger(id)) : [];
+}
+
+export async function setTabOrder(order: number[]): Promise<void> {
+  await chrome.storage.local.set({ [TAB_ORDER_KEY]: order });
 }

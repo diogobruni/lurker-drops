@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': '가장 많이 시청된 라이브 따라가기',
   'row.pursueOffTitle': '유효한 동안 현재 라이브 유지',
   'row.close': '닫기',
+  'row.delete': '삭제',
   'row.closeConfirm': '이 탭을 닫을까요? 러커도 꺼집니다.',
   'row.closeTitle': '이 탭을 닫고 러커 끄기',
   'row.edit': '편집',

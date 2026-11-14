@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': 'Die meistgesehene Live verfolgen',
   'row.pursueOffTitle': 'Die aktuelle Live behalten, solange sie gültig ist',
   'row.close': 'Schließen',
+  'row.delete': 'Löschen',
   'row.closeConfirm': 'Diesen Tab schließen? Der Lurker wird dabei deaktiviert.',
   'row.closeTitle': 'Diesen Tab schließen und den Lurker deaktivieren',
   'row.edit': 'Bearbeiten',

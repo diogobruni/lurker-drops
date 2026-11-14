@@ -17,10 +17,10 @@ export function AboutScreen() {
 
   return (
     <div className="h-full overflow-y-auto p-4">
-      <div className="relative overflow-hidden rounded-2xl border border-violet-500/25 bg-gradient-to-br from-violet-600/20 via-purple-600/10 to-transparent p-5 text-center shadow-lg shadow-purple-950/20">
+      <div className="relative overflow-hidden rise rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/20 via-primary/5 to-transparent p-5 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-violet-500/25 blur-3xl"
+          className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-primary/25 blur-3xl"
         />
         <img
           src={logoUrl}
@@ -35,15 +35,15 @@ export function AboutScreen() {
         </p>
         <Badge
           variant="outline"
-          className="relative mt-3 border-violet-400/30 bg-violet-500/10 text-violet-200"
+          className="relative mt-3 border-primary/30 bg-primary/10 text-foreground"
         >
           {version ? `v${version}` : t('about.version')}
         </Badge>
       </div>
 
       <div className="mt-4 space-y-2">
-        <div className="flex items-center gap-3 rounded-xl border border-border/80 bg-card/80 p-3 shadow-sm">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-300">
+        <div className="surface rise flex items-center gap-3 rounded-xl border border-border/80 bg-card p-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <UserRound className="h-4 w-4" />
           </span>
           <div className="min-w-0">
@@ -54,8 +54,8 @@ export function AboutScreen() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 rounded-xl border border-border/80 bg-card/80 p-3 shadow-sm">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-300">
+        <div className="surface rise flex items-center gap-3 rounded-xl border border-border/80 bg-card p-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Package className="h-4 w-4" />
           </span>
           <div className="min-w-0">

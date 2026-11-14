@@ -4,6 +4,9 @@ import { IS_POPOUT, SOURCE_TAB_ID } from '@/popup/popout';
 import { t } from '@/shared/i18n';
 import {
   getExtensionState,
+  getTabOrder,
+  setTabOrder,
+  TAB_ORDER_KEY,
   PRESETS_KEY,
   LURKER_TABS_KEY,
   removePreset,
@@ -36,8 +39,10 @@ interface AppStore {
   pickedPresetId: string | null;
   presets: Preset[];
   lurkingTabs: LurkerTab[];
+  tabOrder: number[];
   activeTab: ActiveTabInfo | null;
   load: () => Promise<void>;
+  reorderTabs: (order: number[]) => Promise<void>;
   goToMain: () => void;
   goToPresets: () => void;
   goToAbout: () => void;
@@ -157,6 +162,11 @@ function subscribeToStorage(
       if (parsed.success) set({ presets: parsed.data });
     }
 
+    if (changes[TAB_ORDER_KEY]) {
+      const next: unknown = changes[TAB_ORDER_KEY].newValue;
+      if (Array.isArray(next)) set({ tabOrder: next as number[] });
+    }
+
     if (changes[LURKER_TABS_KEY]) {
       const parsed = lurkerTabArraySchema.safeParse(
         changes[LURKER_TABS_KEY].newValue ?? [],
@@ -176,20 +186,28 @@ export const useAppStore = create<AppStore>((set, get) => ({
   pickedPresetId: null,
   presets: [],
   lurkingTabs: [],
+  tabOrder: [],
   activeTab: null,
+
+  reorderTabs: async (order) => {
+    set({ tabOrder: order });
+    await setTabOrder(order);
+  },
 
   load: () => {
     if (!loadPromise) {
       loadPromise = (async () => {
         subscribeToStorage(set);
         subscribeToActiveTabTracking(set, get);
-        const [state, activeTab] = await Promise.all([
+        const [state, activeTab, tabOrder] = await Promise.all([
           getExtensionState(),
           resolveInitialActiveTab(),
+          getTabOrder(),
         ]);
         set({
           presets: state.presets,
           lurkingTabs: state.lurkerTabs,
+          tabOrder,
           activeTab,
           hydrated: true,
         });

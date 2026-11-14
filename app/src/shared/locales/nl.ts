@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': 'De meest bekeken live volgen',
   'row.pursueOffTitle': 'De huidige live houden zolang die geldig is',
   'row.close': 'Sluiten',
+  'row.delete': 'Verwijderen',
   'row.closeConfirm': 'Dit tabblad sluiten? De lurker wordt dan uitgeschakeld.',
   'row.closeTitle': 'Dit tabblad sluiten en de lurker uitzetten',
   'row.edit': 'Bewerken',

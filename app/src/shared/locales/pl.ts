@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': 'Śledź najczęściej oglądaną transmisję',
   'row.pursueOffTitle': 'Zachowaj bieżącą transmisję, dopóki jest ważna',
   'row.close': 'Zamknij',
+  'row.delete': 'Usuń',
   'row.closeConfirm': 'Zamknąć tę kartę? Lurker zostanie wtedy wyłączony.',
   'row.closeTitle': 'Zamknij tę kartę i wyłącz jej lurker',
   'row.edit': 'Edytuj',

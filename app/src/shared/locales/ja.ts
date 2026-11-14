@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': '最も視聴されているライブを追従',
   'row.pursueOffTitle': '有効な間は現在のライブを維持',
   'row.close': '閉じる',
+  'row.delete': '削除',
   'row.closeConfirm': 'このタブを閉じますか？ラーカーもオフになります。',
   'row.closeTitle': 'このタブを閉じてラーカーをオフ',
   'row.edit': '編集',

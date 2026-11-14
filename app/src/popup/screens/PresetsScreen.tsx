@@ -87,7 +87,7 @@ function PresetCard({
               variant="ghost"
               size="sm"
               onClick={onSelect}
-              className="h-7 gap-1 px-2 text-xs text-violet-300 hover:text-violet-200"
+              className="h-7 gap-1 px-2 text-xs text-primary hover:text-primary"
             >
               <Check className="h-3.5 w-3.5" />
               {t('presets.select')}
@@ -176,7 +176,7 @@ export function PresetsScreen() {
       <Button
         type="button"
         onClick={() => openPresetForm()}
-        className="w-full gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500"
+        className="w-full gap-2 btn-brand "
       >
         <Plus />
         {t('nav.newPreset')}
@@ -193,7 +193,7 @@ export function PresetsScreen() {
       )}
 
       <div className="flex items-center justify-between px-0.5">
-        <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+        <p className="eyebrow text-muted-foreground">
           {t('presets.saved')}
         </p>
         <span className="text-[10px] text-muted-foreground">

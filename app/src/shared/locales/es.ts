@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': 'Perseguir la live más vista',
   'row.pursueOffTitle': 'Mantener la live actual mientras sea válida',
   'row.close': 'Cerrar',
+  'row.delete': 'Eliminar',
   'row.closeConfirm': '¿Cerrar esta pestaña? También se desactivará su lurker.',
   'row.closeTitle': 'Cerrar esta pestaña y desactivar su lurker',
   'row.edit': 'Editar',

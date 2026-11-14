@@ -110,6 +110,7 @@ const messages = {
   'row.pursueOnTitle': 'Pursue the most-watched live',
   'row.pursueOffTitle': 'Keep the current live while it is valid',
   'row.close': 'Close',
+  'row.delete': 'Delete',
   'row.closeConfirm': 'Close this tab? This also turns off its lurker.',
   'row.closeTitle': 'Close this tab and turn off its lurker',
   'row.edit': 'Edit',

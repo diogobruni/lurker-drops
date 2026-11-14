@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': 'Poursuivre la live la plus regardée',
   'row.pursueOffTitle': 'Garder la live actuelle tant qu\'elle reste valide',
   'row.close': 'Fermer',
+  'row.delete': 'Supprimer',
   'row.closeConfirm': 'Fermer cet onglet ? Son lurker sera aussi désactivé.',
   'row.closeTitle': 'Fermer cet onglet et désactiver son lurker',
   'row.edit': 'Modifier',

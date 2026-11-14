@@ -196,7 +196,7 @@ export function PresetFormScreen() {
           </Button>
           <Button
             type="submit"
-            className="flex-1 gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500"
+            className="flex-1 gap-2 btn-brand "
             disabled={saving}
           >
             {saving ? <Loader2 className="animate-spin" /> : <Save />}

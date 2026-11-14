@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': 'En çok izlenen yayını takip et',
   'row.pursueOffTitle': 'Geçerli olduğu sürece mevcut yayını koru',
   'row.close': 'Kapat',
+  'row.delete': 'Sil',
   'row.closeConfirm': 'Bu sekme kapatılsın mı? Lurker da kapatılır.',
   'row.closeTitle': "Bu sekmeyi kapat ve lurker'ını kapat",
   'row.edit': 'Düzenle',

@@ -107,6 +107,7 @@ const messages = {
   'row.pursueOnTitle': '追看观看人数最多的直播',
   'row.pursueOffTitle': '在有效时保留当前直播',
   'row.close': '关闭',
+  'row.delete': '删除',
   'row.closeConfirm': '关闭此标签页？挂机也会关闭。',
   'row.closeTitle': '关闭此标签页并关闭其挂机',
   'row.edit': '编辑',

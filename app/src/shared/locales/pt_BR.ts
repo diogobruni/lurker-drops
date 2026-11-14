@@ -112,6 +112,7 @@ const messages = {
   'row.pursueOnTitle': 'Perseguir a live mais assistida',
   'row.pursueOffTitle': 'Manter a live atual enquanto ela for válida',
   'row.close': 'Fechar',
+  'row.delete': 'Excluir',
   'row.closeConfirm': 'Fechar esta aba? Isso também desliga o lurker dela.',
   'row.closeTitle': 'Fechar esta aba e desligar o lurker dela',
   'row.edit': 'Editar',

@@ -21,7 +21,7 @@ function Splash({ error }: { error: string | null }) {
         <img
           src={logoUrl}
           alt={t('app.name')}
-          className="h-12 w-12 rounded-2xl shadow-lg shadow-purple-950/50"
+          className="h-12 w-12 rounded-2xl shadow-[0_0_30px_hsl(262_83%_60%/0.5)]"
         />
         {error ? (
           <>
@@ -57,7 +57,7 @@ export default function App() {
         className="flex h-full flex-col overflow-hidden"
         style={{
           backgroundImage:
-            'radial-gradient(ellipse at top, hsl(262 83% 63% / 0.13), transparent 52%)',
+            'radial-gradient(ellipse 80% 50% at 50% -10%, hsl(262 83% 63% / 0.18), transparent 70%), radial-gradient(ellipse 60% 40% at 100% 100%, hsl(78 85% 58% / 0.04), transparent 70%)',
         }}
       >
         {!hydrated ? (
@@ -68,7 +68,7 @@ export default function App() {
             <div className="min-h-0 flex-1">
               <div
                 key={`${screen}-${editingPresetId ?? ''}-${lurkerFormTabId ?? 'new'}`}
-                className="h-full animate-fade-in"
+                className="screen-in h-full"
               >
                 {screen === 'main' && <MainScreen />}
                 {screen === 'presets' && <PresetsScreen />}
