@@ -24,6 +24,13 @@ Prefer pnpm over npm for all project commands. Fall back to npm only if pnpm is 
 - Every version bump must be followed by a commit. If the related changes are still uncommitted, commit the code, changelog, and version files together right after the bump.
 - Mention the released version in the commit message, for example `chore: release v1.2.0`.
 
+## Releases
+
+- A release is published by pushing a `v*` tag. The workflow `.github/workflows/release.yml` checks that the tag matches `app/public/manifest.json`, runs tests, builds, zips `app/dist/` as `lurker-drops.zip`, and creates the GitHub release.
+- Release only from `main`: merge the feature branch first (fast-forward when possible), push `main`, then create and push the tag `vX.Y.Z`.
+- Ask the user before pushing the branch or the tag; both are public.
+- If the workflow cannot run (for example, GitHub Actions is blocked by a billing issue), publish manually. Inside `app/`, run `pnpm run build`, zip the contents of `dist/` so `manifest.json` sits at the zip root, then run `gh release create vX.Y.Z lurker-drops.zip --title vX.Y.Z --generate-notes` from the repository root. Name the asset `lurker-drops.zip`.
+
 ## Build
 
 - Run `pnpm run build` inside `app/` automatically when finishing any change that affects the extension output: popup, background worker, content scripts, manifest, assets, dependencies, or a version bump.
