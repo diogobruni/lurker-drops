@@ -4,8 +4,8 @@
   "description": "Keeps the Twitch tabs you choose watching a live that matches your rules.",
   "start_url": "/lurker-drops/",
   "display": "standalone",
-  "background_color": "#08070c",
-  "theme_color": "#08070c",
+  "background_color": "#07100b",
+  "theme_color": "#07100b",
   "icons": [
     {
       "src": "/lurker-drops/icon.png",
