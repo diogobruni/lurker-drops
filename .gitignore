@@ -5,3 +5,6 @@ dist/
 .DS_Store
 
 .projectmem/
+
+chrome-web-store/
+demo-screens/
