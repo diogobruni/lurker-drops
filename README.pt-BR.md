@@ -125,6 +125,6 @@ pnpm run build
 - [Chrome Web Store](https://chromewebstore.google.com/detail/lurker-drops/ebcahoihcbkbebpebmdmofpfohnfinoc)
 - [Releases](https://github.com/diogobruni/lurker-drops/releases)
 - [Issues](https://github.com/diogobruni/lurker-drops/issues)
-- [Changelog](CHANGELOG.md)
+- [Changelog](app/CHANGELOG.md)
 
 <p align="center"><sub>Sem vínculo com a Twitch ou a Amazon. Twitch é uma marca da Twitch Interactive, Inc.</sub></p>

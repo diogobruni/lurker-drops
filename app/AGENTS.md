@@ -1,16 +1,14 @@
-# Project Instructions
+## The Extension
+
+Lurker Drops is a Manifest V3 Chrome extension (React 19 + TypeScript popup, background service worker, and content scripts) that keeps Twitch tabs "lurking" to earn drops. Each managed tab follows a filter preset (Twitch category, title filter, favorites, blacklist) and the background worker picks and switches to a matching live stream every minute. It also watches chat connections, claims channel-points bonus chests, and can mute the tab. State is stored in `chrome.storage.local`. This folder (`app/`) holds the whole extension.
+
+## Project Instructions
 
 Prefer pnpm over npm for all project commands. Fall back to npm only if pnpm is unavailable.
 
-## Layout
-
-- `app/` holds the Chrome extension and everything it needs to build and release: source, public assets, tests, scripts, and its own `package.json`, lockfile, and build configs. Run extension commands inside `app/`.
-- `website/` holds the product site (see below).
-- The repository root keeps only shared files: READMEs, `CHANGELOG.md`, `AGENTS.md`, `.github/`, and `demo-screens/`.
-
 ## Changelog
 
-- `CHANGELOG.md` at the repository root is the internal changelog. It must be written in English only.
+- `CHANGELOG.md` in this folder (`app/`) is the internal changelog. It must be written in English only.
 - Use Keep a Changelog-style headings: `Added`, `Changed`, `Fixed`, `Removed`.
 - Keep version sections ordered oldest to newest and leave `[Unreleased]` as the last section.
 - Record every new feature, behavior change, and fix under `[Unreleased]` as soon as it is implemented.
@@ -25,20 +23,15 @@ Prefer pnpm over npm for all project commands. Fall back to npm only if pnpm is 
 - Run `pnpm run typecheck`, `pnpm test`, and `pnpm run build` inside `app/` after bumping and before committing.
 - Every version bump must be followed by a commit. If the related changes are still uncommitted, commit the code, changelog, and version files together right after the bump.
 - Mention the released version in the commit message, for example `chore: release v1.2.0`.
-- After the bump commit and the release, run `pnpm run deploy` inside `website/` so the public page stays in sync with the published version.
 
 ## Build
 
 - Run `pnpm run build` inside `app/` automatically when finishing any change that affects the extension output: popup, background worker, content scripts, manifest, assets, dependencies, or a version bump.
 - Do not ask for confirmation before building; run it as the final verification step of the task.
 
-## Product site
-
-- Instructions for the product site live in `website/AGENTS.md`. After a version bump and release, run `pnpm run deploy` inside `website/` (see that file).
-
 ## Chrome Web Store descriptions
 
-- Store copy lives in `app/chrome-web-store/APP_DETAILS.<locale>.txt`, one file per locale, using the same locale codes as `app/src/shared/i18n.ts` (for example `APP_DETAILS.en.txt` and `APP_DETAILS.pt_BR.txt`).
+- Store copy lives in `chrome-web-store/` at the repository root, in `APP_DETAILS.<locale>.txt`, one file per locale, using the same locale codes as `app/src/shared/i18n.ts` (for example `APP_DETAILS.en.txt` and `APP_DETAILS.pt_BR.txt`).
 - The Chrome Web Store shows plain text only: do not use Markdown, HTML, bold, links, or headings. Use light ASCII/Unicode decoration (`★`, `✔`, `▸`, separator lines) to organize sections, without overdoing it.
 - Write for someone who has never used the app: short sentences, everyday words, and no technical jargon (avoid API, GraphQL, WebSocket, manifest, storage).
 - Explain any in-app term in plain language the first time it appears.

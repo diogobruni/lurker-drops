@@ -111,6 +111,6 @@ Sections are ordered oldest to newest; unreleased work goes last.
 - Install instructions now default to dragging the release ZIP onto the browser extensions page, with the unpacked method kept as a manual fallback.
 - Primary install buttons now open the Chrome Web Store listing, since the extension is approved there. The GitHub release ZIP remains as the manual install option, installed by dragging the ZIP onto the extensions page.
 - Root README rewritten around the current app, with the project logo, Chrome Web Store install, and Brazilian Portuguese and Spanish versions.
-- Moved the extension source, assets, tests, scripts, and build configs into `app/`, so the repository root only holds shared docs, the release workflow, and the `site/` product page. The release workflow now runs inside `app/`.
+- Moved the extension source, assets, tests, scripts, and build configs into `app/`, so the repository root only holds shared docs, the release workflow, and the `website/` product page. The release workflow now runs inside `app/`.
 
 ## [Unreleased]
