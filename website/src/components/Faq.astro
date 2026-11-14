@@ -27,7 +27,7 @@ const q = dict.faq;
       </div>
       <div class="faq span-6 start-7">
         {q.items.map((item) => (
-          <div class="faq__item">
+          <div class="faq__item" id={'link' in item ? 'manual' : undefined}>
             <h3>{item.q}</h3>
             <p>
               {item.a}

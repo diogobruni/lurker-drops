@@ -38,6 +38,12 @@ const ic = {
   sliders: '<path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/>',
   save: '<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7M7 3v4a1 1 0 0 0 1 1h7"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
+  trash: '<path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2M10 11v6M14 11v6"/>',
+  tv: '<rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><path d="m17 2-5 5-5-5"/>',
+  grip: '<circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/>',
+  star: '<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>',
+  ban: '<circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/>',
+  gamepad: '<path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/>',
 };
 const opts = [
   { label: u.muted, hint: u.mutedHint },
@@ -45,11 +51,14 @@ const opts = [
   { label: u.newTab, hint: u.newTabHint },
 ];
 const fields = [
-  { label: u.category, value: u.categoryValue, chev: true },
-  { label: u.titleFilter, value: u.titleFilterValue },
-  { label: u.favorites, chips: u.favoritesValue },
-  { label: u.blacklist, chips: u.blacklistValue },
+  { label: u.nameLabel, value: u.presetName, hint: u.nameHint },
+  { label: u.category, value: u.categoryValue, chev: true, optional: true, hint: u.categoryHint },
+  { label: u.titleFilter, value: u.titleFilterValue, optional: true, hint: u.titleFilterHint },
+  { label: u.favorites, chips: u.favoritesValue, optional: true, hint: u.favoritesHint },
+  { label: u.blacklist, chips: u.blacklistValue, optional: true, hint: u.blacklistHint },
 ];
+/* "Favorites: 3 · Blocked: 1 · In use: 1" */
+const [favCount, blockedCount, inUseCount] = u.presetCounts.split(' · ');
 const back = part === 'form';
 ---
 
@@ -57,42 +66,49 @@ const back = part === 'form';
   {(part === 'home' || part === 'form') && (
     <div class="pp-nav">
       {back ? (
-        <svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.back} />
+        <span class="pp-ib"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.back} /></span>
       ) : (
-        <Image class="pp-logo" src={icon} alt="" width={36} height={36} loading={loading} />
+        <Image class="pp-logo" src={icon} alt="" width={32} height={32} loading={loading} />
       )}
       <div class="pp-nav__t"><b>{back ? u.newLurker : 'Lurker Drops'}</b><small>{back ? u.lurkerSettings : u.tagline}</small></div>
-      <span class="pp-pill"><i></i>{u.active}</span>
-      <svg class="pp-i pp-i--lg pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.info} />
-      <svg class="pp-i pp-i--lg pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.ext} />
+      <span class="pp-ib pp-dim"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.info} /></span>
+      <span class="pp-ib pp-dim"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.ext} /></span>
     </div>
   )}
 
   {part === 'home' && (
     <div class="pp-body">
       <div class="pp-sec">
-        <span class="pp-label">{u.lurkingTabs}</span>
-        <span class="pp-pill pp-pill--sm">{u.active}</span>
-        <span class="pp-btn pp-btn--primary pp-btn--sm"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.plus} />{u.add}</span>
+        <span class="pp-label pp-eyebrow">{u.lurkingTabs}</span>
+        <span class="pp-badge"><i class="pp-live"></i>{u.active}</span>
+        <span class="pp-btn pp-btn--primary pp-btn--sm"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.plus} />{u.add}</span>
       </div>
-      {u.rows.map((r, i) => (
-        <div class="pp-card pp-row" data-row={i}>
-          <div class="pp-row__top">
-            <span class="pp-thumb"><Image src={thumbs[i % 2]} alt="" width={60} height={36} loading={loading} /></span>
-            <span class="pp-row__t"><b>{r.title}</b><small>{r.meta}</small><small class="pp-tag"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.tag} />{r.preset}</small></span>
-            <span class="pp-row__x">
-              <svg class="pp-i pp-i--lg pp-on" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.power} />
-              <svg class="pp-i pp-i--lg pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.x} />
-            </span>
+      <div class="pp-rows">
+        {u.rows.map((r, i) => (
+          <div class="pp-card pp-row" data-row={i}>
+            <span class="pp-row__bar"></span>
+            <div class="pp-row__top">
+              <svg class="pp-i pp-i--lg pp-grip" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.grip} />
+              <span class="pp-thumb">
+                <svg class="pp-i pp-i--lg pp-thumb__tv" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.tv} />
+                <Image src={thumbs[i % 2]} alt="" width={75} height={42} loading={loading} />
+                <span class="pp-thumb__live"><i class="pp-live"></i>live</span>
+              </span>
+              <span class="pp-row__t"><b>{r.title}</b><small>{r.meta}</small><small class="pp-tag"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.tag} />{r.preset}</small></span>
+              <span class="pp-row__x">
+                <span class="pp-switch" aria-hidden="true"><i></i></span>
+                <span class="pp-ib pp-dim"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.trash} /></span>
+              </span>
+            </div>
+            <div class="pp-row__acts">
+              <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.ext} />{u.goTo}</span>
+              <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.volx} />{u.unmute}</span>
+              <span class="pp-violet"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.radar} />{u.pursueOn}</span>
+              <span class="pp-push"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.pencil} />{u.edit}</span>
+            </div>
           </div>
-          <div class="pp-row__acts">
-            <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.ext} />{u.goTo}</span>
-            <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.volx} />{u.unmute}</span>
-            <span class="pp-violet"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.radar} />{u.pursueOn}</span>
-            <span class="pp-push"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.pencil} />{u.edit}</span>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
       <p class="pp-foot">{u.footer}</p>
     </div>
   )}
@@ -102,7 +118,7 @@ const back = part === 'form';
       <p class="pp-label">{u.preset}</p>
       <div class="pp-select-row">
         <span class="pp-input">{u.presetValue}<svg class="pp-i pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.chev} /></span>
-        <span class="pp-sq"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.sliders} /></span>
+        <span class="pp-sq"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.sliders} /></span>
       </div>
     </div>
   )}
@@ -112,7 +128,11 @@ const back = part === 'form';
       <div class="pp-card pp-prev">
         <p class="pp-label">{u.livePreview}</p>
         <div class="pp-prev__row">
-          <Image src={thumbPreview} alt="" width={94} height={52} loading={loading} />
+          <span class="pp-prev__img">
+            <svg class="pp-i pp-i--lg pp-thumb__tv" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.tv} />
+            <Image src={thumbPreview} alt="" width={96} height={56} loading={loading} />
+            <i class="pp-prev__dot"></i>
+          </span>
           <span><b>{u.previewTitle}</b><small>{u.previewMeta}</small><em>{u.previewViewers}</em></span>
         </div>
       </div>
@@ -133,7 +153,7 @@ const back = part === 'form';
   {(part === 'form' || part === 'turnon') && (
     <div class="pp-bar">
       <span class="pp-btn pp-btn--ghost">{u.cancel}</span>
-      <span class="pp-btn pp-btn--primary" data-turnon><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.save} />{u.turnOn}</span>
+      <span class="pp-btn pp-btn--primary" data-turnon><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.save} />{u.turnOn}</span>
     </div>
   )}
 
@@ -141,24 +161,44 @@ const back = part === 'form';
     <div class="pp-body pp-fields">
       {fields.map((f) => (
         <div class="pp-field">
-          <span>{f.label}</span>
+          <span class="pp-field__h"><span>{f.label}</span>{f.optional && <small>{u.optional}</small>}</span>
           <span class:list={['pp-input', f.chips && 'pp-input--chips']}>
-            {f.chips ? f.chips.map((c) => <span class="pp-chip">@{c}</span>) : f.value}
-            {f.chev && <svg class="pp-i pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.chev} />}
+            {f.chips ? f.chips.map((c) => (
+              <span class="pp-chip">@{c}<svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.x} /></span>
+            )) : f.value}
+            {(f.chev || f.chips) && <svg class:list={['pp-i', 'pp-dim', f.chips && 'pp-push']} viewBox="0 0 24 24" aria-hidden="true" set:html={ic.chev} />}
           </span>
+          <small class="pp-hint">{f.hint}</small>
         </div>
       ))}
-      <span class="pp-btn pp-btn--primary pp-btn--full"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.save} />{u.savePreset}</span>
+    </div>
+  )}
+  {part === 'preset' && (
+    <div class="pp-bar">
+      <span class="pp-btn pp-btn--ghost">{u.cancel}</span>
+      <span class="pp-btn pp-btn--primary"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.save} />{u.savePreset}</span>
     </div>
   )}
 
   {part === 'presets' && (
-    <div class="pp-body">
-      <p class="pp-label">{u.savedPresets}</p>
+    <div class="pp-body pp-body--tight">
+      <span class="pp-btn pp-btn--primary pp-btn--full"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.plus} />{u.newPreset}</span>
+      <div class="pp-sec pp-sec--between"><span class="pp-label pp-eyebrow">{u.savedPresets}</span><small class="pp-total">{u.total}</small></div>
       <div class="pp-card pp-pre">
-        <b>{u.presetName}</b><small>{u.presetSummary}</small><small>{u.presetCounts}</small>
-        <span class="pp-row__x"><svg class="pp-i pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.pencil} /></span>
+        <div class="pp-pre__t">
+          <b>{u.presetName}</b><small>{u.presetSummary}</small>
+          <span class="pp-pre__n">
+            <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.star} />{favCount}</span>
+            <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.ban} />{blockedCount}</span>
+            <span class="pp-badge"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.tv} />{inUseCount}</span>
+          </span>
+        </div>
+        <span class="pp-row__x pp-dim">
+          <span class="pp-ib"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.pencil} /></span>
+          <span class="pp-ib"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.trash} /></span>
+        </span>
       </div>
+      <p class="pp-tip"><svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.gamepad} />{u.tip}</p>
     </div>
   )}
 
