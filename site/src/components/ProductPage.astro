@@ -2,11 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Hero from './Hero.astro';
+import AppFrame from './AppFrame.astro';
 import Features from './Features.astro';
-import HowItWorks from './HowItWorks.astro';
-import Install from './Install.astro';
+import Statement from './Statement.astro';
+import Steps from './Steps.astro';
 import Faq from './Faq.astro';
-import FinalCta from './FinalCta.astro';
 import Footer from './Footer.astro';
 import type { Dictionary } from '../i18n/en';
 
@@ -19,13 +19,13 @@ const { dict } = Astro.props;
 
 <BaseLayout dict={dict}>
   <Header dict={dict} />
-  <main id="main">
+  <main id="top">
     <Hero dict={dict} />
+    <AppFrame dict={dict} />
     <Features dict={dict} />
-    <HowItWorks dict={dict} />
-    <Install dict={dict} />
+    <Statement dict={dict} />
+    <Steps dict={dict} />
     <Faq dict={dict} />
-    <FinalCta dict={dict} />
   </main>
   <Footer dict={dict} />
 </BaseLayout>

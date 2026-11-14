@@ -1,0 +1,172 @@
+---
+// Faithful copies of the extension's real screens (src/popup/screens), in its own dark look.
+// Labels come from the extension's locale through dict.ui; nothing here is a screen the app lacks.
+import { Image } from 'astro:assets';
+import type { Dictionary } from '../i18n/en';
+import icon from '../assets/icon.png';
+import thumb1 from '../assets/thumb-1.jpg';
+import thumb2 from '../assets/thumb-2.jpg';
+import thumbPreview from '../assets/thumb-preview.jpg';
+
+type Part = 'home' | 'form' | 'options' | 'turnon' | 'preset' | 'presets' | 'overlay';
+
+interface Props {
+  dict: Dictionary;
+  part: Part;
+  /* above the fold (the hero): load its pictures at once */
+  eager?: boolean;
+}
+
+const { dict, part, eager = false } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
+const u = dict.ui;
+const thumbs = [thumb1, thumb2];
+
+/* lucide icons the popup uses (24px grid) */
+const ic = {
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+  ext: '<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  back: '<path d="m12 19-7-7 7-7M19 12H5"/>',
+  plus: '<path d="M5 12h14M12 5v14"/>',
+  power: '<path d="M12 2v10M18.4 6.6a9 9 0 1 1-12.77.04"/>',
+  x: '<path d="M18 6 6 18M6 6l12 12"/>',
+  tag: '<path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r=".5"/>',
+  volx: '<path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5zM22 9l-6 6M16 9l6 6"/>',
+  radar: '<path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4 6h.01M2.29 9.62A10 10 0 1 0 21.31 8.35M16.24 7.76A6 6 0 1 0 8.23 16.67M12 18h.01M17.99 11.66A6 6 0 0 1 15.77 16.67"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/>',
+  pencil: '<path d="M21.2 6.8a2.8 2.8 0 0 0-4-4L3.8 16.2a2 2 0 0 0-.5.8l-1.3 4.4a.5.5 0 0 0 .6.6l4.4-1.3a2 2 0 0 0 .8-.5zM15 5l4 4"/>',
+  chev: '<path d="m7 15 5 5 5-5M7 9l5-5 5 5"/>',
+  sliders: '<path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/>',
+  save: '<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7M7 3v4a1 1 0 0 0 1 1h7"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+};
+const opts = [
+  { label: u.muted, hint: u.mutedHint },
+  { label: u.pursue, hint: u.pursueHint },
+  { label: u.newTab, hint: u.newTabHint },
+];
+const fields = [
+  { label: u.category, value: u.categoryValue, chev: true },
+  { label: u.titleFilter, value: u.titleFilterValue },
+  { label: u.favorites, chips: u.favoritesValue },
+  { label: u.blacklist, chips: u.blacklistValue },
+];
+const back = part === 'form';
+---
+
+<div class:list={['pp', `pp--${part}`]}>
+  {(part === 'home' || part === 'form') && (
+    <div class="pp-nav">
+      {back ? (
+        <svg class="pp-i pp-i--lg" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.back} />
+      ) : (
+        <Image class="pp-logo" src={icon} alt="" width={36} height={36} loading={loading} />
+      )}
+      <div class="pp-nav__t"><b>{back ? u.newLurker : 'Lurker Drops'}</b><small>{back ? u.lurkerSettings : u.tagline}</small></div>
+      <span class="pp-pill"><i></i>{u.active}</span>
+      <svg class="pp-i pp-i--lg pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.info} />
+      <svg class="pp-i pp-i--lg pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.ext} />
+    </div>
+  )}
+
+  {part === 'home' && (
+    <div class="pp-body">
+      <div class="pp-sec">
+        <span class="pp-label">{u.lurkingTabs}</span>
+        <span class="pp-pill pp-pill--sm">{u.active}</span>
+        <span class="pp-btn pp-btn--primary pp-btn--sm"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.plus} />{u.add}</span>
+      </div>
+      {u.rows.map((r, i) => (
+        <div class="pp-card pp-row" data-row={i}>
+          <div class="pp-row__top">
+            <span class="pp-thumb"><Image src={thumbs[i % 2]} alt="" width={60} height={36} loading={loading} /></span>
+            <span class="pp-row__t"><b>{r.title}</b><small>{r.meta}</small><small class="pp-tag"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.tag} />{r.preset}</small></span>
+            <span class="pp-row__x">
+              <svg class="pp-i pp-i--lg pp-on" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.power} />
+              <svg class="pp-i pp-i--lg pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.x} />
+            </span>
+          </div>
+          <div class="pp-row__acts">
+            <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.ext} />{u.goTo}</span>
+            <span><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.volx} />{u.unmute}</span>
+            <span class="pp-violet"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.radar} />{u.pursueOn}</span>
+            <span class="pp-push"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.pencil} />{u.edit}</span>
+          </div>
+        </div>
+      ))}
+      <p class="pp-foot">{u.footer}</p>
+    </div>
+  )}
+
+  {part === 'form' && (
+    <div class="pp-body">
+      <p class="pp-label">{u.preset}</p>
+      <div class="pp-select-row">
+        <span class="pp-input">{u.presetValue}<svg class="pp-i pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.chev} /></span>
+        <span class="pp-sq"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.sliders} /></span>
+      </div>
+    </div>
+  )}
+
+  {(part === 'form' || part === 'turnon') && (
+    <div class="pp-body">
+      <div class="pp-card pp-prev">
+        <p class="pp-label">{u.livePreview}</p>
+        <div class="pp-prev__row">
+          <Image src={thumbPreview} alt="" width={94} height={52} loading={loading} />
+          <span><b>{u.previewTitle}</b><small>{u.previewMeta}</small><em>{u.previewViewers}</em></span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {(part === 'form' || part === 'options') && (
+    <div class="pp-body">
+      {opts.map((o) => (
+        <div class="pp-opt">
+          <span class="pp-box"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.check} /></span>
+          <span><b>{o.label}</b><small>{o.hint}</small></span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {(part === 'form' || part === 'turnon') && (
+    <div class="pp-bar">
+      <span class="pp-btn pp-btn--ghost">{u.cancel}</span>
+      <span class="pp-btn pp-btn--primary" data-turnon><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.save} />{u.turnOn}</span>
+    </div>
+  )}
+
+  {part === 'preset' && (
+    <div class="pp-body pp-fields">
+      {fields.map((f) => (
+        <div class="pp-field">
+          <span>{f.label}</span>
+          <span class:list={['pp-input', f.chips && 'pp-input--chips']}>
+            {f.chips ? f.chips.map((c) => <span class="pp-chip">@{c}</span>) : f.value}
+            {f.chev && <svg class="pp-i pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.chev} />}
+          </span>
+        </div>
+      ))}
+      <span class="pp-btn pp-btn--primary pp-btn--full"><svg class="pp-i" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.save} />{u.savePreset}</span>
+    </div>
+  )}
+
+  {part === 'presets' && (
+    <div class="pp-body">
+      <p class="pp-label">{u.savedPresets}</p>
+      <div class="pp-card pp-pre">
+        <b>{u.presetName}</b><small>{u.presetSummary}</small><small>{u.presetCounts}</small>
+        <span class="pp-row__x"><svg class="pp-i pp-dim" viewBox="0 0 24 24" aria-hidden="true" set:html={ic.pencil} /></span>
+      </div>
+    </div>
+  )}
+
+  {part === 'overlay' && (
+    <div class="pp-ov">
+      <span class="pp-ov__dot"></span>
+      <span class="pp-ov__t"><b>{u.overlayTitle}</b><small>{u.overlaySubtitle}</small></span>
+      <span class="pp-ov__btn">{u.overlayOff}</span>
+    </div>
+  )}
+</div>

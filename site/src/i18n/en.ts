@@ -1,178 +1,221 @@
+// Every string under `ui` is copied from the extension's own locale (src/shared/locales/en.ts)
+// or from its real screens, so the page only shows what the app really has.
 export const en = {
   locale: 'en',
   htmlLang: 'en',
   path: '/',
   label: 'EN',
+  langName: 'English',
   skip: 'Skip to content',
   meta: {
-    title: 'Lurker Drops — Your Twitch tabs, watching on their own',
+    title: 'Lurker Drops: a Twitch auto-lurker for your browser',
     description:
-      'A free browser extension that keeps your Twitch tabs watching a matching live. Works on Chrome, Edge, Opera, Brave, and other Chromium browsers.',
+      'Free browser extension that keeps your Twitch tabs on a live that fits your rules, so watch time for drops adds up while you sleep.',
     ogLocale: 'en_US',
   },
   nav: {
+    tabs: 'How it works',
     features: 'Features',
-    how: 'How it works',
+    how: 'Install',
     faq: 'Questions',
-    install: 'Install',
-    github: 'GitHub',
+    cta: 'Add to Chrome',
     language: 'Language',
-    primary: 'Primary',
+    primary: 'Main',
+    menu: 'Menu',
+    github: 'Lurker Drops on GitHub',
+    themeDark: 'Switch to dark theme',
+    themeLight: 'Switch to light theme',
+  },
+  ui: {
+    tagline: 'Twitch auto-lurker',
+    active: 'Active: 2',
+    lurkingTabs: 'Lurking Tabs',
+    add: 'Add',
+    goTo: 'Go to',
+    unmute: 'Unmute',
+    pursueOn: 'Pursue on',
+    edit: 'Edit',
+    footer: 'Lurker Drops checks Twitch every minute while any lurking tab is on.',
+    rows: [
+      { title: 'DROPS ON! 0 AO 400 RP! MELHOR !EXTENSAO PARA FARM', meta: 'Brederodess · Tibia · 3.5K viewers', preset: 'Preset: Rubinot' },
+      { title: 'Drops! | Wukong/Sage | Pushin 75, come hang', meta: 'Divios · Black Desert · 925 viewers', preset: 'Preset: Black Desert' },
+    ],
+    newLurker: 'New lurker',
+    lurkerSettings: 'Lurker settings',
+    preset: 'Preset',
+    presetValue: 'Rubinot',
+    livePreview: 'Live preview',
+    previewTitle: 'DROPS ON! 0 AO 400 RP! MELHOR !EXTENSAO PARA FARM! !INSTA !RUBINOT',
+    previewMeta: 'Brederodess · Tibia',
+    previewViewers: '3.5K viewers',
+    muted: 'Muted',
+    mutedHint: 'Mute the browser tab itself, not just the Twitch player.',
+    pursue: 'Pursue',
+    pursueHint: 'Follow the most-watched live matching this preset. Off keeps the current live while it remains valid.',
+    newTab: 'New tab',
+    newTabHint: 'Open a new tab and start this lurker there.',
+    cancel: 'Cancel',
+    turnOn: 'Turn on lurker',
+    overlayTitle: 'Lurker mode',
+    overlaySubtitle: 'This tab is managed by Lurker Drops.',
+    overlayOff: 'Turn off lurker',
+    category: 'Twitch Category',
+    categoryValue: 'Tibia',
+    titleFilter: 'Title Filter',
+    titleFilterValue: 'drops',
+    favorites: 'Favorites',
+    favoritesValue: ['brederodess', 'rubinot_tv', 'kaelfrost'],
+    blacklist: 'Blacklist',
+    blacklistValue: ['spamcast'],
+    savePreset: 'Save preset',
+    savedPresets: 'Saved presets',
+    presetName: 'Rubinot',
+    presetSummary: 'Tibia · title contains “drops”',
+    presetCounts: 'Favorites: 3 · Blocked: 1 · In use: 1',
   },
   hero: {
     badge: 'Now on the Chrome Web Store',
-    title: 'Your Twitch tabs,',
-    titleAccent: 'watching on their own.',
-    subtitle:
-      'Choose a category and the rules you like. Lurker Drops keeps that tab on a matching live, switches when a better one shows up, and stays quiet in the background.',
-    primaryCta: 'Add to Chrome',
-    primaryNote: 'Free · No account · About a minute to set up',
-    secondaryCta: 'See how it works',
-    trust: ['Chrome, Edge, Opera, Brave and more', 'Runs on your computer', 'Open source', 'No sign-up'],
-    imageAlt:
-      'Lurker Drops popup showing two tabs lurking a Twitch live, each with its preset and viewer count.',
-  },
-  features: {
-    eyebrow: 'What it does',
-    title: 'Small helper. Big relief.',
-    subtitle:
-      'It is like asking a friend to keep the TV on the right channel. Except this friend never gets bored.',
-    items: [
-      {
-        title: 'Pick the show',
-        text: 'Choose a category, like a game or Just Chatting. Add a word the title must have, or words you never want to see.',
-      },
-      {
-        title: 'One preset per tab',
-        text: 'Cozy streams in one tab, your favorite game in another. Each tab remembers its own rules, favorites, and blacklist.',
-      },
-      {
-        title: 'Finds a live for you',
-        text: 'Every minute it looks again. If a bigger stream fits your rules, the tab moves there. Turn Pursue off to stay on your favorites.',
-      },
-      {
-        title: 'Quiet watching',
-        text: 'Mute the tab while it watches. Your speakers stay free for calls, music, or the video you are actually watching.',
-      },
-      {
-        title: 'Chat rescue',
-        text: 'If Twitch chat disconnects, the extension reconnects it. If that fails, it reloads the page, at most once every five minutes.',
-      },
-      {
-        title: 'Bonus chests',
-        text: 'When a bonus chest appears on the page, it clicks it for you. No more remembering to look.',
-      },
+    titleA: 'Your Twitch tab,',
+    titleB: 'lurking for drops on its own.',
+    lead: 'Pick a category, a title filter and your favorite channels. Lurker Drops keeps the tab on a matching live, switches when a better one shows up, and stays muted in the background.',
+    secondary: 'See it working',
+    note: 'Free · No account · Settings stay on your device',
+    facts: [
+      { value: '60 s', label: 'between checks' },
+      { value: '30', label: 'lives scanned per category' },
+      { value: '14', label: 'languages in the app' },
     ],
+    url: 'twitch.tv/brederodess',
+    extToggle: 'Show or hide the Lurker Drops popup',
+    visualLabel:
+      'A browser with a Twitch tab in Lurker mode, muted, and the Lurker Drops popup opened from the toolbar icon, listing two lurking tabs.',
   },
-  how: {
-    eyebrow: 'How it works',
-    title: 'Three steps. Then forget about it.',
-    subtitle: 'You set the rules once. The extension does the boring part, all day long.',
-    steps: [
-      {
-        title: 'Tell it what to watch',
-        text: 'Open the popup, pick a category, and add a filter if you want. Save it as a preset to reuse later.',
-      },
-      {
-        title: 'Press On',
-        text: 'The tab opens a live that matches your rules and stays there. The icon shows how many lurkers are active.',
-      },
-      {
-        title: 'Go live your life',
-        text: 'Work, study, or play. It checks again every minute and keeps the right stream playing until you turn it off.',
-      },
-    ],
-    note: 'You can run several tabs at the same time, each with a different preset.',
-  },
-  install: {
-    eyebrow: 'Install',
-    title: 'Add it to your browser in about a minute',
-    subtitle:
-      'Lurker Drops is now in the Chrome Web Store. Install it with one click, or use the GitHub release if you prefer a manual install.',
-    cta: 'Add to Chrome',
-    note: 'Works on desktop Chrome, Edge, Opera, and Brave. The store link opens the official Chrome Web Store page.',
-    steps: [
-      {
-        title: 'Open the store page',
-        text: 'The button above opens the official Chrome Web Store page for Lurker Drops.',
-      },
-      {
-        title: 'Click Add to Chrome',
-        text: 'Confirm the permissions. The extension needs access to Twitch pages to keep the tab watching and to reconnect chat.',
-      },
-      {
-        title: 'Pin and press On',
-        text: 'Pin Lurker Drops to the toolbar, open the popup, add your first lurker, and press On.',
-      },
-    ],
-    alternative: {
-      title: 'Manual install from GitHub',
-      prompt: 'Prefer a manual install?',
-      note: 'Use the official release ZIP and Developer mode. Keep the ZIP file as it is.',
-      cta: 'Download the latest release',
-      steps: [
-        {
-          title: 'Download the ZIP',
-          text: 'The download always serves the newest release from GitHub.',
-        },
-        {
-          title: 'Open the extensions page and turn on Developer mode',
-          text: 'Use chrome://extensions on Chrome and Brave, edge://extensions on Edge, or opera://extensions on Opera. The switch is in the top-right corner.',
-        },
-        {
-          title: 'Drag the ZIP onto the page',
-          text: 'Drop the downloaded ZIP anywhere on the extensions page and confirm to add the extension. There is no need to unzip.',
-        },
-        {
-          title: 'Pin and press On',
-          text: 'Pin Lurker Drops, open the popup, and press On.',
-        },
+  app: {
+    title: 'Every Twitch tab in one list.',
+    titleMuted: 'Each row is a live.',
+    text: 'The popup lists each lurking tab with its live, game, viewers and preset. Mute, pause or edit a tab from its row.',
+    link: 'See the setup',
+    label:
+      'The Lurker Drops popup with two lurking tabs beside the Twitch tab it controls, which shows the Lurker mode banner.',
+    tab: {
+      live: 'LIVE',
+      chat: 'Stream chat',
+      chest: 'Click to claim a bonus',
+      claimed: '+50',
+      messages: [
+        { who: 'vexa', text: 'drops at 2h, stay in' },
+        { who: 'tomtom', text: 'merge night lets go' },
+        { who: 'ilka', text: 'got the first crate' },
+        { who: 'roo_88', text: 'gn chat, tab stays on' },
+        { who: 'pallas', text: 'who else is lurking' },
       ],
     },
   },
-  faq: {
-    eyebrow: 'Questions',
-    title: 'Good to know',
+  features: {
+    title: 'What the extension does while you are away.',
+    titleMuted: 'Four jobs, every minute.',
     items: [
       {
-        q: 'Is it really free?',
-        a: 'Yes. Lurker Drops is open source. There is no account, no subscription, no ads, and nothing to unlock.',
+        title: 'Picks a Twitch live for you',
+        text: 'A preset holds a category, a title filter, favorites and a blacklist. Favorites go first.',
       },
       {
-        q: 'Do I need to keep the browser open?',
-        a: 'Yes. The tab must stay open for Twitch to count the watch time. You can mute it, send it to the background, or move it to another window.',
+        title: 'Mutes the browser tab only',
+        text: 'The tab plays without sound, so calls, music and games keep the speakers.',
       },
       {
-        q: 'Will it keep changing channels?',
-        a: 'Only the tab it manages. With Pursue on, it moves to a matching live with more viewers. Turn Pursue off to follow your favorites in the order you set.',
+        title: 'Reconnects a dropped Twitch chat',
+        text: 'When chat falls, it reconnects. If that fails, it reloads the page, once every 5 minutes at most.',
+      },
+      {
+        title: 'Claims Twitch bonus chests',
+        text: 'When the bonus chest shows up under the player, it clicks it for you.',
+      },
+    ],
+    chat: {
+      title: 'Stream chat',
+      down: 'Unable to connect to chat. Reconnecting…',
+      back: 'Welcome to the chat room!',
+      messages: [
+        { who: 'vexa', text: 'drops at 2h, stay in' },
+        { who: 'tomtom', text: 'merge night lets go' },
+      ],
+    },
+    points: { label: 'Channel points', value: '12.4K', claimed: '+50' },
+  },
+  statement: {
+    title: 'Drops while you sleep',
+    sub: 'Turn on the lurker at night. The tab keeps watching, switching and claiming until you turn it off.',
+  },
+  steps: {
+    title: 'Start lurking in 3 steps',
+    items: [
+      {
+        title: 'Add the extension to Chrome',
+        text: 'One click on the Chrome Web Store. Edge, Brave and Opera work too.',
+      },
+      {
+        title: 'Save a Twitch preset',
+        text: 'Pick a Twitch category, then add a title word, favorites or a blacklist.',
+      },
+      {
+        title: 'Turn on the lurker',
+        text: 'The tab opens a matching live. Leave the browser open and go to bed.',
+      },
+    ],
+    store: {
+      name: 'Lurker Drops',
+      by: 'Chrome Web Store',
+      button: 'Add to Chrome',
+      added: 'Added',
+      rating: 'Free · No account',
+    },
+  },
+  faq: {
+    title: 'Questions',
+    sub: 'Something else? Open an issue on GitHub.',
+    contact: 'Open an issue',
+    ext: { title: 'Extensions', dev: 'Developer mode', drop: 'lurker-drops.zip', dropSub: 'Drop it here to install', item: 'Lurker Drops', itemSub: 'Installed from the ZIP' },
+    items: [
+      {
+        q: 'Is it free?',
+        a: 'Yes. The code is open on GitHub. No account, no subscription, no ads.',
+      },
+      {
+        q: 'Does the browser have to stay open?',
+        a: 'Yes. Twitch only counts watch time in an open tab. You can mute it, minimise the window or turn off the screen.',
+      },
+      {
+        q: 'Does it guarantee drops?',
+        a: 'No. It keeps the tab on a live that fits your rules. Drops follow the campaign rules set by Twitch and the game.',
       },
       {
         q: 'Does it collect my data?',
-        a: 'No analytics, no tracking, and no server. Your settings stay in browser storage on your computer. It only asks Twitch for the public list of live streams.',
+        a: 'No. Settings stay in your browser. It only asks Twitch for the public list of live streams.',
       },
       {
-        q: 'Does it guarantee drops or rewards?',
-        a: 'No. It keeps the tab watching a live that matches your rules, but drops and rewards follow Twitch and campaign rules. Never use it to break those rules.',
-      },
-      {
-        q: 'Which browsers work?',
-        a: 'Chrome, Edge, Opera, Brave, and other Chromium-based browsers on desktop. Firefox is not supported.',
+        q: 'Can I install it without the store?',
+        a: 'Yes. Download the ZIP, open the extensions page, turn on Developer mode and drop the ZIP on it.',
+        link: 'Download the ZIP',
       },
     ],
   },
-  finalCta: {
-    title: 'Let your tabs do the waiting.',
-    subtitle: 'Install once. Pick a show. Press On. That is the whole job.',
-    button: 'Get Lurker Drops',
-    note: 'Free and open source. No account needed.',
+  close: {
+    title: 'Add Lurker Drops to Chrome',
+    lead: 'Free and open source. Ready in about a minute.',
   },
   footer: {
-    tagline: 'A small, free helper for people who watch Twitch while doing other things.',
+    lede: 'A free browser extension that keeps Twitch tabs on a matching live.',
+    page: 'Page',
+    get: 'Get it',
+    project: 'Project',
+    language: 'Language',
     store: 'Chrome Web Store',
-    github: 'Source code',
-    releases: 'All releases',
+    zip: 'Download ZIP',
+    releases: 'Releases',
+    source: 'Source code',
+    issues: 'Issues',
     disclaimer: 'Not affiliated with Twitch or Amazon. Twitch is a trademark of Twitch Interactive, Inc.',
-    madeBy: 'Built by Diogo',
   },
 };
 

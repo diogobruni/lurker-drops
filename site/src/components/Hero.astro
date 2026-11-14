@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import { ArrowRight, Check, Store, Sparkles } from '@lucide/astro';
-import heroImage from '../assets/hero-image.png';
+import icon from '../assets/icon.png';
+import Popup from './Popup.astro';
 import { CHROME_WEB_STORE_URL } from '../i18n';
 import type { Dictionary } from '../i18n/en';
 
@@ -10,92 +10,57 @@ interface Props {
 }
 
 const { dict } = Astro.props;
+const h = dict.hero;
+const row = dict.ui.rows[0];
+const [channel, game] = row.meta.split(' · ');
 ---
 
-<section class="relative overflow-hidden">
-  <div class="pointer-events-none absolute inset-0 -z-10">
-    <div
-      class="absolute left-1/2 top-0 h-[560px] w-[860px] max-w-none -translate-x-1/2 rounded-full bg-brand/15 blur-[120px]"
-    >
-    </div>
-    <div
-      class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_75%)]"
-    >
-    </div>
-  </div>
-
-  <div
-    class="mx-auto grid max-w-6xl gap-14 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1fr_1.12fr] lg:items-center lg:gap-12 lg:pb-28 lg:pt-24"
-  >
-    <div class="min-w-0">
-      <p
-        class="inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand/10 px-3 py-1 text-xs font-medium text-brand-soft"
-      >
-        <Sparkles size={13} aria-hidden="true" />
-        {dict.hero.badge}
-      </p>
-
-      <h1
-        class="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
-      >
-        {dict.hero.title}{' '}
-        <span
-          class="bg-gradient-to-r from-brand-soft via-brand to-brand-strong bg-clip-text text-transparent"
-        >
-          {dict.hero.titleAccent}
-        </span>
-      </h1>
-
-      <p class="mt-5 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-        {dict.hero.subtitle}
-      </p>
-
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a
-          href={CHROME_WEB_STORE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-solid px-6 text-sm font-semibold text-white shadow-lg shadow-brand/25 transition hover:bg-brand-solid-hover hover:shadow-brand/40"
-        >
-          <Store size={17} aria-hidden="true" />
-          {dict.hero.primaryCta}
-        </a>
-
-        <a
-          href="#how"
-          class="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl border border-white/10 px-5 text-sm font-medium text-zinc-300 transition hover:border-white/20 hover:text-white"
-        >
-          {dict.hero.secondaryCta}
-          <ArrowRight size={15} aria-hidden="true" />
-        </a>
+<section class="hero hero--ld" data-enter aria-labelledby="hero-h">
+  <div class="wrap">
+    <div class="hero-text grid hero-ld">
+      <div class="hero-ld__copy span-6">
+        <p class="hero-ld__badge"><span aria-hidden="true"></span>{h.badge}</p>
+        <h1 id="hero-h">{h.titleA} <em>{h.titleB}</em></h1>
+        <p class="hero-ld__lead">{h.lead}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={CHROME_WEB_STORE_URL} target="_blank" rel="noopener">
+            {dict.nav.cta}<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"></path><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"></path></svg>
+          </a>
+          <a class="link" href="#tabs">{h.secondary}</a>
+        </div>
+        <p class="hero-ld__note">{h.note}</p>
+        <dl class="hero-ld__facts">
+          {h.facts.map((f) => (
+            <div><dt>{f.label}</dt><dd>{f.value}</dd></div>
+          ))}
+        </dl>
       </div>
 
-      <p class="mt-3 text-xs text-zinc-400">{dict.hero.primaryNote}</p>
-
-      <ul class="mt-8 flex flex-wrap gap-x-5 gap-y-2">
-        {
-          dict.hero.trust.map((item) => (
-            <li class="flex items-center gap-1.5 text-xs text-zinc-400">
-              <Check size={13} class="text-live" aria-hidden="true" />
-              {item}
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-
-    <div class="relative mx-auto w-full min-w-0 max-w-[35rem] lg:mx-0 lg:justify-self-end">
-      <div class="absolute inset-4 rounded-full bg-brand/25 blur-3xl" aria-hidden="true"></div>
-      <Image
-        src={heroImage}
-        alt={dict.hero.imageAlt}
-        widths={[448, 720, 1000]}
-        sizes="(min-width: 1024px) 35rem, 90vw"
-        format="webp"
-        quality={82}
-        priority
-        class="relative h-auto w-full animate-float"
-      />
+      <!-- the real product at work: a Twitch tab in Lurker mode, the popup opened from the toolbar icon.
+           data-enter-media: the hero entrance treats it as one picture, so its words are never hidden;
+           the window enters whole (page.css, .bw). The toolbar icon is a real button: it opens and
+           closes the popup like the browser does (page.js, transitions.dev menu dropdown). -->
+      <div class="hero-ld__visual span-6 start-7" data-enter-media role="group" aria-label={h.visualLabel}>
+        <div class="bw">
+          <div class="bw__bar">
+            <span class="bw__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="bw__url">{h.url}</span>
+            <button class="bw__ext" type="button" aria-expanded="true" aria-controls="hero-popup" aria-label={h.extToggle} data-bw-toggle><Image src={icon} alt="" width={24} height={24} loading="eager" /><em aria-hidden="true">2</em></button>
+          </div>
+          <div class="bw__page" aria-hidden="true">
+            <Popup dict={dict} part="overlay" />
+            <div class="bw__player">
+              <div class="tw__scene" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="tw__live">{dict.app.tab.live}</span>
+              <span class="tw__muted"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h2.5L9 3v10L5.5 10H3z"></path><path d="m11 6 3 4M14 6l-3 4"></path></svg></span>
+            </div>
+            <div class="bw__meta"><b>{channel}</b><span>{row.title}</span><small>{game}</small></div>
+          </div>
+          <div class="bw__popup t-dropdown is-open" id="hero-popup">
+            <Popup dict={dict} part="home" eager />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
