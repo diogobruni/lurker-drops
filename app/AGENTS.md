@@ -26,10 +26,18 @@ Prefer pnpm over npm for all project commands. Fall back to npm only if pnpm is 
 
 ## Releases
 
-- A release is published by pushing a `v*` tag. The workflow `.github/workflows/release.yml` checks that the tag matches `app/public/manifest.json`, runs tests, builds, zips `app/dist/` as `lurker-drops.zip`, and creates the GitHub release.
-- Release only from `main`: merge the feature branch first (fast-forward when possible), push `main`, then create and push the tag `vX.Y.Z`.
-- Ask the user before pushing the branch or the tag; both are public.
-- If the workflow cannot run (for example, GitHub Actions is blocked by a billing issue), publish manually. Inside `app/`, run `pnpm run build`, zip the contents of `dist/` so `manifest.json` sits at the zip root, then run `gh release create vX.Y.Z lurker-drops.zip --title vX.Y.Z --generate-notes` from the repository root. Name the asset `lurker-drops.zip`.
+Always publish a release manually: build, zip, and create the GitHub release with `gh`. Do not rely on `.github/workflows/release.yml`.
+
+When the user asks for a release:
+
+1. Make sure the version bump is committed (see Version bumps) and the work is on `main`. If it is on a feature branch, fast-forward merge it into `main` first.
+2. Push `main`.
+3. Inside `app/`, run `pnpm run build`.
+4. Zip the contents of `app/dist/` so `manifest.json` sits at the zip root, named `lurker-drops.zip`. On Windows: `Compress-Archive -Path dist\* -DestinationPath <temp>\lurker-drops.zip`. Keep the zip outside the repository.
+5. From the repository root, run `gh release create vX.Y.Z <path>\lurker-drops.zip --title vX.Y.Z --generate-notes`. This also creates the `vX.Y.Z` tag. If the tag already exists, use `gh release upload vX.Y.Z <zip> --clobber` for an existing release.
+6. Report the release URL.
+
+A release request from the user authorizes pushing `main` and creating the tag and release. Ask first before any other push.
 
 ## Build
 
