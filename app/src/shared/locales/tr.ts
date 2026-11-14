@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     "Ön ayar, lurker'ın hangi Twitch kategorisini, başlığı, favori kanalları ve engellenen kanalları kullanacağını belirler.",
   'presets.edit': 'Ön ayarı düzenle',
+  'presets.select': 'Ön ayarı seç',
   'presets.delete': 'Ön ayarı sil',
   'presets.titleContains': 'başlık “{filter}” içeriyor',
   'presets.anyTitle': 'herhangi bir başlık',

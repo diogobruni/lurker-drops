@@ -70,6 +70,7 @@ export const lurkerTabSchema = z.object({
   chatFailures: z.number().int().nonnegative().default(0),
   lastChatReconnectAt: z.number().nullable().default(null),
   lastChatReloadAt: z.number().nullable().default(null),
+  url: z.string().nullable().default(null),
 });
 
 export type LurkerTab = z.infer<typeof lurkerTabSchema>;

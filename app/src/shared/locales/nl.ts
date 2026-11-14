@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'Een voorinstelling vertelt de lurker welke Twitch-categorie, titel, favoriete kanalen en geblokkeerde kanalen hij moet gebruiken.',
   'presets.edit': 'Voorinstelling bewerken',
+  'presets.select': 'Voorinstelling selecteren',
   'presets.delete': 'Voorinstelling verwijderen',
   'presets.titleContains': 'titel bevat “{filter}”',
   'presets.anyTitle': 'elke titel',

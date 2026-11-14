@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   Ban,
+  Check,
   Gamepad2,
   Pencil,
   Plus,
@@ -30,6 +31,7 @@ function PresetCard({
   usageCount,
   deleting,
   pendingDelete,
+  onSelect,
   onEdit,
   onAskDelete,
   onCancelDelete,
@@ -39,6 +41,7 @@ function PresetCard({
   usageCount: number;
   deleting: boolean;
   pendingDelete: boolean;
+  onSelect?: () => void;
   onEdit: () => void;
   onAskDelete: () => void;
   onCancelDelete: () => void;
@@ -78,6 +81,18 @@ function PresetCard({
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-0.5">
+          {onSelect && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={onSelect}
+              className="h-7 gap-1 px-2 text-xs text-violet-300 hover:text-violet-200"
+            >
+              <Check className="h-3.5 w-3.5" />
+              {t('presets.select')}
+            </Button>
+          )}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -136,6 +151,8 @@ export function PresetsScreen() {
   const lurkingTabs = useAppStore((state) => state.lurkingTabs);
   const openPresetForm = useAppStore((state) => state.openPresetForm);
   const deletePreset = useAppStore((state) => state.deletePreset);
+  const pickPreset = useAppStore((state) => state.pickPreset);
+  const canSelect = useAppStore((state) => state.presetsOrigin === 'lurker-form');
 
   const [pendingDeleteId, setPendingDeleteId] = React.useState<string | null>(null);
   const [deletingId, setDeletingId] = React.useState<string | null>(null);
@@ -203,6 +220,7 @@ export function PresetsScreen() {
               }
               deleting={deletingId === preset.id}
               pendingDelete={pendingDeleteId === preset.id}
+              onSelect={canSelect ? () => pickPreset(preset.id) : undefined}
               onEdit={() => openPresetForm(preset.id)}
               onAskDelete={() => {
                 setError(null);

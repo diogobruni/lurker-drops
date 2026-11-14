@@ -90,11 +90,18 @@ Sections are ordered oldest to newest; unreleased work goes last.
 
 - Modern About screen with the app name, current manifest version, and author Geox, reachable from the navbar and returning to the previous screen.
 
-## [Unreleased]
+## [1.6.0] - 2026-11-14
 
 ### Added
 
 - Product website built with Astro, TypeScript, and Tailwind CSS, with English, Brazilian Portuguese, and Spanish pages, SEO metadata, and install buttons pointing to the latest GitHub release.
+- Muting or unmuting a managed tab in the browser now updates the app's mute state, so mute works from both the app and the browser.
+- "Select" button on each preset in the presets screen when opened from the Lurker form. It returns to the form with that preset chosen.
+
+### Fixed
+
+- Lurking tabs that lost their browser tab reference (for example after closing and reopening the browser) are now relinked. Enabled or being-enabled entries reattach to a tab with the same URL, or open a new tab if none exists. Paused entries reattach to a same-URL tab without being activated. Previously the entry showed as off and disappeared when turned on.
+- Re-enabling the extension in the browser now restores the mute state of enabled lurking tabs. The browser unmutes them while the extension is disabled, and that change no longer overwrites the saved mute state.
 
 ### Changed
 
@@ -105,3 +112,5 @@ Sections are ordered oldest to newest; unreleased work goes last.
 - Primary install buttons now open the Chrome Web Store listing, since the extension is approved there. The GitHub release ZIP remains as the manual install option, installed by dragging the ZIP onto the extensions page.
 - Root README rewritten around the current app, with the project logo, Chrome Web Store install, and Brazilian Portuguese and Spanish versions.
 - Moved the extension source, assets, tests, scripts, and build configs into `app/`, so the repository root only holds shared docs, the release workflow, and the `site/` product page. The release workflow now runs inside `app/`.
+
+## [Unreleased]

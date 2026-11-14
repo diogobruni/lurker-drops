@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     '프리셋은 러커가 사용할 Twitch 카테고리, 제목, 즐겨찾기 채널, 차단 채널을 지정합니다.',
   'presets.edit': '프리셋 편집',
+  'presets.select': '프리셋 선택',
   'presets.delete': '프리셋 삭제',
   'presets.titleContains': '제목에 “{filter}” 포함',
   'presets.anyTitle': '모든 제목',

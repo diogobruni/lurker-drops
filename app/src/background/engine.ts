@@ -99,9 +99,96 @@ export async function previewStreamForPreset(
   return findStreamForPreset(preset, null, true);
 }
 
+const stripHash = (url: string | undefined | null) => url?.split('#')[0];
+
+let relinkChain: Promise<unknown> = Promise.resolve();
+
+async function relinkTab(
+  staleId: number,
+  openIfMissing: boolean,
+): Promise<number | null> {
+  const records = await getLurkerTabs();
+  const record = records.find((tab) => tab.tabId === staleId);
+  if (!record) return null;
+  try {
+    await chrome.tabs.get(staleId);
+    return staleId;
+  } catch {
+    // Reference lost (e.g. browser restarted). Look for the same URL.
+  }
+
+  const taken = new Set(records.map((tab) => tab.tabId));
+  const wanted = stripHash(record.url);
+  const match = wanted
+    ? (await chrome.tabs.query({})).find(
+        (tab) =>
+          typeof tab.id === 'number' &&
+          !taken.has(tab.id) &&
+          stripHash(tab.url ?? tab.pendingUrl) === wanted,
+      )
+    : undefined;
+
+  let newId = match?.id;
+  if (newId === undefined && openIfMissing) {
+    newId = (await chrome.tabs.create({ url: record.url ?? 'https://www.twitch.tv/' }))
+      .id;
+  }
+  if (newId === undefined) return null;
+
+  const id = newId;
+  await mutateLurkerTabs((tabs) =>
+    tabs.map((tab) => (tab.tabId === staleId ? { ...tab, tabId: id } : tab)),
+  );
+  return id;
+}
+
+/**
+ * Returns a live tab id for the record. When its tab is gone, reattaches to an
+ * unmanaged tab with the same URL, or opens a new one if `openIfMissing`.
+ * Returns null when nothing was found (or the record vanished).
+ */
+export function ensureTab(
+  record: LurkerTab,
+  openIfMissing: boolean,
+): Promise<number | null> {
+  const run = relinkChain.then(() => relinkTab(record.tabId, openIfMissing));
+  relinkChain = run.catch(() => undefined);
+  return run;
+}
+
+/**
+ * Browser restart reassigns tab ids, so a stored id may point at an unrelated
+ * tab. `storage.session` is cleared on restart: on the first run of a browser
+ * session, replace every stored id with a unique invalid one so each record is
+ * relinked by URL instead of trusted.
+ */
+export async function invalidateStaleRefsOnBoot(): Promise<void> {
+  const { booted } = await chrome.storage.session.get('booted');
+  if (booted) return;
+  await chrome.storage.session.set({ booted: true });
+  await mutateLurkerTabs((tabs) =>
+    tabs.map((tab, index) => ({ ...tab, tabId: -(index + 1) })),
+  );
+}
+
+/**
+ * Reattach records whose tab is gone to a same-URL tab, without opening tabs.
+ * Enabled records are included only when `includeEnabled`; otherwise
+ * `evaluateTab` handles them (and may open a tab).
+ */
+export async function relinkLostTabs(includeEnabled: boolean): Promise<void> {
+  for (const record of await getLurkerTabs()) {
+    if (includeEnabled || !record.enabled) await ensureTab(record, false);
+  }
+}
+
 export async function evaluateTab(tabId: number): Promise<void> {
   const record = (await getLurkerTabs()).find((tab) => tab.tabId === tabId);
   if (!record?.enabled) return;
+
+  const liveId = await ensureTab(record, true);
+  if (liveId === null) return;
+  if (liveId !== tabId) return evaluateTab(liveId);
 
   const preset = (await getPresets()).find((item) => item.id === record.presetId);
   if (!preset) {

@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'Eine Voreinstellung legt fest, welche Twitch-Kategorie, welcher Titel, welche Favoriten- und blockierten Kanäle genutzt werden.',
   'presets.edit': 'Voreinstellung bearbeiten',
+  'presets.select': 'Voreinstellung auswählen',
   'presets.delete': 'Voreinstellung löschen',
   'presets.titleContains': 'Titel enthält „{filter}“',
   'presets.anyTitle': 'beliebiger Titel',

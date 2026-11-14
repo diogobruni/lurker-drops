@@ -117,6 +117,7 @@ const messages = {
   'presets.emptyHint':
     '预设告诉挂机使用哪个 Twitch 分类、标题、收藏频道和屏蔽频道。',
   'presets.edit': '编辑预设',
+  'presets.select': '选择预设',
   'presets.delete': '删除预设',
   'presets.titleContains': '标题包含“{filter}”',
   'presets.anyTitle': '任意标题',

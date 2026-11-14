@@ -33,6 +33,7 @@ interface AppStore {
   aboutOrigin: Exclude<Screen, 'about'>;
   editingPresetId: string | null;
   lurkerFormTabId: number | null;
+  pickedPresetId: string | null;
   presets: Preset[];
   lurkingTabs: LurkerTab[];
   activeTab: ActiveTabInfo | null;
@@ -43,6 +44,7 @@ interface AppStore {
   openLurkerForm: (tabId?: number) => void;
   openPresetForm: (presetId?: string) => void;
   goBack: () => void;
+  pickPreset: (presetId: string) => void;
   savePreset: (preset: Preset) => Promise<void>;
   deletePreset: (presetId: string) => Promise<void>;
 }
@@ -171,6 +173,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
   aboutOrigin: 'main',
   editingPresetId: null,
   lurkerFormTabId: null,
+  pickedPresetId: null,
   presets: [],
   lurkingTabs: [],
   activeTab: null,
@@ -213,7 +216,10 @@ export const useAppStore = create<AppStore>((set, get) => ({
       screen: 'lurker-form',
       editingPresetId: null,
       lurkerFormTabId: tabId ?? null,
+      pickedPresetId: null,
     }),
+  pickPreset: (presetId) =>
+    set({ screen: 'lurker-form', editingPresetId: null, pickedPresetId: presetId }),
   openPresetForm: (presetId) =>
     set({ screen: 'preset-form', editingPresetId: presetId ?? null }),
   goBack: () => {

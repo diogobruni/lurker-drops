@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'Un préréglage indique au lurker la catégorie, le titre, les chaînes favorites et les chaînes bloquées à utiliser sur Twitch.',
   'presets.edit': 'Modifier le préréglage',
+  'presets.select': 'Sélectionner le préréglage',
   'presets.delete': 'Supprimer le préréglage',
   'presets.titleContains': 'le titre contient « {filter} »',
   'presets.anyTitle': "n'importe quel titre",

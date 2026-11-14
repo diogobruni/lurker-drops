@@ -16,11 +16,14 @@ import type {
 } from '../shared/types';
 import {
   cleanupClosedTab,
+  ensureTab,
   evaluateAllEnabled,
   evaluateTab,
   invalidateEvaluation,
   previewStreamForPreset,
   reconcilePresets,
+  invalidateStaleRefsOnBoot,
+  relinkLostTabs,
 } from './engine';
 import { checkAllChatConnections } from './chat';
 import { consumeInternalNavigation } from './navigation';
@@ -86,7 +89,7 @@ async function startLurking(
   muted: boolean,
   pursueMostWatched: boolean,
 ): Promise<void> {
-  await chrome.tabs.get(tabId);
+  const url = (await chrome.tabs.get(tabId)).url ?? null;
   const preset = (await getPresets()).find((item) => item.id === presetId);
   if (!preset) throw new Error(t('error.choosePreset'));
 
@@ -95,6 +98,7 @@ async function startLurking(
     const next: LurkerTab = existing
       ? {
           ...existing,
+          url,
           presetId,
           muted,
           pursueMostWatched,
@@ -118,6 +122,7 @@ async function startLurking(
           chatFailures: 0,
           lastChatReconnectAt: null,
           lastChatReloadAt: null,
+          url,
         };
     return existing
       ? tabs.map((tab) => (tab.tabId === tabId ? next : tab))
@@ -148,6 +153,7 @@ async function setEnabled(tabId: number, enabled: boolean): Promise<void> {
   if (enabled) {
     const preset = (await getPresets()).find((item) => item.id === record.presetId);
     if (!preset) throw new Error(t('error.choosePreset'));
+    tabId = (await ensureTab(record, true)) ?? tabId;
     await updateLurkerTab(tabId, (tab) => ({
       ...tab,
       enabled: true,
@@ -338,6 +344,12 @@ async function handleRequest(
 }
 
 async function bootstrap(): Promise<void> {
+  await invalidateStaleRefsOnBoot();
+  await relinkLostTabs(true);
+  // Browser unmutes extension-muted tabs when the extension is disabled; restore saved state.
+  for (const tab of await getLurkerTabs()) {
+    if (tab.enabled && tab.muted) await setTabMuted(tab.tabId, true);
+  }
   await syncActionState();
 }
 
@@ -371,6 +383,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === ALARM_NAME) {
     void ready
       .then(async () => {
+        await relinkLostTabs(false);
         await evaluateAllEnabled();
         await checkAllChatConnections();
         await syncActionState();
@@ -387,6 +400,27 @@ chrome.tabs.onRemoved.addListener((tabId) => {
     .then(() => syncActionState())
     .catch((error: unknown) => {
       console.error('Could not clean up a closed tab', error);
+    });
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  const { url, mutedInfo } = changeInfo;
+  if (!url && !mutedInfo) return;
+  // Extension-driven mute changes (ours, or the browser unmuting on disable) must not overwrite the saved state.
+  const ownMute = mutedInfo?.reason === 'extension';
+  if (!url && ownMute) return;
+  void ready
+    .then(async () => {
+      if (!(await getLurkerTabs()).some((tab) => tab.tabId === tabId)) return;
+      // Browser-side mute toggles sync back to the app record.
+      await updateLurkerTab(tabId, (tab) => ({
+        ...tab,
+        ...(url ? { url } : {}),
+        ...(mutedInfo && !ownMute ? { muted: mutedInfo.muted } : {}),
+      }));
+    })
+    .catch((error: unknown) => {
+      console.error('Could not track tab URL', error);
     });
 });
 

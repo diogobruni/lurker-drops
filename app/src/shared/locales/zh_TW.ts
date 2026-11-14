@@ -117,6 +117,7 @@ const messages = {
   'presets.emptyHint':
     '預設集會告訴掛機要使用哪個 Twitch 分類、標題、最愛頻道與封鎖頻道。',
   'presets.edit': '編輯預設集',
+  'presets.select': '選擇預設集',
   'presets.delete': '刪除預設集',
   'presets.titleContains': '標題包含「{filter}」',
   'presets.anyTitle': '任何標題',

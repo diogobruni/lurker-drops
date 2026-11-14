@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'Uma predefinição diz ao lurker qual categoria, título, canais favoritos e canais bloqueados da Twitch usar.',
   'presets.edit': 'Editar predefinição',
+  'presets.select': 'Selecionar predefinição',
   'presets.delete': 'Excluir predefinição',
   'presets.titleContains': 'o título contém “{filter}”',
   'presets.anyTitle': 'qualquer título',

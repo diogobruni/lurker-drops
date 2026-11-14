@@ -27,6 +27,7 @@ export function LurkerFormScreen() {
   const presets = useAppStore((state) => state.presets);
   const goBack = useAppStore((state) => state.goBack);
   const goToPresets = useAppStore((state) => state.goToPresets);
+  const pickedPresetId = useAppStore((state) => state.pickedPresetId);
 
   const existing =
     lurkerFormTabId !== null
@@ -35,7 +36,12 @@ export function LurkerFormScreen() {
   const targetTabId = existing?.tabId ?? activeTab?.id ?? null;
 
   const [selectedPresetId, setSelectedPresetId] = React.useState(
-    existing?.presetId ?? presets[0]?.id ?? '',
+    (pickedPresetId && presets.some((p) => p.id === pickedPresetId)
+      ? pickedPresetId
+      : undefined) ??
+      existing?.presetId ??
+      presets[0]?.id ??
+      '',
   );
   const [muted, setMuted] = React.useState(existing?.muted ?? true);
   const [pursueMostWatched, setPursueMostWatched] = React.useState(

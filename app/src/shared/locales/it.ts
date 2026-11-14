@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'Un preset indica al lurker quale categoria, titolo, canali preferiti e canali bloccati di Twitch usare.',
   'presets.edit': 'Modifica preset',
+  'presets.select': 'Seleziona preset',
   'presets.delete': 'Elimina preset',
   'presets.titleContains': 'il titolo contiene «{filter}»',
   'presets.anyTitle': 'qualsiasi titolo',

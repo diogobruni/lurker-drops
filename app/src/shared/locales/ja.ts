@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'プリセットは、ラーカーが使う Twitch カテゴリ、タイトル、お気に入りチャンネル、ブロックするチャンネルを指定します。',
   'presets.edit': 'プリセットを編集',
+  'presets.select': 'プリセットを選択',
   'presets.delete': 'プリセットを削除',
   'presets.titleContains': 'タイトルに「{filter}」を含む',
   'presets.anyTitle': 'すべてのタイトル',

@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'Ustawienie wstępne określa kategorię Twitch, tytuł, ulubione i zablokowane kanały używane przez lurker.',
   'presets.edit': 'Edytuj ustawienie wstępne',
+  'presets.select': 'Wybierz ustawienie wstępne',
   'presets.delete': 'Usuń ustawienie wstępne',
   'presets.titleContains': 'tytuł zawiera „{filter}”',
   'presets.anyTitle': 'dowolny tytuł',

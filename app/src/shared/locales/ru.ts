@@ -122,6 +122,7 @@ const messages = {
   'presets.emptyHint':
     'Шаблон задаёт категорию Twitch, заголовок, избранные и заблокированные каналы для луркера.',
   'presets.edit': 'Изменить шаблон',
+  'presets.select': 'Выбрать шаблон',
   'presets.delete': 'Удалить шаблон',
   'presets.titleContains': 'заголовок содержит «{filter}»',
   'presets.anyTitle': 'любой заголовок',
